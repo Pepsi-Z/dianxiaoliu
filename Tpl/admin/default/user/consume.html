@@ -1,0 +1,156 @@
+<include file="public:header" />
+<script charset="utf-8" src="__STATIC__/js/jquery.js" type="text/javascript"></script>
+<script language="javascript" type="text/javascript" src="__STATIC__/js/My97DatePicker/WdatePicker.js"></script>
+   <script>
+		     $(function(){
+		    
+        	 $('#free').change(function(){
+        	  if($(this).val()==2)
+        	  {
+        	  	$('#address_form').show();
+        	  }else
+        	  {
+        	  		$('#address_form').hide();
+        	  }
+        	 });
+        	 set_address();
+        })
+        
+          function set_address()
+          {
+          	 var addr_id =$("#free").find("option:selected").val();
+          	
+           if(addr_id == 2)
+            {
+               
+                $('#address_form').show();
+            }
+            else
+            {
+                $('#address_form').hide();
+     
+            }
+          }
+		    </script>
+<!--添加商品-->
+<div class="subnav">
+    <h1 class="title_2 line_x">添加消费明细</h1>
+</div>
+<form id="info_form" action="{:u('yuyue/dengji')}" method="post" enctype="multipart/form-data">
+<div class="pad_lr_10">
+	<div class="col_tab">
+		
+		<div class="J_panes">
+        <div class="content_list pad_10">
+		<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+			<tr>
+				<th width="120">商品 :</th>
+
+                <td>
+
+                    <select   id=""cid>
+                        <option value="">--请选择--</option>
+                        <volist name='item_cate' id='vo' >
+                            <option value="{$vo.id}" >{$vo.title}</option>
+                        </volist>
+                    </select>&nbsp;&nbsp;
+                    <select name="item_id" id="sid">
+                        <option value="">--请选择--</option>
+                    </select>
+                </td>
+			</tr>
+				<tr>
+				<th width="120">会员姓名 :</th>
+                <td>
+                    <select  name="uid" >
+                        <option value="">--请选择--</option>
+                        <volist name='user' id='vo' >
+                            <option value="{$vo.id}" >{$vo.username}</option>
+                        </volist>
+                    </select>
+                </td>
+			</tr>
+
+		</table>
+		</div>
+       
+        </div>
+        <input type="hidden" name="id"  value="{$info.id}"/>
+		<div class="mt10"><input type="submit" value="{:L('submit')}" class="btn btn_submit"></div>
+	</div>
+</div>
+
+</form>
+
+<include file="public:footer" />
+
+<script type="text/javascript">
+$('.J_cate_select').cate_select('请选择');
+$(function() { 	
+	$('#ye').hide();
+	$('#zf').click(function(){
+		$('#ye').show();
+	})
+	$('#zj').click(function(){
+		$('#ye').hide();
+	})
+	$('ul.J_tabs').tabs('div.J_panes > div');
+	//自动获取标签
+	$('#J_gettags').live('click', function() {
+		var title = $.trim($('#J_title').val());
+		if(title == ''){
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+			return false;
+		}
+		$.getJSON('{:U("item/ajax_gettags")}', {title:title}, function(result){
+			if(result.status == 1){
+				$('#J_tags').val(result.data);
+			}else{
+				$.pinphp.tip({content:result.msg});
+			}
+		});
+	});
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+	$("#J_title").formValidator({onshow:'请填写接待员姓名',onfocus:'请填写接待员姓名'}).inputValidator({min:1,onerror:'请填写接待员姓名'});
+	$("#J_price").formValidator({onshow:'请填写消费金额',onfocus:'请填写消费金额'}).inputValidator({min:1,onerror:'请填写消费金额'});
+
+    
+    $("#J_goods_stock").formValidator({onshow:'请填写商品库存',onfocus:'请填写商品库存'}).inputValidator({min:1,onerror:'请填写商品库存'});
+	//$("#J_user_price").formValidator({onshow:'请填写会员价格，-1代表默认价格'});
+});
+
+
+
+</script>
+
+</body>
+</html>
+<script src="__STATIC__/js/jquery/plugins/colorpicker.js"></script>
+<script src="__STATIC__/js/kindeditor/kindeditor.js"></script>	
+<script>
+
+$(function() {
+	
+	$('ul.J_tabs').tabs('div.J_panes > div');
+
+	//颜色选择器
+	$('.J_color_picker').colorpicker();
+
+	//自动获取标签
+	$('#J_gettags').live('click', function() {
+		var title = $.trim($('#J_title').val());
+		if(title == ''){
+			$.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+			return false;
+		}
+		$.getJSON('{:U("article/ajax_gettags")}', {title:title}, function(result){
+			if(result.status == 1){
+				$('#J_tags').val(result.data);
+			}else{
+				$.pinphp.tip({content:result.msg});
+			}
+		});
+	});
+	
+});
+</script>

@@ -1,0 +1,37 @@
+<include file="public:header" />
+<script charset="utf-8" src="__STATIC__/js/jquery.js" type="text/javascript"></script>
+<form id="info_form" action="{:u('yuyue/edit')}" method="post" enctype="multipart/form-data">
+<div class="pad_lr_10">
+				<table width="100%" cellspacing="0" class="table_form">
+					<tr>
+                        <th>预约时间 :</th>
+						<td>
+		                <input  type="text" name="yuyue_time" class="input-text date" id="J_time_end" <if condition="$info['yuyue_time'] neq '0'">value="{$info.yuyue_time|date='Y-m-d',###}" </if> size="10" readonly="true">
+		                </td>
+					</tr>
+		       
+                    <tr>
+                    	<th>备注 :</th>
+                        <td>
+                        <textarea id="remark" name="note" style="width:70%; height:70px;">{$info.note}</textarea>
+                        </td>
+                    </tr>    
+				</table>
+		
+</div>
+<input type="hidden" name="menuid"  value="{$menuid}"/>
+<input type="hidden" name="id" id="id" value="{$info.id}" />
+</form>
+<include file="public:footer" />
+</body>
+</html>
+
+<script>
+
+Calendar.setup({
+	inputField : "J_time_end",
+	ifFormat   : "%Y-%m-%d",
+	showsTime  : false,
+	timeFormat : "24"
+});
+</script>

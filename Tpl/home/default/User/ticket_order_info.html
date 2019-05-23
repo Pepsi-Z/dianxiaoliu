@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>订票订单</title>
+    <include file="public:header" />
+    <style>
+        .lxt-all2{margin-top:10px;}
+        .form-control[readonly]{ background:#fff;}
+        .tc_right > div:first-child{ border-bottom:1px dashed #ccc;}
+        .padding_tb{background:#fff; margin-bottom:10px;}
+        .tc_right div{background:none;}
+        .tc_radio{ line-height: 40px;}
+        .form-control{ height:40px;}
+    </style>
+</head>
+<body class="zxy-bac">
+<div class="container">
+            <div class="row  form-group tc_input">
+                <label for="inputCon" class="col-xs-4 control-label">票据类型：</label>
+                <div class="col-xs-8">
+                    <input type="text" name="content" class="form-control" id="inputCons" value="{$info.p_name}" readonly="true" placeholder="服装">
+                </div>
+            </div>
+
+            <div class="row  form-group tc_input">
+                <label for="inputCon" class="col-xs-4 control-label">出 发 站：</label>
+                <div class="col-xs-8">
+                    <input type="text" name="content" class="form-control" id="inputCon" value="{$info.c_station}" readonly="true" placeholder="服装">
+                </div>
+            </div>
+            <div class="row form-group tc_input">
+                <label for="inputZl" class="col-xs-4 control-label">到 达 站：</label>
+                <div class="col-xs-8">
+                    <input type="text" name="weight" class="form-control" id="inputZl" value="{$info.d_station}" readonly="true" placeholder="2公斤">
+                </div>
+            </div>
+            <div class="row form-group tc_input">
+                <label for="inputSl" class="col-xs-4 control-label">数    量：</label>
+                <div class="col-xs-8">
+                    <input type="text" name="num" class="form-control" value="{$info.num}（张）" readonly="true" id="inputSl" placeholder="1件">
+                </div>
+            </div>
+            <div class="row form-group tc_input">
+                <label for="inputTime" class="col-xs-4 control-label text-left">出发日期:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="stime"  class="form-control" value="{$info.add_time|date='Y-m-d H:i',###}" readonly="true" id="inputTime">
+                </div>
+            </div>
+
+            <div class="margin20">服务费用</div>
+            <div class=" row tc_radio">
+                <div class="col-xs-6">
+                    <span>
+                     {$info.price}元
+                    </span>
+                </div>
+            </div>
+
+</div>
+<div style="height:60px;"></div>
+<include file="public:footers" />
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!-- saved from url=(0104)http://scrm.weizaojiao.cn/Wap/Review/index/wechat_id/oNeCLjnc8zkOnFUAiPzfcKmIFGQ4/token/dcyluh1400743674 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta  name="viewport"  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>活动回顾</title>
+    <link  rel="shortcut icon"  href="../Style/hdhg_activity/favicon.ico">
+    <link  rel="stylesheet"  href="../Style/hdhg_activity/semantic.min.css">
+    <link  rel="stylesheet"  href="../Style/hdhg_activity/base.css">
+    <script  type="text/javascript"  src="../Style/hdhg_activity/jquery-1.9.1.min.js"></script>
+    <script  type="text/javascript"  src="../Style/hdhg_activity/share.js"></script>
+    <style>
+        .noshow{display:none}
+        .page {
+            display: none
+        }
+        .wx_select_div{margin: 10px;}
+        .wx_select{width: 100%;height: 35px;line-height: 35px;background-color: #fff;border: 1px solid #ccc;color: #555;display: block;}
+    </style>
+</head>
+
+<body  class="pg-notice">
+<div  class="content"  style="padding-top:0px;">
+                <div  class="dlist-w"  style="margin-top:10px;">
+        <div  class="dlist_org">
+                            <div  class="common-dlist"  style="display:block">
+                        <a  class="link-block cf"  href="http://scrm.weizaojiao.cn/wap/review/show/oid/118/id/82.html">
+                            <div  class="float-l">
+                                <img  width="100%"  src="../Style/hdhg_activity/1_20140227100207_a1v9x.jpg">
+                            </div>
+                            <div  class="float-r">
+                                <h3  class="bold clip">2014年幸运宝贝绿地缤纷城中心‘2月份生日会’精彩回顾</h3>
+                                <p  class="sub-title hl-large clip">
+                                    幸运宝贝大兴中心                                </p>
+                                <p  class="sub-title hl-large">2014/05/22 16:19</p>
+                                <div  class="extra hl-large">
+                                    <span><i  class="thumbs up icon"></i>2</span>
+                                    <span><i  class="unhide icon"></i>36</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div><div  class="common-dlist"  style="display:block">
+                        <a  class="link-block cf"  href="http://scrm.weizaojiao.cn/wap/review/show/oid/118/id/81.html">
+                            <div  class="float-l">
+                                <img  width="100%"  src="../Style/hdhg_activity/20140219111255_4448.jpg">
+                            </div>
+                            <div  class="float-r">
+                                <h3  class="bold clip">幸运宝贝绿地中心正月十五元宵节精彩回顾！！</h3>
+                                <p  class="sub-title hl-large clip">
+                                    幸运宝贝大兴中心                                </p>
+                                <p  class="sub-title hl-large">2014/05/22 16:18</p>
+                                <div  class="extra hl-large">
+                                    <span><i  class="thumbs up icon"></i>1</span>
+                                    <span><i  class="unhide icon"></i>30</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div><div  class="common-dlist"  style="display:block">
+                        <a  class="link-block cf"  href="http://scrm.weizaojiao.cn/wap/review/show/oid/118/id/80.html">
+                            <div  class="float-l">
+                                <img  width="100%"  src="../Style/hdhg_activity/1_20140211160236_l5cih.jpg">
+                            </div>
+                            <div  class="float-r">
+                                <h3  class="bold clip">2014年幸运宝贝绿地缤纷城中心迎新春晚会精彩回顾</h3>
+                                <p  class="sub-title hl-large clip">
+                                    幸运宝贝大兴中心                                </p>
+                                <p  class="sub-title hl-large">2014/05/22 16:16</p>
+                                <div  class="extra hl-large">
+                                    <span><i  class="thumbs up icon"></i>0</span>
+                                    <span><i  class="unhide icon"></i>20</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>        </div>
+    </div>
+
+    <div  class="m-top"  style="display: none;">
+        <span  class="system_warn">加载中  ...</span>
+        <span  class="page">4</span>
+
+    </div>
+
+</div>
+<script  type="text/javascript">
+/**
+ * 
+ 
+    $(window).scroll(function(){
+        // 当滚动到最底部以上1像素时， 加载新内容
+        if ($(document).height() - $(this).scrollTop() - $(this).height()<1) show();
+    });
+
+    $("select").change(function () {
+        var id = $("#orglist").val();
+        $.ajax({
+            url: "/Wap/Review/doactiv",
+            type: 'post',
+            data: {
+                id: id
+            },
+            datatype: 'text',
+            async: true,
+            success: function (data) {
+                if (data != null) {
+                    $(".dlist_org").empty();
+                    $(".dlist_org").html(data);
+                    $(".page").text('2');
+                    $(".m-top").css("display", "block");
+                }
+            },
+            error: function () {
+                alert('ajax请求失败');
+                return false;
+            }
+        });
+    });
+
+    function show() {
+        var org = $("#orglist").val();
+        var p = $(".page").text();
+        $(".system_warn").removeClass('noshow');
+        $.ajax({
+            url: "/Wap/Review/loging",
+            type: 'post',
+            data: {
+                org: org,
+                p: p
+            },
+            datatype: 'text',
+            async: true,
+            success: function (data) {
+                if (data != null) {
+                    var num = parseInt(p) + 1;
+                    $(".page").text(num);
+                }
+                if (data == 'no') {
+                    //alert("已经到最底部了！");
+                    $(".m-top").css("display", "none");
+                    return false;
+
+                }
+                $(".dlist_org").append(data);
+                $(".system_warn").addClass('noshow');
+            },
+            error: function () {
+                alert('ajax请求失败');
+                return false;
+            }
+        });
+
+    }
+    */
+</script>
+
+
+</body></html>

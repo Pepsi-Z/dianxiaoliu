@@ -1,0 +1,41 @@
+<include file="public:header" />
+
+<div class="pad_lr_10">
+    <form id="info_form" action="{:U('setting/gupgrade')}" method="post">
+        <table width="100%" cellspacing="0" class="table_form">
+            <thead>
+            <tr>
+                <th width="160" align="center">高级客户升级规则</th>
+                <th width="150" align="center">充值次数</th>
+                <th  align="left">每次充值金额</th>
+            </tr>
+            </thead>
+            <tbody>
+           <tr>
+                <td align="center">高级客户A升级为高级客户B:</td>
+                <td align="center"><input type="text" name="gupgrade[anum]" class="input-text" size="10" value="{:C('pin_gupgrade.anum')}"> &nbsp;次</td>
+                <td><input type="text" name="gupgrade[amoney]" class="input-text" size="10" value="{:C('pin_gupgrade.amoney')}"> &nbsp;元</td>
+            </tr>
+            <tr>
+                <td align="center">高级客户B升级为高级客户C:</td>
+                <td align="center"><input type="text" name="gupgrade[bnum]" class="input-text" size="10" value="{:C('pin_gupgrade.bnum')}"> &nbsp;次</td>
+                <td><input type="text" name="gupgrade[bmoney]" class="input-text" size="10" value="{:C('pin_gupgrade.bmoney')}"> &nbsp;元</td>
+            </tr>
+            <tr>
+                <td colspan="3"><input type="submit" value="{:L('submit')}" id="dosubmit" name="dosubmit" class="btn btn_submit" /></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+<include file="public:footer" />
+<script>
+    $('#score_setting').find('input').live('keyup keydown blur',function(){
+        var self = $(this);
+        var val = self.val();
+        val = val.replace(/[^0-9]/g,'');
+        self.val(val);
+    });
+</script>
+</body>
+</html>

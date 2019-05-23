@@ -1,0 +1,79 @@
+<!--添加管理员-->
+<div class="dialog_content">
+	<form id="info_form" name="info_form" action="{:u('cardtype/add')}" method="post">
+	<table width="100%" class="table_form">
+		<tr>
+	      <th width="80">会员卡名称:</th>
+	      <td><input type="text" name="gname" id="J_gname" class="input-text"></td>
+	    </tr>
+
+        <tr>
+            <th width="150">会员卡金额:</th>
+            <td>
+               <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="money" id="recharge" class="input-text"/>&nbsp;&nbsp;元
+            </td>
+        </tr>
+   <!--     <tr>
+            <th width="150">4位激活码:</th>
+            <td>
+                <input minlength="4" maxlength="4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="code" id="jihuo" class="input-text"/>&nbsp;&nbsp;元
+            </td>
+        </tr>-->
+
+        <tr>
+            <th width="80">会员卡类型:</th>
+            <td>
+                <input type="radio" name="type" id="type_y"  value="0" class="input-text">有限期
+                <input type="radio" name="type" id="type_w"   value="1"  class="input-text">无限期
+            </td>
+        </tr>
+
+        <tr>
+            <th>{:L('enabled')} :</th>
+            <td>
+                <input type="radio" name="status" class="radio_style" value="1" checked="checked"> &nbsp;{:L('yes')}&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="status" class="radio_style" value="0"> &nbsp;{:L('no')}
+            </td>
+        </tr>
+	</table>
+	</form>
+</div>
+
+<script src="__STATIC__/js/fileuploader.js"></script>
+<script>
+    $(function(){
+
+        $('#type_y').attr('checked',true);
+
+        $('#type_y').click(function(){
+            $('#type_w').attr('checked',false); //
+            $('#begin_time1').attr('style','');
+            $('#end_time1').attr('style','');
+        })
+
+        $('#type_w').click(function(){
+            $('#begin_time1').attr('style','display:none');
+            $('#end_time1').attr('style','display:none');
+            $('#begin_time').val('');
+            $('#end_time').val('');
+        })
+    })
+</script>
+<script>
+$(function(){
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+	$("#J_gname").formValidator({ onshow:lang.please_input+'会员卡名称', onfocus:lang.please_input+'会员卡名称'}).inputValidator({ min:1, onerror:lang.please_input+'会员卡名称'}).ajaxValidator({type:"get", url:"", data:"m=cardtype&g=admin&a=ajax_check_name", datatype:"html", async:'false', success:function(data){ if(data == "1"){return true;}else{return false;}}, onerror:'会员卡名称已经存在', onwait:lang.connecting_please_wait});
+    $("#recharge").formValidator({onshow:'请输入会员卡金额',onfocus:'请输入会员卡金额'}).inputValidator({min:1,onerror:'请输入会员卡金额'});
+    $("#jihuo").formValidator({ onshow:'请输入4位激活码', onfocus:'请输入4位激活码'}).inputValidator({ min:4,max:4, onerror:'请输入4位激活码'});
+    $('#info_form').ajaxForm({success:complate,dataType:'json'});
+    function complate(result){
+        if(result.status == 1){
+            $.dialog.get(result.dialog).close();
+            $.pinphp.tip({content:result.msg});
+            window.location.reload();
+        } else {
+            $.pinphp.tip({content:result.msg, icon:'alert'});
+        }
+    }
+});
+</script>

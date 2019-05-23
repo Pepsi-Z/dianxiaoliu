@@ -1,0 +1,48 @@
+<include file="public:header" />
+<!--管理员管理-->
+<div class="pad_lr_10">
+    <div class="J_tablelist table_list" data-acturi="{:U('member/ajax_edit')}">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <!--<th width="40">&lt;!&ndash;<input type="checkbox" name="checkall" class="J_checkall">&ndash;&gt;</th>-->
+                <th width="40">ID</th>
+                <th>幸运卡号</th>
+                <th>姓名</th>
+                <th>卡号类型</th>
+      			<th>手机号</th>
+                <th>初始金额</th>
+                <th>初始积分</th>
+                <th>身份证号码</th>
+                <th>邮箱</th>
+                <th>性别</th>
+            </tr>
+            </thead>
+    	    <tbody>
+            <volist name="list" id="val" >
+            <tr>
+               <!-- <td align="center">&lt;!&ndash;<input type="checkbox" class="J_checkitem" value="{$val.id}">&ndash;&gt;</td>-->
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.vipnum}</td>
+                <td align="center"><span data-tdtype="edit" data-field="name" class="tdedit" data-id="{$val.id}">{$val.name}</span></td>
+                <td align="center">{$val.gname}</td>
+                <td align="center">{$val.tel}</td>
+                <td align="center">{$val.money}</td>
+                <td align="center">{$val.integral}</td>
+                <td align="center">{$val.snum}</td>
+                <td align="center">{$val.email}</td>
+                <td align="center"><if condition="$val['sex'] eq 0">男<elseif condition="$val['sex'] eq 1"/>女</if></td>
+            </tr>
+            </volist>
+    	   </tbody>
+        </table>
+    </div>
+    <div class="btn_wrap_fixed">
+	<!--	<label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>-->
+    	<!--<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('member/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />-->
+		<div id="pages">{$page}</div>
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>

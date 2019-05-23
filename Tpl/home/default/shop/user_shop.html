@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<!-- saved from url=(0121)http://scrm.weizaojiao.cn/wap/infocenter/transit_index/wechat_id/oNeCLjnc8zkOnFUAiPzfcKmIFGQ4/token/dcyluh1400743674.html -->
+<html lang="zh"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="http://scrm.weizaojiao.cn/Public/Wap/css/semantic.css">
+    <link rel="stylesheet" href="http://scrm.weizaojiao.cn/Public/Wap/css/wx.css">
+	<link rel="stylesheet" href="http://scrm.weizaojiao.cn/Public/Wap/javascript/common.js">
+    <script src="../Style/user_shop/jquery2.min.js"></script>
+    <script src="../Style/user_shop/semantic.js"></script>
+	<script type="text/javascript" src="../Style/user_shop/config.js"></script>
+    <script type="text/javascript" src="../Style/user_shop/share.js"></script>
+    <title>个人中心</title>
+</head>
+
+<body>
+    <header class="wx_header ui dimmable dimmed">
+        <div class="img circular ui image" onclick="head_open();" style="background-image: url(&#39;/Public/Wap/images/head.jpg&#39;);"></div>
+        <p>
+             <label class="wx_font"><input type="button" class="ui button red fluid" value="填写信息"></label>
+        </p>
+    </header>
+    <section class="wx_section ui dimmable dimmed">
+        <div class="ui dimmer">
+            <div class="content">
+                <div class="center">
+                    <h4 class="ui inverted icon header">
+                <i class="icon circular inverted emphasized red heart"></i>
+                敬请期待
+            </h4>
+                </div>
+            </div>
+        </div>
+        <div class="ui floating vertical fluid menu active">
+            <a class="item">
+                <i class="arrow sign right icon"></i>
+                <label class="wx_font"><i class="smile teal icon"></i>宝宝信息</label>
+            </a>
+            <a class="item">
+                <i class="arrow sign right icon"></i>
+                <label class="wx_font"><i class="user teal icon"></i>个人信息</label>
+            </a>
+            <a class="item">
+                <i class="arrow sign right icon"></i>
+                <label class="wx_font"><i class="users teal icon"></i>我的活动</label>
+            </a>
+            <a class="item">
+                <i class="arrow sign right icon"></i>
+                <label class="wx_font"><i class="payment teal icon"></i>我的积分</label>
+            </a>
+            <a class="item">
+                    <i class="arrow sign right icon"></i>
+                    <label class="wx_font"><i class="empty calendar teal icon"></i>我的请假</label>
+                </a>        </div>
+    </section>
+    <script>
+        $(document).ready(function () {
+            //未注册MENU遮挡层
+            $('.item').click(function () {
+                $('.ui .dimmer').dimmer('show');
+
+            });
+            //头像弹窗
+            function head_open() {
+                alert("暂不开放自定义头像 ^ _ ^");
+            }
+        });
+		//未注册跳转到注册页
+		function reg(){
+		}
+    </script>
+
+
+</body></html>

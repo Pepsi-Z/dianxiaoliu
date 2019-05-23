@@ -1,0 +1,103 @@
+<script type="text/javascript" src="../Style/js/tc.all.js"></script>
+<script type="text/javascript"> 
+	<if condition="C('pin_s_waring') eq 1">
+	window.setInterval(function(){
+
+       showalert();
+
+	}, 10000);
+    </if>
+
+	function showalert()
+	{ 
+		var url  = "{:U('cash/order_warning')}";
+    	$.post(url,function(data){
+    		if(data.state==1) {
+    			popWin("detail");
+    			play_click();
+				$('#count_html').html('你有'+data.count+'个提现订单，是否马上处理？');
+    		}
+
+    	},'json');
+	} 
+	function push_qd(){
+		window.location.href = "{:U('cash/index')}";
+	}
+	function push_qx(){
+		$('#push_count').css('display','none');
+	}
+	
+	function play_click(){
+		var url = "__STATIC__/newOrder.mp3";
+	    var div = document.getElementById('div1');
+	    div.innerHTML = '<embed src="'+url+'" loop="0" autostart="true" type="audio/mpeg" hidden="true"></embed>';
+	    var emb = document.getElementsByTagName('EMBED')[0];
+	    if (emb) {
+	        setTimeout(function(){div.innerHTML='';},1000);
+	    }
+	}
+</script>
+<style type="text/css">
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+}
+dt {
+	padding: 10px;
+}
+p {
+	height: 100px;
+	line-height: 100px;
+	border: 1px solid #eee;
+	margin: 10px;
+}
+i {
+	font-style: normal;
+}
+#detail {
+	position: absolute;
+	width: 400px;
+	height: 200px;
+	border: 1px solid #ccc;
+	background: #fff;
+	display: none;
+}
+#detail .tit {
+
+	background: #ddd;
+	display: block;
+	height: 33px;
+	cursor: move;
+}
+#detail .tit i {
+	float: right;
+	line-height: 33px;
+	padding: 0 8px;
+	cursor: default;
+}
+#detail .button_down {
+	position: relative;
+	bottom:-100px; 
+	margin-left: 30%;
+}
+#detail span {
+	position: relative;
+	bottom:-50px; 
+	font-size:14px;
+	margin-left: 20%;
+}
+</style>
+<div id="detail">
+  <div class="tit"><i class="close">关闭</i></div>
+  		
+  		<span id="count_html"></span>
+  	<div class="button_down">
+      <input type="button" class="subbtu btn" onclick="push_qd();" value="确定" /> 　　
+      <input type="button" class="subbtu close btn"  value="取消" />
+      </div>
+</div>
+
+
+<div id="div1"></div>
+<div id="div2"></div>

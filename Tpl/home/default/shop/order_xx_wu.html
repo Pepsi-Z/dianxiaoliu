@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <meta name="format-detection" content="telephone=no" />
+    <title>订单详情</title>
+    <include file="public:mheader" />
+</head>
+<body class="lxt-color">
+<div class="container lxt-container">
+    <div class="row lxt-confirm-c lxt-bottom">
+        <div class="col-xs-6">
+            <p>{$order.userName}</p>
+        </div>
+        <div class="col-xs-6 text-right">
+            <p>{$order.tel}</p>
+        </div>
+    </div>
+    <volist name="arr" id="val" key="k">
+            <div class="row lxt-confirm-c">
+                <div class="col-xs-12">
+                    <p>{$val.0.ctitle}</p>
+                </div>
+            </div>
+        <volist name="val" id="info">
+            <div class="row lxt-confirm-b lxt-margin">
+                <a href="#">
+                    <div class="col-xs-4"> <img src="{:attach(get_thumb($info['img'], '_s'), 'item')}" alt="..."> </div>
+                    <div class="col-xs-8">
+                        <h4>{$info.title}</h4>
+                        <span class="pull-left">X {$info.quantity}</</span>
+                    </div>
+                </a>
+            </div>
+            <div class="row lxt-confirm-c">
+                <div class="col-xs-6">
+                    <p>订单号：</p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <p>{$info.orderId}</p>
+                </div>
+            </div>
+        </volist>
+            <div class="row lxt-confirm-c">
+                <div class="col-xs-6">
+                    <p>下单时间：</p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <p>{$order.add_time|date="Y-m-d H:i",###}</p>
+                </div>
+            </div>
+
+            <div class="row lxt-confirm-c">
+                <div class="col-xs-6">
+                    <p>支付金额：</p>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <p>{$order.order_sumPrice}元</p>
+                </div>
+            </div>
+        <if condition="$_GET['status'] eq '2'">
+            <form id="form2" action="{:U('Shop/check_code')}" method="post">
+                <div class="row lxt-confirm-c">
+                    <div class="col-xs-6">
+                        <p>输入验证码：</p>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <input id="code" name="code" type="text" class="text-right"  placeholder="请输入验证码">
+                    </div>
+                    <volist name="arr" id="val" key="k">
+                        <volist name="val" id="info">
+                            <input type="hidden" name="orderId" value="{$info.orderId}" />
+                        </volist>
+                     </volist>
+                        <input type="hidden" name="status" value="{$_GET['status']}" />
+                        <input type="hidden" name="id" value="{$_GET['id']}" />
+                </div>
+                <div class="form-group lxt_btn_release">
+                    <a href="javascript:;">
+                        <input id="submit1" type="button" value="确定"/>
+                    </a>
+                </div>
+            </form>
+        </if>
+
+    </volist>
+</div>
+</body>
+<script>
+    $(function(){
+
+        $("#submit1").click(function(e){
+            var code  = $('#code').val();
+            if(code == ''){
+                layer.msg('请输入订单验证码');
+                return false;
+            }else{
+                $("#form2").submit();
+            }
+        });
+
+    })
+</script>
+</html>

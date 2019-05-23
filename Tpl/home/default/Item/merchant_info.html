@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>商家详情</title>
+    <include file="public:header" />
+</head>
+<body class="wxh_bggreycolor">
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="wxh_bgwhitecolor">
+                <div class="col-xs-12 wxh_detailsimg_box">
+                    <div><img style="height: 165px;" src="{:attach(get_thumb($info['img'], '_b'), 'merchant')}"/></div>
+                    <if condition="$info.zhe eq '1' ">
+                        <div class="c_shopzk">
+                            <span class="pull-right">
+                              <em>
+                                  <if condition="$info.enjoy_num_1 neq '' ">
+                                      {$info.enjoy_num_1}
+                                      <else/>
+                                      {$info.enjoy_num}
+                                  </if>
+
+                              </em>人已享</span>
+                            <p><em>{$info.discount}</em>折</p>
+                        </div>
+                   </if>
+                </div>
+                <div class="col-xs-12 wxh_details_titlebox">
+                    <h5 class="wxh_fontoverflow">{$info.title}</h5>
+                    <i id="wxh-star{$info.id}" class="pull-left"></i>
+                    <?php
+                      if($start){
+                        $one = $start;
+                      }else{
+                        $one = $info['level'];
+                      }
+                    ?>
+                    <script>
+                        $("#wxh-star{$info.id}").raty({
+                            start:"{$one}",
+                            readOnly:true,
+                            path:"__STATIC__/js/jquery.raty-0.5/img/"
+                        })
+                    </script>
+                    <span class="pull-left first_span">
+                        <if condition="$start neq '' ">
+                            {$start}.0
+                            <else/>
+                            {$info.level}.0
+                        </if>
+
+                    </span>
+                </div>
+                <div class="wxh_address_box">
+                    <div class="col-xs-2 wxh_location">
+                        <a href="http://api.map.baidu.com/marker?location={$info.xwei},{$info.xjing}&title={$info.title}&content={$info.address}&output=html"></a>
+                    </div>
+                    <div class="col-xs-8 wxh_fontoverflow">{$info.address}</div>
+                    <div class="col-xs-2 wxh_tel">
+                        <a href="tel:{$info.tel}"></a>
+                    </div>
+                </div>
+            </div>
+            <if condition="$info.zhe eq '1' ">
+                <div class="wxh_bgwhitecolor wxh_fracture_box">
+                    <div class="col-xs-12">
+                        <h5><span>折</span>小六折扣优惠：</h5>
+                        <p>{$info.desc}</p>
+                    </div>
+                </div>
+            </if>
+            <div class="wxh_tab_box">
+                <ul class="nav nav-tabs wxh_bgwhitecolor" role="tablist">
+                    <li role="presentation"  class="col-xs-6 text-center first_li active">
+                        <a href="#home" aria-controls="home" role="tab" data-toggle="tab">商家详情</a>
+                    </li>
+                    <li role="presentation" class="col-xs-6 text-center">
+                        <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">评价</a>
+                    </li>
+                </ul>
+                <div class="tab-content wxh_shopping_box">
+                    <div role="tabpanel" class="tab-pane active wxh_shoppinglist c_white" id="home">
+                        {$info.merchant_desc}
+                        <p class="c_white c_nomargin"><a href="{:U('Item/merchant_desc',array('id'=>$info['id'],'type'=>$_GET['type']))}">查看详情<span class=" pull-right glyphicon glyphicon-menu-right"></span></a></p>
+                        <if condition="$_GET['type'] eq '4'">
+                                <p class="c_white c_nomargin"><a href="{:U('Item/item_list',array('id'=>$info['id'],'type'=>$_GET['type']))}">商品详情  <b style="color: red">!!(请点击此处查看商品)</b><span class=" pull-right glyphicon glyphicon-menu-right"></span></a></p>
+                            <else/>
+                            <if condition="$info.tao eq '1' ">
+                                <p class="c_white c_nomargin"><a href="{:U('Item/item_list',array('id'=>$info['id'],'type'=>$_GET['type']))}">商品详情  <b style="color: red">!!(请点击此处查看商品)</b><span class=" pull-right glyphicon glyphicon-menu-right"></span></a></p>
+                            </if>
+                        </if>
+
+                    </div>
+
+                    <!--评价-->
+                    <div role="tabpanel" class="tab-pane wxh_evaluate_box" id="profile">
+                        <volist name="item_comment" id="val">
+                            <div class="wxh_user_box">
+                            <div class="col-xs-12 wxh_media_box">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <div>
+                                            <if condition="$val.cover neq '' ">
+                                                <img class="media-object" src="{$val.cover}" alt="...">
+                                                <else/>
+                                                <img class="media-object" src="static/css/img/logo2.png" alt="...">
+                                            </if>
+
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="media-heading wxh_333color wxh_fontoverflow">{$val.uname}</h5>
+                                        <p>
+                                            <i id="wxh-star{$val.id}" class="pull-left"></i>
+                                            <script>
+                                                $("#wxh-star{$val.id}").raty({
+                                                    start:"{$val.startcomment}",
+                                                    readOnly:true,
+                                                    path:"static/js/jquery.raty-0.5/img/"
+                                                })
+                                            </script>
+                                            <span class="wxh_666color pull-right">{$val.add_time|date='Y-m-d',###}</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 wxh_user_evaluate">
+                                <p>
+                                   {$val.info}
+                                </p>
+                            </div>
+                        </div>
+                        </volist>
+                        <empty name="item_comment">
+                            <div class="wxh_user_box">
+                                <div class="col-xs-12 wxh_user_evaluate">
+                                    ！暂无评价数据
+                                </div>
+                            </div>
+                        </empty>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="public:footers" />
+</body>
+</html>

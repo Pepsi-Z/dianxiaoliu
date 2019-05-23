@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>预约平台</title>
+    <script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+    <link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<link href="../Style/css/common.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../Style/js/jquery-1.9.1.js" ></script>
+<script type="text/javascript" src="../Style/js/date.js" ></script>
+<script type="text/javascript" src="../Style/js/iscroll.js" ></script>
+<script type="text/javascript">
+$(function(){
+	$('#beginTime').date();
+	//$('#endTime').date({theme:"datetime"});
+});
+</script>
+
+</head>
+<body style="background:#f5c238;">
+        <div class="appointment_div">
+            <form action="{:U('book/index')}" method="post">
+        	<div class="bg_img1">预约填写</div>
+            <div class="yuyue_input">
+            	<span>姓名：</span><input type="text" value="{$user.username}" placeholder="请填写您的名字" name="name" class="comment_css"/>
+             </div>
+            <div class="yuyue_input">
+                <span>电话：</span><input type="text" value="{$user.mobile}" placeholder="请填写您的联系电话" name="mobile" class="comment_css"/>
+            </div>
+            <div class="yuyue_input">
+                <span>时间：</span><input type="text" placeholder="请填写您的预约时间" name="yuyue_time" class="comment_css " readonly="readonly" style="border: 1px solid #C4374A;" id="beginTime"/>
+            </div>
+            <div id="datePlugin"></div>
+             <div class="yuyue_input"> 
+             	<span>项目：</span>
+                <select class="comment_css" name="cate_id">
+                    <option value="">请选择要预约的项目</option>
+                    <volist name="cate" id="val">
+                	<option value="{$val.id}">{$val.name}</option>
+                    </volist>
+                </select>
+              </div>
+              <div class="yuyue_input">
+              	<span>留言：</span><textarea class="comment_css" name="message"></textarea>
+              </div>
+              <input type="submit" value="立即预约" class="yuyue_button"/>
+            </form>
+        </div>
+        <div style="height:85px;"></div>
+        <!--底部菜单栏-->
+        <style>
+            .nav4 dl dd.active{ background:#eee;}
+            .nav4 ul.third_menu{ position:absolute; left:100px; bottom:0; border:none; display:none; background:#eee;border-radius:0 5px 5px 0;border-right:1px solid #ccc;border-bottom:1px solid #ccc;}
+            .nav4 ul.third_menu li{ width:auto; float:none; background:#eee; height:41px; border-bottom:1px solid #ccc;border-left:#eee; box-shadow:none;}
+            .nav4 ul.third_menu li:first-child{ border-top-right-radius:5px;border-top:1px solid #ccc;}
+            .nav4 ul.third_menu li:last-child{ border-bottom:1px solid #eee;border-radius:5px;}
+        </style>
+        <script>
+            $(function(){
+                $('#nav4_ul li dd').click(function(){
+                    $(this).find('ul').show().parent().siblings().find('ul').hide();
+                    $(this).addClass('active').siblings().removeClass('active');
+
+                    var parentH=$('#nav4_ul li dl').height();
+                    var sonH=$(this).find('ul').height();
+                    if(parentH>sonH){
+                        $(this).find('ul').css('top','0');
+                    }
+                })
+            })
+
+
+        </script>
+        <div class="nav4">
+            <nav>
+                <div id="nav4_ul" class="nav_4">
+                    <ul class="box">
+                        <li class="first_li">
+                            <a href="{:U('Index/index',array('foot_id'=>1))}">
+                                <if condition="$_SESSION['foot_id'] eq 1">
+                                    <img src="../Style/static/images/home_on.png"/>
+                                    <else/>
+                                    <img src="../Style/static/images/home.png"/>
+                                </if>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="javascript:;" class="">
+
+                                <if condition="$_SESSION['foot_id'] eq 2">
+                                    <img src="../Style/static/images/fenlei_on.png"/>
+                                    <else/>
+                                    <img src="../Style/static/images/fenlei.png"/>
+                                </if>
+                                <p>商品分类</p>
+                            </a>
+                            <dl>
+                                <dd><a href="{:U('Item/index',array('id'=>0,'foot_id'=>2))}"><span>全部</span></a></dd>
+                                <volist name="item_cate" id="val">
+                                    <dd>
+                                        <a href="javascript:;"><span>{$val.name}</span></a>
+                                        <ul class="third_menu">
+                                            <li><a href="{:U('Item/index',array('id'=>$val['id'],'foot_id'=>2))}">全部</a></li>
+                                            <volist name="val['sub']" id="va">
+                                                <li><a href="{:U('Item/index',array('id'=>$val['id'],'cid'=>$va['id'],'foot_id'=>2))}">{$va.name}</a></li>
+                                            </volist>
+                                        </ul>
+                                    </dd>
+
+                                </volist>
+                            </dl>
+                        </li>
+                        <li>
+                            <a href="{:U('book/index',array('foot_id'=>3))}" class="">
+
+                                <if condition="$_SESSION['foot_id'] eq 3">
+                                    <img src="../Style/static/images/yuyue_on.png"/>
+                                    <else/>
+                                    <img src="../Style/static/images/yuyue.png"/>
+                                </if>
+
+                                <p>预约平台</p>
+                            </a>
+                        </li>
+                        <li>
+
+                            <a href="{:U('Article/index',array('foot_id'=>4))}" class="">
+                                <if condition="$_SESSION['foot_id'] eq 4">
+                                    <img src="../Style/static/images/news_on.png"/>
+                                    <else/>
+                                    <img src="../Style/static/images/news.png"/>
+                                </if>
+                                <p>平台讯息</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:U('User/index',array('foot_id'=>5))}" class="">
+                                <if condition="$_SESSION['foot_id'] eq 5">
+                                    <img src="../Style/static/images/member_on.png"/>
+                                    <else/>
+                                    <img src="../Style/static/images/member.png"/>
+                                </if>
+                                <p>会员中心</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="nav4_masklayer" class="masklayer_div">&nbsp;</div>
+        </div>
+
+
+        </div>
+        <script type="text/javascript">
+            nav4.bindClick(document.getElementById("nav4_ul").querySelectorAll("li>a"), document.getElementById("nav4_masklayer"));
+        </script>
+</body>
+</html>

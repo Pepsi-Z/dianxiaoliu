@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>我的</title>
+   <include file="public:header" />
+
+<body class="lxt-color">
+<!------主体--------->
+<section>
+    <div class="container lxt_mine">
+        <div class="row">
+            <div class="media lxt_media col-xs-12 lxt_top">
+                <div class="media-left media-middle col-xs-3 text-right lxt_touxiang">
+                    <a href="javascript:void();" id="tx" class="col-xs-12 text-right">
+                        <if condition="$user['cover'] eq ''">
+                            <img class="" src="__STATIC__/css/img/yy_mine_head.jpg" alt="..." id="person_img">
+                            <else />
+                            <img src="{$user.cover}" id="person_img"/>
+
+                        </if>
+                    </a>
+                </div>
+                <div class="media-body col-xs-4">
+                    <h6 class="media-heading"><name>{$user['name']}</name></h6>
+                    <h6 class="media-heading"><em class="pull-left"></em> 积分：
+                       <span>
+                           <if condition="$user['score'] neq '' ">
+                               {$user['score']}
+                               <else/>
+                               0
+                           </if>
+
+                       </span>分</h6>
+                </div>
+
+            </div>
+            <h1></h1>
+            <div class="media lxt_media_list">
+                <a href="{:U('Order/order_zhe')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/icon0.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">全部订单</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="media lxt_media_list">
+                <a href="{:U('Order/index')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/xw.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">小六订单</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media lxt_media_list">
+                <a href="{:U('User/jifen_info')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/icon1.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">积分明细</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media lxt_media_list">
+                <a href="{:U('User/wanshan',array('status'=>1))}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/icon2.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">个人资料</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media lxt_media_list">
+                <a href="{:U('User/address')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/icon3.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">收货地址</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media lxt_media_list">
+                <a href="{:U('Jifen/index')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/icon4.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">积分商城</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="media lxt_media_list">
+                <a href="{:U('Jifen/order')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/jf.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">积分订单</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="media lxt_media_list">
+                <a href="{:U('User/user_card')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/icon5.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">我的小六卡</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+    <a href="{:U('User/logout')}" class="btn lxt_out" id="out" type="button">退出登录</a>
+</section>
+<include file="public:footers" />
+<!-----主体结束-------->
+
+</body>
+</html>

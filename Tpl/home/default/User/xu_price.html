@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>支付</title>
+    <include file="public:header"/>
+    <script>
+        $(document).ready(function() {
+            $('.wxh_payment a').click(function(){
+                $(this).addClass("active").siblings().removeClass("active");
+            })
+        });
+    </script>
+    <style>
+        .c_radio{position:relative;height:40px;padding:0;}
+        .c_radio input{position: absolute;left:2%; top:0;z-index:99;width:96%; height:40px;opacity: 0;}
+
+        .c_radio input +label{position: absolute;left:2%; top:0;z-index:98; height:40px;line-height:40px;width:96%; border:1px solid #ccc; background:#fff;border-radius:5px; display:block;text-align:center;}
+        .c_radio input:checked +label{ background:#6ce; color:#fff;}
+    </style>
+</head>
+<body class="wxh_bggreycolor">
+<form id="form2" method="post" action="{:U('User/xu_pay')}">
+        <div class="container">
+                <div class="row" style="margin:30px 0; height:40px;">
+                    <input type="text" id="money" name="money" class="form-control text_input" placeholder="请输入充值金额" maxlength="18">
+                    <?php $t = time();?>
+                    <input type="hidden" name="feedtime" value="{$t}">
+                </div>
+        </div>
+        <div class=" col-xs-12  text-center">
+            <a id="tijiao" href="javascript:;" class="btn btn-bule btn-block">提交</a>
+        </div>
+</form>
+<include file="public:footers"/>
+
+<script>
+    $(function(){
+
+        $("#tijiao").click(function(e){
+
+            var money  = $('#money').val();
+
+            if(money == ''){
+                layer.msg('请输入充值金额');
+                return false;
+            }else{
+                $("#form2").submit();
+            }
+        });
+
+    })
+</script>
+</body>
+
+</html>

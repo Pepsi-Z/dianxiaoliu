@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+  <title>热卖商品</title>
+   <include file="public:header" />
+
+</head>
+<body class="zxy-bac">
+<!----------主题开始------------->
+<div class="container">
+	<div class="row zxy-hot">
+        <volist name="item" id="val">
+            <div class="col-xs-6">
+                <a href="{:U('Item/content',array('id'=>$val['id']))}">
+                    <div><img style="height: 131px;" src="{:attach(get_thumb($val['img'], '_m'),'item')}"></div>
+                    <h5 style="color: #000">{$val.merchant_title}</h5>
+                    <h5>{$val.title}</h5>
+                    <span id="zxy-star{$val.id}"></span>
+                    <script>
+                        $("#zxy-star{$val.id}").raty({
+                            start:"{$val.leve}",
+                            readOnly:true,
+                            path:"__STATIC__/js/jquery.raty-0.5/img/"
+                        })
+                    </script>
+                    <p><b>￥{$val.price}</b><em class="pull-right"><&nbsp;{$val.min}km</em></p>
+                </a>
+            </div>
+
+        </volist>
+
+    </div>
+</div>
+<div class="Blank-z"></div>
+<!------结束-------->
+<!-----footer开始-------->
+<include file="public:footers" />
+<!-----footer结束--------> 
+</body>
+</html>

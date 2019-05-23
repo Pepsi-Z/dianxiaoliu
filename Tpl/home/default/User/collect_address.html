@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>管理收货地址</title>
+<include file="public:header" />
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+</head>
+<body>
+		<volist name="address_list" id="val">
+        <div class="guanli_div">
+        	<p>收货人：{$val.consignee}<span class="fr" style="color:#40C780 ">{$val.mobile}</span></p>
+            <div class="xuanzhe fr">
+            <a href="{:U('User/collect_addressmr',array('id'=>$val['id'],'collect_id'=>$collect_id))}" >
+            <input type="checkbox" name="status" value="{$val.status}" class="lxt_choose lxt_choose1 " <if condition="$val.status eq '1'">checked</if>/>
+            <label for="checkbox-2-1"></label>
+            </a>
+            </div>
+            <p class="dizhi_p">{$val.pname}&nbsp;{$val.cname}&nbsp; {$val.aname}&nbsp;<?php echo ($jd[$val['street']]);?>    {$val.address}</p>
+            <ul class="guanli_ul">
+            	<li class="border_right"><a  href="{:U('User/collect_schange',array('id'=>$val['id'],'collect_id'=>$collect_id))}">编辑</a></li>
+                <li><a href="{:U('User/collect_addressdel',array('id'=>$val['id'],'status'=>$val['status'],'collect_id'=>$collect_id))}">删除</a></li>
+                
+            </ul>
+        </div>
+       </volist>
+      <a href="{:U('User/collect_schange',array('collect_id'=>$collect_id))}" ><div class="address_button" style="text-align:center;line-height:15px;padding-top:15px;margin-top:45px;">新增收货地址</div></a>
+       
+<div style="height:55px;"></div>       
+<include file="public:footers" />

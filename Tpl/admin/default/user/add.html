@@ -1,0 +1,66 @@
+<!--添加会员-->
+<div class="dialog_content">
+	<form id="info_form" action="{:u('user/add')}" method="post">
+	<table width="100%" class="table_form">
+		<tr>
+			<th width="100">会员昵称 :</th>
+			<td><input type="text" id="username" name="username" class="input-text" /></td>
+		</tr>
+		<!-- <tr>
+			<th width="100">会员组 :</th>
+			
+			<td>
+			<select name='uid'>
+			<volist name="cate" id="cate" >
+				<option value='{$cate.id}'>{$cate.name}</option>
+			</volist>
+			</select>
+			</td>
+			
+			
+		</tr> -->
+	    <tr>
+			<th>会员头像 :</th>
+			<td>
+            	<input type="text" name="img" id="J_img" class="input-text fl mr10" size="30" value="{$info.img}">
+            	<div id="J_upload_img" class="upload_btn"><span>{:L('upload')}</span></div>
+				<notempty name="info['img']"><span class="attachment_icon J_attachment_icon" file-type="image" file-rel="{$img_dir}{$info.img}"><img src="__STATIC__/images/filetype/image_s.gif" /></span></notempty>
+            </td>
+		</tr>
+       <!--  <tr>
+			<th>会员邮箱 :</th>
+			<td><input type="text" name="email" id="email" class="input-text" value="{$info.email}" size="30"></td>
+		</tr>
+		<tr>
+			<th>出生日期 :</th>
+			<td><input type="text" name="birthday" id="birthday" class="date input-text" value="{$info.birthday}" size="27"></td>
+		</tr> -->
+		<tr>
+        	<th>性别 :</th>
+            <td>
+            	<label><input type="radio" name="gender" value="1" <if condition="$info.gender eq 1">checked</if>> 男</label>&nbsp;&nbsp;
+				<label><input type="radio" name="gender" value="0" <if condition="$info.gender eq 0">checked</if>> 女</label>
+            </td>
+        </tr>
+        <!-- 
+        <tr>
+			<th>新密码 :</th>
+			<td><input type="password" name="password" class="input-text" size="30"></td>
+		</tr>
+        <tr>
+			<th>重复密码 :</th>
+			<td><input type="password" name="repassword" class="input-text" size="30"></td>
+		</tr>
+        
+	    <tr>
+			<th>{:L('enabled')} :</th>
+			<td>
+				<label><input type="radio" name="status" value="1" <if condition="$info.status eq 1">checked</if>> {:L('yes')}</label>&nbsp;&nbsp;
+				<label><input type="radio" name="status" value="0" <if condition="$info.status eq 0">checked</if>> {:L('no')}</label>
+			</td>
+		</tr> -->
+	</table>
+	<input type="hidden" name="id" value="{$info.id}" />
+	</form>
+</div>
+<script src="__STATIC__/js/fileuploader.js"></script>

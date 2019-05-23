@@ -1,0 +1,256 @@
+<include file="public:header" />
+<script charset="utf-8" src="__STATIC__/js/jquery.js" type="text/javascript"></script>
+<!--编辑商品-->
+<form id="info_form" action="{:u('supply/edit')}" method="post" enctype="multipart/form-data">
+<div class="pad_lr_10">
+<div class="col_tab">
+<ul class="J_tabs tab_but cu_li">
+    <li class="current">基本信息</li>
+    <li>展示图片</li>
+</ul>
+<div class="J_panes">
+<div class="content_list pad_10">
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+        <tr>
+            <th>产品类型:</th>
+            <td><input type="radio" name="type"  value="1" <if condition='$info.type eq 1'>checked</if>>供应&nbsp;
+                <input type="radio" name="type" value="2" <if condition='$info.type eq 2'>checked</if>>求购&nbsp;
+
+        </tr>
+        <tr>
+            <th width="120">产品分类 :</th>
+            <td>
+                <select  id="pid" name="pid">
+                    <option value="">--请选择--</option>
+                    <volist name='cate_list' id='vo' >
+                        <option value="{$vo.id}" <if condition="$vo['id'] eq $info['pid']"> selected="selected"</if>>{$vo.name}</option>
+                    </volist>
+                </select>
+                &nbsp;&nbsp;
+                <select name="cid" id="cid">
+                    <option value="">--请选择品牌--</option>
+                    <volist name="cates" id="val">
+                        <option value="{$val.id}" <if condition="$val['id'] eq $info['cid']"> selected="selected"</if>>{$val.name}</option>
+                    </volist>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>产品名称 :</th>
+            <td><input  type="text" name="name" id="J_title" class="input-text" size="60" value="{$info.name}"></td>
+        </tr>
+        <tr>
+            <th>产品图片 :</th>
+            <td>
+                <notempty name="info['url']"><img src="./data/upload/supply/{$info.url}" width="100" height="100"/><br /></notempty>
+                <input type="file" name="img" />
+            </td>
+        </tr>
+        <tr>
+            <th>产品数量 :</th>
+            <td><input id='J_goods_stock' onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')" type="text" name="num" class="input-text" size="10" value="{$info.num}"> </td>
+        </tr>
+        <tr>
+            <th>联系人 :</th>
+            <td><input  type="text" name="contact" class="input-text" size="60" value="{$info.contact}"></td>
+        </tr>
+        <tr>
+            <th>联系电话 :</th>
+            <td><input  type="text" name="mobile"  class="input-text" size="60" value="{$info.mobile}"></td>
+        </tr>
+        <tr>
+            <th>联系微信 :</th>
+            <td><input  type="text" name="weixin"  class="input-text" size="60" value="{$info.weixin}"></td>
+        </tr>
+        <tr>
+            <th>是否在前台显示:</th>
+            <td><input type="radio" name="status"  value="1" <if condition='$info.status eq 1'>checked</if>>是&nbsp;
+                <input type="radio" name="status" value="0" <if condition='$info.status eq 0'>checked</if>>否&nbsp;
+
+        </tr>
+        <tr>
+            <th>商品简介 :</th>
+            <td><textarea name="info" id="info" style="width:68%;height:400px;visibility:hidden;resize:none;">{$info.info}</textarea></td>
+        </tr>
+    </table>
+</div>
+<div class="content_list pad_10 hidden">
+    <style>
+        .addpic {}
+        .addpic li { float:left; text-align:center; margin:0 0 10px 20px;}
+        .addpic a { display:block;}
+    </style>
+    <ul class="addpic">
+        <volist name="img_list" id="val">
+            <li class="album_{$val['id']}">
+                <a href="javascript:void(0)" onclick="del_album({$val['id']});"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>
+                <a><img src="./data/upload/supply/{$val.url}" style="width:80px;height:60px; border:solid 1px #000; "/></a>
+            </li>
+        </volist>
+    </ul>
+    <div class="cb"></div>
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form" id="first_upload_file">
+        <tbody class="uplode_file">
+        <tr>
+            <th width="100" align="left"><a href="javascript:void(0);" class="blue" onclick="add_file();"><img src="__STATIC__/css/admin/bgimg/tv-expandable.gif" /></a>上传文件 :</th>
+            <td><input type="file" name="imgs[]"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</div>
+<div class="mt10"><input type="submit" value="{:L('submit')}" id="dosubmit" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"></div>
+</div>
+</div>
+<input type="hidden" name="menuid"  value="{$menuid}"/>
+<input type="hidden" name="id" value="{$info.id}" />
+</form>
+<include file="public:footer" />
+<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+<script>
+    $(function(){
+        $('#pid').change(function(){
+            $('#cid').get(0).options.length=1;
+            var pid = $(this).val();
+            $.post("{:u('item/ajax_get_brand')}",{ pid:pid },function(data){
+//                alert(data.status)
+                if(data.status == 1){
+                    $('#cid').get(0).options.length=1;
+                    $.each(data.data,function(i,v){
+                        var $option=$('<option value="'+v.id+'">'+v.name+'</option>');
+                        $('#cid').append($option);
+                    })
+                }else{
+                    alert("该分类下没有品牌");
+                }
+            },"json");
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $('.J_cate_select').cate_select('请选择');
+    $(function() {
+        $('ul.J_tabs').tabs('div.J_panes > div');
+        //自动获取标签
+        $('#J_gettags').live('click', function() {
+            var title = $.trim($('#J_title').val());
+            if(title == ''){
+                $.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+                return false;
+            }
+            $.getJSON('{:U("item/ajax_gettags")}', {title:title}, function(result){
+                if(result.status == 1){
+                    $('#J_tags').val(result.data);
+                }else{
+                    $.pinphp.tip({content:result.msg});
+                }
+            });
+        });
+        $.formValidator.initConfig({formid:"info_form",autotip:true});
+        $("#J_title").formValidator({onshow:'请填写商品名称',onfocus:'请填写商品名称'}).inputValidator({min:1,onerror:'请填写商品名称'}).defaultPassed();
+        // $("#J_goods_stock").formValidator({onshow:'请填写商品库存',onfocus:'请填写商品库存'}).inputValidator({min:1,onerror:'请填写商品库存'});
+        $("#J_goods_stock").formValidator({onshow:'请填写商品库存',onfocus:'请填写商品库存'}).inputValidator({min:1,onerror:'请填写商品库存'}).defaultPassed();
+        //$("#J_user_price").formValidator({onshow:'请填写会员价格，-1代表默认价格'});
+    });
+    function get_child_cates(obj,to_id)
+    {
+        var parent_id = $(obj).val();
+        if( parent_id ){
+            $.get('?m=item&a=get_child_cates&g=admin&parent_id='+parent_id,function(data){
+                var obj = eval("("+data+")");
+                $('#'+to_id).html( obj.content );
+            });
+        }
+    }
+
+    function add_file()
+    {
+        $("#next_upload_file .uplode_file").clone().insertAfter($("#first_upload_file .uplode_file:last"));
+    }
+    function del_file_box(obj)
+    {
+        $(obj).parent().parent().remove();
+    }
+    function del_album(id)
+    {
+        var url = "{:U('supply/delete_album')}";
+        $.get(url+"&album_id="+id, function(data){
+            if(data==1){
+                $('.album_'+id).remove();
+            };
+        });
+    }
+    function add_attr()
+    {
+        $("#hidden_attr .add_item_attr").clone().insertAfter($("#item_attr .add_item_attr:last"));
+    }
+    function del_attrs(obj)
+    {
+        $(obj).parent().parent().remove();
+    }
+    function del_attr(id,obj)
+    {
+        var url = "{:U('item/delete_attr')}";
+        $.get(url+"&attr_id="+id, function(data){
+            if(data==1){
+                $(obj).parent().parent().remove();
+            };
+        });
+    }
+</script>
+<table id="next_upload_file" style="display:none;">
+    <tbody class="uplode_file">
+    <tr>
+        <th width="100"><a href="javascript:void(0);" onclick="del_file_box(this);" class="blue"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>上传文件 :</th>
+        <td><input type="file" name="imgs[]"></td>
+    </tr>
+    </tbody>
+</table>
+<table id="hidden_attr" style="display:none;">
+    <tbody class="add_item_attr">
+    <tr>
+        <th width="200">
+            <a href="javascript:void(0);" class="blue" onclick="del_attrs(this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>属性名 :<input type="text" name="attr[name][]" class="input-text" size="20">
+        </th>
+        <td>属性值 :<input type="text" name="attr[value][]" class="input-text" size="30"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+<script src="__STATIC__/js/jquery/plugins/colorpicker.js"></script>
+<script src="__STATIC__/js/kindeditor/kindeditor.js"></script>
+<script>
+
+    $(function() {
+        KindEditor.create('#info', {
+            uploadJson : '{:U("attachment/editer_upload")}',
+            fileManagerJson : '{:U("attachment/editer_manager")}',
+            allowFileManager : true
+        });
+        $('ul.J_tabs').tabs('div.J_panes > div');
+
+        //颜色选择器
+        $('.J_color_picker').colorpicker();
+
+        //自动获取标签
+        $('#J_gettags').live('click', function() {
+            var title = $.trim($('#J_title').val());
+            if(title == ''){
+                $.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+                return false;
+            }
+            $.getJSON('{:U("article/ajax_gettags")}', {title:title}, function(result){
+                if(result.status == 1){
+                    $('#J_tags').val(result.data);
+                }else{
+                    $.pinphp.tip({content:result.msg});
+                }
+            });
+        });
+
+    });
+</script>

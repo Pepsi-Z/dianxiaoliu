@@ -1,0 +1,108 @@
+<!--添加栏目-->
+<div class="dialog_content">
+	<form id="info_form" action="{:U('item_cate/add')}" method="post" enctype="multipart/form-data">
+	<table width="100%" class="table_form" style="margin-top:30px;">
+		<tr>
+        <th width="80px">{:L('item_cate_name')} :</th>
+        <td>
+            <input type="text" name="name" id="J_name" class="input-text" size="30">
+        </td>
+       </tr>
+        <tr>
+            <th width="80px">图标 :</th>
+            <td>
+                <input style="height: 30px;" type="file" name="img" id="J_img" class="input-text" size="50" />
+            </td>
+        </tr>
+        <th width="80">标签</th>
+        <td>
+            <select name="type">
+                <volist name="lable" id="val" >
+                    <option value="{$key}">{$val}</option>
+                </volist>
+            </select>
+        </td>
+        <!-- <tr>
+             <th>普通会员折扣:</th>
+             <td>
+                 <input type="text" name="discount" value="1" class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+         <tr>
+             <th>一星会员折扣:</th>
+             <td>
+                 <input type="text" name="discount1" value="0.9"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+         <tr>
+             <th>二星会员折扣:</th>
+             <td>
+                 <input type="text" name="discount2" value="0.8"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+         <tr>
+             <th>三星会员折扣:</th>
+             <td>
+                 <input type="text" name="discount3" value="0.7"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+         <tr>
+             <th>四星会员折扣:</th>
+             <td>
+                 <input type="text" name="discount4" value="0.6"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+         <tr>
+             <th>五星会员折扣:</th>
+             <td>
+                 <input type="text" name="discount5" value="0.5"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+          <tr>
+             <th>高级客户A折扣:</th>
+             <td>
+                 <input type="text" name="discount6" value="0.45"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+          <tr>
+             <th>高级客户B折扣:</th>
+             <td>
+                 <input type="text" name="discount7" value="0.4"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>
+          <tr>
+             <th>高级客户C折扣:</th>
+             <td>
+                 <input type="text" name="discount8" value="0.39"  class="input-text" size="30">
+                 <span style="color:#777777;">&nbsp;&nbsp;(折扣数为0~1)</span>
+             </td>
+         </tr>-->
+	</table>
+	</form>
+</div>
+
+<script>
+$(function(){
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+	$('#J_name').formValidator({onshow:lang.please_input+lang.item_cate_name,onfocus:lang.please_input+lang.item_cate_name}).inputValidator({min:1,onerror:lang.please_input+lang.item_cate_name});
+	
+	$('#info_form').ajaxForm({success:complate, dataType:'json'});
+	function complate(result){
+		if(result.status == 1){
+			$.dialog.get(result.dialog).close();
+			$.pinphp.tip({content:result.msg});
+			window.location.reload();
+		} else {
+			$.pinphp.tip({content:result.msg, icon:'alert'});
+		}
+	}
+});
+</script>

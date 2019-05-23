@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>编辑地址</title>
+<include file="public:header" />
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+<script type="text/javascript" language="javascript" src='../Style/js/jquery.js'></script>
+</head>
+<body>
+   <form action="{:U('User/addresschange')}" id="form2" method="post">
+        <ul class="newadress_ul">
+        	<li class="newaddress_li">
+            	<span>收 货 人: </span>
+                 <input type="text" name="consignee" placeholder="请填写您的真实姓名" value="{$info.consignee}"/>
+            </li>
+            <li class="newaddress_li span_dis">
+            	<span>手机号码: </span>
+                 <input id="t_tel" type="text" name="mobile" placeholder="请填写您的手机号码" value="{$info.mobile}"/>
+            </li>
+           <!-- <li class="newaddress_li span_dis">
+            	<span><label style="color:#F00;">*</label>邮政编码</span>
+                 <input name="postal" type="text" placeholder="请填写邮政编码" value="{$info.postal}"/>
+            </li>-->
+            <li class="newaddress_li span_dis">
+            	<span>选择省份: </span>
+                 <select name="pid" id="sid">
+                 	<option value="">请选择省份</option>
+                 	<volist name="province" id="val">
+                 	<option value="{$val.id}" <if condition="$val['id'] eq $info['pid']"> selected</if>>{$val.name}</option>
+                 	</volist>
+                 </select>&nbsp;
+            </li>
+            <li class="newaddress_li span_dis">
+                <span>选择城市: </span>
+                <select name="cid" id="cid">
+                    <option value="">请选择城市</option>
+                    <notempty name="city">
+                        <volist name="city" id="val">
+                            <option value="{$val.id}" <if condition="$val['id'] eq $info['cid']"> selected</if>>{$val.name}</option>
+                        </volist>
+                    </notempty>
+                </select>&nbsp;
+            </li>
+            <li class="newaddress_li span_dis">
+                <span>选择县区: </span>
+                  <select name="aid" id="aid">
+                 	<option value="">请选择县区</option>
+                 	<notempty name="area">
+	                 	<volist name="area" id="val">
+	                 	<option value="{$val.id}" <if condition="$val['id'] eq $info['aid']"> selected</if>>{$val.name}</option>
+	                 	</volist>
+                 	</notempty>
+                 </select>
+            </li>
+
+            <li class="newaddress_li height_li span_dis">
+            	<span>详细地址</span>
+                 <textarea placeholder="请填写详细地址" name="address">{$info.address}</textarea>
+            </li>
+        </ul>
+        <input type="hidden" name="mk" value="{$_GET['mk']}">
+        <input type="hidden" name="id" value="{$info.id}">
+        <input id="submit1" type="submit" value="保存" class="address_button"/>
+  </form>      
+<div style="height:55px;"></div>       
+<include file="public:footers" />
+   <script>
+       $(function(){
+
+           $("#submit1").click(function(e){
+               var t_tel  = $('#t_tel').val();
+               var street = $('#street').val();
+               if(t_tel == ''){
+                   layer.msg('电话不能为空');
+                   return false;
+               }
+               //电话验证
+               if(!(/^0?1[3|4|5|7|8][0-9]\d{8}$/.test($('#t_tel').val()))){
+                   layer.msg('电话号输入不正确');
+                   return false;
+               }
+
+                $("#form2").submit();
+
+
+           });
+
+       })
+</script>
+<script>
+$(function(){
+	$('#sid').change(function(){
+		 $('#cid').get(0).options.length=1;
+		 $('#aid').get(0).options.length=1;
+		var sid = $(this).val();
+		$.post("{:u('User/ajax_get_address')}",{ id:sid },function(data){
+			if(data.status == 1){
+				 $('#cid').get(0).options.length=1;
+					$.each(data.data,function(i,v){
+					   var $option=$('<option value="'+v.id+'">'+v.name+'</option>');
+						   $('#cid').append($option);					
+					})	
+			}
+		},"json");	
+	});
+	
+	$('#cid').change(function(){
+		 
+		 $('#aid').get(0).options.length=1;
+		var cid = $(this).val();
+		$.post("{:u('User/ajax_get_address')}",{ id:cid },function(data){
+			if(data.status == 1){
+				 $('#aid').get(0).options.length=1;
+					$.each(data.data,function(i,v){
+					   var $option=$('<option value="'+v.id+'">'+v.name+'</option>');
+						   $('#aid').append($option);					
+					})	
+			}
+		},"json");	
+	});
+});
+</script>

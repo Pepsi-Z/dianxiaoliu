@@ -1,0 +1,23 @@
+<volist name="list" id="val">
+    <li>
+        <a href="{:U('Supply/detail',array('id'=>$val['id']))}">
+            <div class="yy-list-img fl">
+                <if condition="$val.url neq ''">
+                    <img src="./data/upload/supply/{$val.url}" >
+                    <else/>
+                    <img src="../Style/static/images/image/yy-img1.jpg">
+                </if>
+            </div>
+            <div class="yy-list-right fl">
+                <h1>{$val.name|mb_substr=0,10,'utf-8'}</h1>
+                <p>{$val.info|mb_substr=0,30,'utf-8'}</p>
+            </div>
+            <if condition="$val.type eq 1">
+                <div class="yy-icon"></div>
+                <else/>
+                <div class="yy-icon-q"></div>
+            </if>
+
+        </a>
+    </li>
+</volist>

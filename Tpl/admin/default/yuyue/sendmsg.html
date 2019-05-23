@@ -1,0 +1,23 @@
+<include file="public:header" />
+<script charset="utf-8" src="__STATIC__/js/jquery.js" type="text/javascript"></script>
+<form id="info_form" action="{:u('yuyue/sendmsg')}" method="post" enctype="multipart/form-data">
+<div class="pad_lr_10">
+				<table width="100%" cellspacing="0" class="table_form">
+
+		       
+                    <tr>
+                    	<th>内容 :</th>
+                        <td>
+                        <textarea id="remark" name="content" rows="8" cols="40"></textarea>
+                        </td>
+                    </tr>    
+				</table>
+		
+</div>
+<input type="hidden" name="menuid"  value="{$menuid}"/>
+<input type="hidden" name="uid" id="id" value="{$info.uid}" />
+</form>
+<include file="public:footer" />
+</body>
+</html>
+

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <meta name="format-detection" content="telephone=no" />
+    <title>订单管理</title>
+    <include file="public:header" />
+    <style>
+        .lxt-a1, .lxt-a2, .lxt-a3{ padding: 4px 8px;}
+    </style>
+</head>
+<body class="lxt-color">
+<div class="container">
+
+    <div class="row coupon_box lxt-row">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active col-xs-6 text-center">
+                <a href="{:U('Order/order_zhe')}"><span>折扣订单</span></a>
+            </li>
+            <li role="presentation" class="col-xs-6 text-center">
+                <a href="{:U('Order/order_tuan')}">
+                    <span>团购订单</span></a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+
+        <!--折扣内容-->
+        <div role="tabpanel" class="row tab-pane active unused lxt-tab" id="aa" >
+            <div class="tab-content">
+                <!--未返利-->
+                <div role="tabpanel" class="row tab-pane active unused" id="home">
+                    <volist name="integral_list" id="val">
+                        <div class="col-xs-12">
+                            <div class="row lxt-order">
+                                <div class="col-xs-8">{$val.sname}</div>
+                                <div class="col-xs-4">积分:+{$val.score}</div>
+                            </div>
+                            <div class="row lxt-order-b">
+                                <div class="col-xs-6 text-left text-muted">{$val.add_time|date="Y-m-d H:i",###}</div>
+                                <div class="col-xs-12 text-right">
+                                    <a href="javascript:;" data="{$val.id}" class="delete lxt-a1">删除</a>
+                                    <if condition="$val.status eq 0">
+                                        <a href="#" data="{$val.id}" class="lxt-a2 return_zhe">返利</a>
+                                        <else/>
+                                        <a href="javascript:;" class="lxt-a1">已返利</a>
+                                        <if condition="$val.ping eq 1 ">
+                                            <a href="javascript:;"  class="lxt-a1" >已评价</a>
+                                            <else/>
+                                            <a href="{:U('Order/item_comment_zhe',array('id'=>$val['id']))}" class="lxt-a2" >待评价</a>
+                                        </if>
+                                    </if>
+                                </div>
+                            </div>
+                        </div>
+                    </volist>
+                </div>
+            </div>
+        </div>
+     </div>
+    </div>
+</div>
+<script>
+    $('.return_zhe').click(function(){
+        var id = $(this).attr('data');
+        if(window.confirm("您确定要返利吗?")){
+            $.post("{:U('Order/SendRedEnvelope')}",{ id:id },function(data){
+                if(data == 1){
+                    layer.msg('红包已经发送！请关闭当前页面去领取');
+                    var url="{:u('Order/order_zhe')}"
+                    setTimeout("location.href='"+url+"'",1000);
+                }else{
+                    layer.msg('返利失败!金额必须大于1元小于200元')
+                }
+            });
+        }
+
+
+
+    });
+
+    $('.delete').click(function(){
+        var id = $(this).attr('data');
+        if(window.confirm("您确定要删除订单吗?")){
+            $.post("{:U('Order/delete_zhe')}",{ id:id },function(data){
+                if(data == 1){
+                    layer.msg('删除成功');
+                    var url="{:u('Order/order_zhe')}"
+                    setTimeout("location.href='"+url+"'",1000);
+                }else{
+                    layer.msg('删除失败')
+                }
+            });
+        }
+
+    });
+</script>
+<include file="public:footers" />
+</body>
+</html>

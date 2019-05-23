@@ -1,0 +1,107 @@
+<body>
+
+		<div class="J_panes">
+		<div class="content_list pad_10">
+		<table width="100%" cellspacing="0" class="table_form">
+		   <tr>
+				<th width="120"><em>填写具体地址:</em></th>
+				<td>
+				<input type="text" id="address" onkeyup="setPos(1);" placeholder="输入搜索地址" size="48" class="input-text" />
+				</td>
+			</tr>
+	    <tr>
+			<th width="120">选取地址信息：</th>
+
+			<td>	
+                 <input type="hidden" name="store_jd" id="store_jd" value="{$jing}" />
+                 <input type="hidden" name="store_wd" id="store_wd" value="{$wei}" />
+				<if condition="$jing neq null">
+				<span id="jingdu">已经选取[{$jing},{$wei}]</span>
+				<else />
+				<span id="jingdu">未选取位置，拖动地球标注，以标记具体位置</span>
+				</if>
+				<label><input class="subbtu" type="button" onclick="returnname();" value="确定"class="input-text" /></label></td>
+			</tr>
+	    <tr>
+			<th width="120">&nbsp;</th>
+			<td>
+				<div id="container1" style="width:100%;height:400px;"></div>
+					<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.2&ak=2b866a6daac9014292432d81fe9b47e3"></script>  
+			</td>
+			</tr>
+	</table>
+	</div>
+    </div>
+        <script language="javascript" type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript">
+    var map=new BMap.Map("container1");
+    var point=new BMap.Point( 	
+    		<if condition='$jing !=  ""'>     
+    		{$jing}
+			<else/>
+    		116.40391  
+			</if>
+    ,
+    <if condition='$wei !=  ""'>     
+	{$wei}
+	<else/>
+    39.915276
+	</if>
+    );
+    map.centerAndZoom(point,15);
+    
+    map.enableScrollWheelZoom();
+    map.disableDoubleClickZoom();
+    //向地图添加控件
+    map.addControl(new BMap.NavigationControl());
+    map.addControl(new BMap.ScaleControl());
+    map.addControl(new BMap.OverviewMapControl());
+
+	var icon = new BMap.Icon('__STATIC__/images/pin.png', new BMap.Size(40, 40), {
+		anchor: new BMap.Size(10, 40)
+	});
+	var marker=new BMap.Marker(point,{icon:icon});
+    map.addOverlay(marker);
+    marker.enableDragging();
+  
+    marker.addEventListener("dragend",function(e){
+      setLngAndLat(e.point.lng,e.point.lat);
+    });
+
+    map.addEventListener("click",function(e){ 
+    	marker.setPosition(new BMap.Point(e.point.lng,e.point.lat));
+    	setLngAndLat(e.point.lng,e.point.lat);
+    });
+   
+    var opts2={width:50,height:25,title:"系统提示您："};
+    var infoWindow=new BMap.InfoWindow("拖动该标注，选取位置",opts2);
+    map.openInfoWindow(infoWindow,map.getCenter());
+		
+    function setPos(pos){
+    	var pos = document.getElementById("address").value;
+    	 var local=new BMap.LocalSearch(map,{
+    	 renderOptions:{map:map,panel:"results"}
+    	 });
+    	 local.search(pos);
+	}
+
+	function setLngAndLat(lng,lat){
+		$('#jingdu').html('已经选取['+lng+'，'+lat+']');
+	    $('#store_jd').val(lng);
+	    $('#store_wd').val(lat);
+	}
+	// 返回值到父页面
+	function returnname(){
+
+		var jd = window.opener.document.getElementById("store_jd"); //隐藏域经度的值
+		var wd = window.opener.document.getElementById("store_wd");	//隐藏域纬度放的值
+		var mapvalue = window.opener.document.getElementById("mapvalue");
+		jd.value = $('#store_jd').val();
+		wd.value = $('#store_wd').val();
+		
+		window.close();
+
+	}
+</script>  
+</body>
+</html>

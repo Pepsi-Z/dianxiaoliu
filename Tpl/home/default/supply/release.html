@@ -1,0 +1,115 @@
+﻿<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>供求信息平台</title>
+    <link href="../Style/static/css/reset1.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/head.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/yy.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../Style/static/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../Style/static/js/lrz.mobile.min.js"></script>
+    <script type="text/javascript" src="../Style/static/js/common.js"></script>
+</head>
+<body class="recipientaddress_bgcolor">
+<div>
+    <form id="formId" action="{:U('Supply/release')}" method="post">
+	<div class="yy-Release-list">
+    	<h1>产品图片</h1>
+        <ul>
+        	<label><li class="fl" <if condition="$supply_img['0']['url'] neq ''">style='background-image:url("./data/upload/supply/{$supply_img['0']['url']}");'</if>><input type="file" data-id="{$supply_img['0']['id']}"><input type="hidden" name="imgid[]"></li></label>
+        	<label><li class="fl" <if condition="$supply_img[1]['url'] neq ''">style='background-image:url("./data/upload/supply/{$supply_img[1]['url']}");'</if>><input type="file" data-id="{$supply_img['1']['id']}"><input type="hidden" name="imgid[]"></li></label>
+        	<label><li class="fl" <if condition="$supply_img[2]['url'] neq ''">style='background-image:url("./data/upload/supply/{$supply_img[2]['url']}");'</if>><input type="file" data-id="{$supply_img['2']['id']}"><input type="hidden" name="imgid[]"></li></label>
+        	<label><li class="fl" <if condition="$supply_img[3]['url'] neq ''">style='background-image:url("./data/upload/supply/{$supply_img[3]['url']}");'</if>><input type="file" data-id="{$supply_img['3']['id']}"><input type="hidden" name="imgid[]"> </li></label>
+        	<label><li class="fl" <if condition="$supply_img[4]['url'] neq ''">style='background-image:url("./data/upload/supply/{$supply_img[4]['url']}");'</if>><input type="file" data-id="{$supply_img['4']['id']}"><input type="hidden" name="imgid[]"></li></label>
+        	<label><li class="fl" <if condition="$supply_img[5]['url'] neq ''">style='background-image:url("./data/upload/supply/{$supply_img[5]['url']}");'</if>><input type="file" data-id="{$supply_img['5']['id']}"><input type="hidden" name="imgid[]"></li></label>
+        </ul>
+    </div>
+    <p class="yy-ts"><span>*</span>最多能上传6张图片</p>
+	<div class="yy-Release-list">
+    	<h1>产品名称（不允许报价）</h1>
+        <div><input type="text" name="name" placeholder="请输入产品名称" value="{$info.name}"></div>
+    </div>
+    <p class="yy-ts"><span>*</span>请正确填写产品名称，不允许报价</p>
+	<div class="yy-Release-list1">
+    	<span class="fl">数量</span>
+        <div class="fl"><input name="num" value="{$info.num}" type="text" placeholder="请输入产品数量" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9]/g,'')"></div>
+    </div>
+	<div class="yy-Release-list1">
+    	<span class="fl">类型</span>
+        <ul class="fl">
+        	<label><li class="fl"><input type="radio" class="fl" name="type" checked value="1" <if condition="$info['type'] eq '1'">checked</if>>供应</li></label>
+        	<label><li class="fl"><input type="radio" class="fl" name="type" value="2" <if condition="$info['type'] eq '2'">checked</if>>求购</li></label>
+        </ul>
+    </div>
+	<div class="yy-Release-list1">
+    	<span class="fl">分类</span>
+        <div class="fl">
+        	<span class="yy-Release-wai">
+            	<span class="yy-Release-nei">
+                	<select id="pid" name="pid">
+                    	<option value="">请选择分类</option>
+                        <volist name="cate_list" id="val">
+                            <option value="{$val.id}" <if condition="$val['id'] eq $info['pid']">selected</if>>{$val.name}</option>
+                        </volist>
+                    </select>
+                </span>
+            </span>
+        </div>
+    </div>
+    <div class="yy-Release-list1">
+            <span class="fl">品牌</span>
+            <div class="fl">
+        	<span class="yy-Release-wai">
+            	<span class="yy-Release-nei">
+                    <select name="cid" id="cid">
+                        <option value="">请选择品牌</option>
+                        <volist name="cate" id="val">
+                            <option value="{$val.id}" <if condition="$val['id'] eq $info['cid']">selected</if>>{$val.name}</option>
+                        </volist>
+                    </select>
+                </span>
+            </span>
+            </div>
+        </div>
+	<div class="yy-Release-list2">
+    	<h1>产品简介</h1>
+        <div>
+        	<textarea name="info">{$info.info}</textarea>
+        </div>
+    </div>
+	<div class="yy-Release-list">
+    	<h1>联系人:{$user.username}</h1>
+        <input type="hidden" name="contact"  value="{$user.username}" >
+    </div>
+	<div class="yy-Release-list yy-last">
+    	<!--<h1>联系方式</h1>-->
+         <h1>电话：{$user.mobile}</h1>
+        <h1>微信：{$user.weixin}</h1>
+        <input type="hidden" name="weixin" value="{$user.weixin}">
+        <input type="hidden" name="mobile" value="{$user.mobile}">
+        <!--<div class="yy-Release-list -last"><input type="text" name="weixin" value="{$user.weixin}" placeholder="微信"></div>-->
+
+        <div class="c_checkbox"><label>
+            <input type="checkbox"  name="roles" value="1" checked>
+            <a href="{:U('Supply/roles')}">查看并同意本平台用户协议</a></label></div>
+    </div>
+        <div style="height: 30px;"></div>
+    <div class="yy-wyfb-btn">
+        <input type="hidden" name="id" value="{$info.id}">
+    	<input type="submit" value="发布">
+    </div>
+        <input type="hidden" value="{$user.id}" name="uid">
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+    $(function(){
+        fn.release({
+            postUrl:"{:u('Supply/ajax_get_brand')}",
+            imgUploadUrl:"{:U('Supply/ajax_upload')}"
+        });
+    });
+</script>

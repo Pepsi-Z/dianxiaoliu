@@ -1,0 +1,367 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>代购</title>
+    <include file="public:header" />
+    <style>
+        a{color: #666;}
+        header .col-xs-10 > div input {
+            color: #000000;
+        }
+
+    </style>
+</head>
+<body class="wxhbgcolor_grey wxh_height">
+<!------头部开始--------->
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2"><a href="javascript:history.go(-1)"><span
+                    class="glyphicon glyphicon-menu-left"></span></a></div>
+            <form action="{:U('Index/search')}" method="post">
+                <div class="col-xs-10">
+                    <div>
+                        <input type="text" name="keyword" value="{$search.keyword}" placeholder="商品搜索关键字" class="pull-left wfont12"/>
+                        <button type="submit" class="btn btn-default pull-right"><span class="wxh_search"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+<!------头部结束--------->
+<!------主体开始--------->
+<section>
+    <!--tab菜单-->
+    <div class="container">
+        <div class="row wxh_tab">
+            <div class="col-xs-3" id="shopLeft">
+                <ul class="nav nav-tabs wxh_dropdown tabBar" role="tablist">
+                    <volist name="cate_list" id="val" >
+                        <li role="presentation" <if condition="$key eq 0" >class="active"</if>>
+                        <dl>
+                            <dt >
+                                <if condition="$val.cate neq ''">
+                                    {$val.name}
+                                    <else/>
+                                    <a href="javascript:;" <if condition="$val['ticket'] eq 0 ">class="merchant"<else/>class="ticket"</if>ticket="{$val.ticket}" t_name="{$val.name}" bid="{$val.id}" type="1" aria-controls="home" role="tab" data-toggle="tab"> {$val.name}</a>
+                                </if>
+                            </dt>
+                            <volist name="val['cate']" id="va">
+                                <dd><a class="merchant_cate"  href="javascript:;" bid="{$va['id']}" pid="{$val['id']}" type="2" >{$va.name}</a></dd>
+                            </volist>
+
+                        </dl>
+                        </li>
+                    </volist>
+
+                </ul>
+            </div>
+
+
+            <div class="col-xs-9 wxh_disbottom_lastdiv" id="shopRight" code="<php>$code = mt_rand(0,1000000);echo $code;</php>">
+                <div class="tab-content">
+                    <!--超市百货---->
+                    <div role="tabpanel" class="tab-pane  active" id="home">
+                        <div class="col-xs-12 wxh_agencyhouse_box" id="m_merchant">
+                            <volist name="merchant_list" id="v">
+                                <div class="media bgcolor_whitewxh">
+                                    <a class="pull-left" href="{:U('Item/item_merchant_cate',array('id'=>$v['id'],'qisong'=>$v['qisong'],'peisong'=>$v['peisong'],'min'=>$v['min'],'leixing'=>2))}">
+                                        <img class="media-object" src="{:attach(get_thumb($v['img'], '_s'), 'merchant')}">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading wfont14 color333"><a href="{:U('Item/item_merchant_cate',array('id'=>$v['id'],'qisong'=>$v['qisong'],'peisong'=>$v['peisong'],'min'=>$v['min'],'leixing'=>2))}" class="color333">{$v.title}</a>
+                                        </h4>
+
+                                        <div>
+                                            <i id="wxh-star{$v.id}"></i>
+                                            <script>
+                                                $("#wxh-star{$v.id}").raty({
+                                                    start: "{$v.level}",
+                                                    readOnly: true,
+                                                    path:"__STATIC__/js/jquery.raty-0.5/img/"
+                                                })
+                                            </script>
+                                            <span class="pull-right wfont12 color666 text-right">销量<span>{$v.yuexiao}</span>份</span>
+                                        </div>
+                                        <div class="wxh_media_bodylast">
+                                                <span class="wfont12 color666">
+                                                    <span>{$v.qisong}</span>元起送/配送费<span>{$v.peisong}</span>元/<span>{$v.min}</span>米
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </volist>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!------主体结束--------->
+<!-----footer开始-------->
+<include file="public:footers" />
+<!-----footer结束-------->
+<script>
+    //主菜单
+    $(".merchant").click(function(e){
+        var id = $(this).attr('bid');
+        var type = $(this).attr('type');
+        var name= $(this).attr('t_name');
+        $('#m_merchant').html('');  //清空
+        $.ajax({
+            type: "post",
+            url: "{:U('Item/item_merchant')}",
+            data: {id: id,type:type},
+            dataType: "json",
+            success: function (data) {
+                var news_html = "";
+                if(name == '代缴' || name == '充值'){
+                    if(data){
+                        $.each(data,function(i,v){
+                            var id= v.id;
+                            var img = v.img;
+                            news_html +=  "<div class=\"media  bgcolor_whitewxh\">"+
+                            "<a class=\"pull-left tishi \" href=\"{:U('Item/buy_shopping_content',array('id'=>'"+id+"'))}\">"+
+                            "<img class=\"media-object\" src=\"{:attach(get_thumb('"+img+"', '_m'),'merchant')}\"></a>"+
+                            "<div class=\"media-body\">"+
+                            "<h4 class=\"media-heading wfont14 color333 tishi \"><a href=\"{:U('Item/buy_shopping_content',array('id'=>'"+id+"'))}\" class=\"color333\">"+ v.title+"</a></h4><div>"+
+                            "<i id=\"wxh-star"+ v.id+"\"></i>"+
+                            "<script>$(\"#wxh-star"+ v.id+"\").raty({start:\""+ v.level+"\", readOnly:true, path:\"__STATIC__/js/jquery.raty-0.5/img/\" })<\/script>"+
+                            "<span class=\"pull-right wfont12 color666\">销量<span>"+v.yuexiao+"</span>份</span></div>"+
+                            "<p class=\"c_dj_p\">费用："+v.qisong+"元 "+v.peisong+"元/次</p>"+
+                            "<p class=\"c_dj_p\">费用："+v.min+"元 "+v.over+"元/次</p>"+
+                            "</div></div>"
+                        });
+                    }else{
+                        news_html +=  "<div class=\"media  bgcolor_whitewxh\">暂无数据</div>";
+                    }
+                }else{
+                    if(data){
+                        $.each(data,function(i,v){
+
+                            var img = v.img;
+                            if(v.qisong){
+                                news_html +=  "<div class=\"media  bgcolor_whitewxh\">"+
+                                "<a class=\"pull-left\" href=\"{:U('Item/item_merchant_cate',array('id'=>'"+v.id+"','qisong'=>'"+v.qisong+"','peisong'=>'"+v.peisong+"','min'=>'"+v.min+"','leixing'=>'"+2+"'))}\">"+
+                                "<img class=\"media-object\" src=\"{:attach(get_thumb('"+img+"', '_m'),'merchant')}\"></a>"+
+                                "<div class=\"media-body\">"+
+                                "<h4 class=\"media-heading wfont14 color333\"><a href=\"{:U('Item/item_merchant_cate',array('id'=>'"+v.id+"','qisong'=>'"+v.qisong+"','peisong'=>'"+v.peisong+"','min'=>'"+v.min+"','leixing'=>'"+2+"'))}\" class=\"color333\">"+ v.title+"</a></h4><div>"+
+                                "<i id=\"wxh-star"+ v.id+"\"></i>"+
+                                "<script>$(\"#wxh-star"+ v.id+"\").raty({start:\""+ v.level+"\", readOnly:true, path:\"__STATIC__/js/jquery.raty-0.5/img/\" })<\/script>"+
+                                "<span class=\"pull-right wfont12 color666  text-right\">销量<span>"+v.yuexiao+"</span>份</span></div>"+
+                                "<div class=\"wxh_media_bodylast\">"+
+                                "<span class=\"wfont12 color666\"><span>"+ v.qisong+"</span>元起送/配送费<span>"+ v.peisong+"</span>元/<span>"+ v.min+"</span>米</span>"+
+                                "</div></div></div>"
+
+                            }else{
+                                news_html +=  "<div class=\"media  bgcolor_whitewxh\">"+
+                                "<a class=\"pull-left\" href=\"{:U('Item/item_merchant_cate',array('id'=>'"+v.id+"','qisong'=>'"+v.qisong+"','peisong'=>'"+v.peisong+"','min'=>'"+v.min+"','leixing'=>'"+2+"'))}\">"+
+                                "<img class=\"media-object\" src=\"{:attach(get_thumb('"+img+"', '_m'),'merchant')}\"></a>"+
+                                "<div class=\"media-body\">"+
+                                "<h4 class=\"media-heading wfont14 color333\"><a href=\"{:U('Item/item_merchant_cate',array('id'=>'"+v.id+"','qisong'=>'"+v.qisong+"','peisong'=>'"+v.peisong+"','min'=>'"+v.min+"','leixing'=>'"+2+"'))}\" class=\"color333\">"+ v.title+"</a></h4><div>"+
+                                "<i id=\"wxh-star"+ v.id+"\"></i>"+
+                                "<script>$(\"#wxh-star"+ v.id+"\").raty({start:\""+ v.level+"\", readOnly:true, path:\"__STATIC__/js/jquery.raty-0.5/img/\" })<\/script>"+
+                                "<span class=\"pull-right wfont12 color666  text-right\">销量<span>"+v.yuexiao+"</span>份</span></div>"+
+                                "<div class=\"wxh_media_bodylast\">"+
+                                "</div></div></div>"
+                            }
+
+                        });
+                    }else{
+                        news_html +=  "<div class=\"media  bgcolor_whitewxh\">暂无数据</div>";
+                    }
+
+                }
+                $('#m_merchant').append(news_html);
+
+
+
+            }
+
+        });
+
+    });
+
+    $('.ticket').click(function(){
+        $('#m_merchant').html('');  //清空
+        var name= $(this).attr('t_name');
+        var code= $('#shopRight').attr('code');
+
+        if(name == '火车票'){
+            var p_type=  1;
+        }else if(name == '飞机票'){
+            var p_type=  2;
+        }else{
+            var p_type=  3;
+        }
+        var news_html = '';
+        var url = "{:U('Item/item_station')}";
+        var fw_price ="{:C('pin_station_price')}";  //购票服务费
+        var k_moblie = "{:C('pin_site_tel')}";
+            news_html += "<div role=\"tabpanel\" class=\"tab-pane wxh_shop_box\" id=\"Seven\">"+
+                        "<div class=\"col-xs-12 wxh_agencyhouse_box bgcolor_whitewxh\">"+
+                        "<h4 class=\"text-center\">"+name+"</h4>"+
+                        "<form action=\""+url+"\" method=\"post\" class=\"form-horizontal\" role=\"form\" id=\"form2\">"+
+                        "<div class=\"form-group\">"+
+                        "<label for=\"inputRecharge1\" class=\"col-xs-4 control-label\">出&nbsp;发&nbsp;站：</label>"+
+                        "<div class=\"col-xs-8\">"+
+                        "<input type=\"text\" name=\"c_station\" class=\"form-control\" id=\"inputRecharge1\" placeholder=\"十堰\">"+
+                        "</div></div><div class=\"form-group\">"+
+                        "<label for=\"inputend2\"class=\"col-xs-4 control-label\">到&nbsp;达&nbsp;站：</label><div class=\"col-xs-8\">"+
+                        "<input type=\"text\" name=\"d_station\" class=\"form-control\" id=\"inputend2\" placeholder=\"武汉\">"+
+                        "</div></div><div class=\"form-group\"><label class=\"col-xs-4 control-label\">出发日期：</label>"+
+                        "<div class=\"col-xs-8\">"+
+                        "<input class=\"form-control\" id=\"inputRecharge3\" placeholder=\"2015-05-04\" type=\"datetime-local\" name=\"c_time\" />"+
+                        "<span class=\"caret\"></span></div></div><div class=\"form-group\">"+
+                        "<label for=\"input3\" class=\"col-xs-4 control-label\">数&nbsp;&nbsp;&nbsp;&nbsp;量：</label>"+
+                        "<div class=\"col-xs-8\">"+
+                        "<input id=\"num\" type=\"text\" name=\"num\" class=\"form-control\" id=\"input3\" placeholder=\"1\">"+
+                        "</div></div><div class=\"form-group\">"+
+                        "<label class=\"col-xs-12\"><p class=\"wxh_pdisbottom\">服务费用：<span id=\"fp\">"+fw_price+"</span><span id=\"danwei\">元/张</span></p></label>"+
+                        "</div><div class=\"form-group\"><p class=\"text-center\">凡事帮客服电话：</p>"+
+                        "<input type=\"hidden\" name=\"p_type\" value="+p_type+">"+
+                        "<input id=\"sss_price\" type=\"hidden\" name=\"price\"  value="+fw_price+">"+
+                        "<input type=\"hidden\" name=\"p_name\" value="+name+">"+
+                        "<input type=\"hidden\" name=\"code\" value="+code+">"+
+                        "<p class=\"text-center\"><a href=\"Tel："+k_moblie+"\">"+k_moblie+"</a></p>"+
+                        "</div><div class=\"form-group\"><div class=\"col-xs-12\">"+
+                        "<button type=\"button\" class=\"btn btn-default btn-block\" id=\"tijiao\">下一步</button>"+
+                        "</div></div></form></div></div>";
+        $('#m_merchant').append(news_html);
+
+        $("#num").blur(function(){
+            var num = $(this).val();
+            var fw_price ="{:C('pin_station_price')}";  //购票服务费
+            $('#fp').html('');
+            $('#fp').append(num*fw_price);
+            $('#sss_price').val(num*fw_price);
+            $('#danwei').html('');
+            $('#danwei').html('元');
+        });
+        $("#tijiao").click(function(e){
+            var inputRecharge1  = $('#inputRecharge1').val(); //始发站
+            var inputend2       = $('#inputend2').val(); //终点站
+            var inputRecharge3  = $('#inputRecharge3').val(); //出发日期
+            var input3          = $('#input3').val(); //数量
+            if(inputRecharge1 == ''){
+                layer.msg('始发站不能为空');
+                return false;
+            }
+
+            if($('#inputend2').val() == ''){
+                layer.msg('终点站不能为空');
+                return false;
+            }
+
+            if($('#inputRecharge3').val() == ''){
+                layer.msg('出发日期不能为空');
+                return false;
+            }
+
+            if($('#input3').val() == ''){
+                layer.msg('数量不能为空');
+                return false;
+            }
+
+            var login = "{$_SESSION['user']}";
+            var login_url = "{:U('Member/login')}";
+            if(login){
+                $("#form2").submit();
+            }else{
+                layer.msg('您还没有去登录！！');
+                $(function () {
+                    setTimeout(function(){window.location=login_url;},1000);
+                })
+
+            }
+
+
+
+        });
+
+    });
+
+
+</script>
+<script>
+    $(function() {
+        //分类
+        $(".merchant_cate").click(function (e) {
+            var id = $(this).attr('bid');
+            var type = $(this).attr('type');
+            $('#m_merchant').html('');  //清空
+            $.ajax({
+                type: "post",
+                url: "{:U('Item/item_merchant')}",
+                data: {id: id, type: type},
+                dataType: "json",
+                success: function (data) {
+                    var news_html = "";
+                    if (data) {
+                        $.each(data, function (i, v) {
+                            var img = v.img;
+                            news_html += "<div class=\"media  bgcolor_whitewxh\">" +
+                            "<a class=\"pull-left\" href=\"{:U('Item/item_merchant_cate',array('id'=>'" + v.id + "','qisong'=>'" + v.qisong + "','peisong'=>'" + v.peisong + "','min'=>'" + v.min + "','over'=>'" + v.over + "'))}\">" +
+                            "<img class=\"media-object\" src=\"{:attach(get_thumb('" + img + "', '_s'),'merchant')}\"></a>" +
+                            "<div class=\"media-body\">" +
+                            "<h4 class=\"media-heading wfont14 color333\"><a href=\"{:U('Item/item_merchant_cate',array('id'=>'" + v.id + "','qisong'=>'" + v.qisong + "','peisong'=>'" + v.peisong + "','min'=>'" + v.min + "','over'=>'" + v.over + "'))}\" class=\"color333\">" + v.title + "</a></h4><div>" +
+                            "<i id=\"wxh-star" + v.id + "\"></i>" +
+                            "<script>$(\"#wxh-star" + v.id + "\").raty({start:\"" + v.level + "\", readOnly:true, path:\"__STATIC__/js/jquery.raty-0.5/img/\" })<\/script>" +
+                            "<span class=\"pull-right wfont12 color666  text-right\">销量<span>" + v.yuexiao + "</span>份</span></div>" +
+                            "<div class=\"wxh_media_bodylast\">" +
+                            "<span class=\"wfont12 color666\"><span>" + v.qisong + "</span>元起送/配送费<span>" + v.peisong + "</span>元/<span>" + v.min + "</span>米</span>" +
+                            "</div></div></div>"
+                        });
+                    } else {
+                        news_html += "<div class=\"media  bgcolor_whitewxh\">暂无数据</div>";
+                    }
+                    $('#m_merchant').append(news_html);
+
+                }
+
+            });
+
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function(){
+        $(".wxh_dropdown li dd").hide();
+        $(".wxh_dropdown li dt").click(function(){
+            $(this).parent().find('dd').removeClass("menu_chioce1");
+            $(".menu_chioce1").slideUp();
+            $(this).parent().find('dd').slideToggle();
+            $(this).parent().find('dd').addClass("menu_chioce1");
+        });
+    })
+    //tab菜单
+    $(function(){
+        $('.tabBar li').click(function(){
+            $(this).addClass('active').siblings('li').removeClass('active');
+            $('.tabContent:eq('+$(this).index()+')').show().siblings('.tabContent').hide();
+        });});
+</script>
+<script>
+    $(function(){
+        var h=$(window).height();
+        $('body').css('overflow','hidden')
+        $('#shopLeft').css({
+            height:h,
+            overflow:'auto'
+        })
+        $('#shopRight').css({
+            height:h,
+            overflow:'auto'
+        })
+    })
+</script>
+
+</body>
+</html>

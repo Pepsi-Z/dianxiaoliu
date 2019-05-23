@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>评价</title>
+    <include file="public:header" />
+</head>
+<body class="wxh_bggreycolor">
+<div class="container">
+    <form  action="{:U('Order/item_comment')}" method="post" id="from2">
+    <div class="row">
+        <div class="col-xs-12 wxh_Comment">
+            <div class="wxh_score">
+                <div>
+                    <span class="wxh_666color">给店铺评分：</span>
+                    <span id="starcomment"></span>
+                </div>
+            </div>
+
+                <div class="form-group">
+                    <php>$code = mt_rand(0,1000000);</php>
+                    <input type="hidden" name="code" value="{$code}"/>
+                    <input type="hidden" name="order_id" value="{$_GET['id']}"/>
+                    <textarea  id="text" name="info" class="form-control" rows="4" placeholder="请输入评价内容"></textarea>
+                </div>
+
+                <div class="form-group wxh_btn_release">
+                    <a href="#">
+                        <input id="tijiao" type="button" value="发布"/>
+                    </a>
+                </div>
+        </div>
+    </div>
+    </form>
+</div>
+<include file="public:footers" />
+<script>
+    $(function () {
+        $('#starcomment').raty({
+            scoreName:'startcomment',
+            number:5,
+            start:2
+        });
+        $('#starcomment1').raty({
+            scoreName:'startcomment1',
+            number:5,
+            start:2
+        });
+        $('#starcomment2').raty({
+            scoreName:'startcomment2',
+            number:5,
+            start:2
+        });
+        $('#starlp').raty({
+            scoreName:'starlp',
+            number:5,
+            start:2
+        });
+    })
+</script>
+<script>
+    $(function(){
+
+        $("#tijiao").click(function(e){
+            var info  = $('#text').val();
+            if(info == ''){
+                layer.msg('请输入评价内容');
+                return false;
+            }else {
+                $("#from2").submit();
+            }
+        });
+
+    })
+</script>
+</body>
+</html>

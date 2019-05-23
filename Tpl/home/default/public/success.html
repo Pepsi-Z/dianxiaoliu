@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>{:L('message_title')}</title>
+<css file="__STATIC__/css/default/base.css" />
+<css file="__STATIC__/css/default/style.css" />
+<script src="__STATIC__/js/jquery/jquery.js"></script>
+<link href="../style/static/css/reset.css" rel="stylesheet" type="text/css">
+<style>
+		body{ height: 100%;}
+		.promptbox{ margin-top:10%;}
+		h1{ font-weight:normal; color:#000; text-align:center; margin-top:5%;}
+		.prompt{ width:95px; height:93px; display:block; margin:0 auto;}
+	</style>
+<include file="public:headtop" />
+</head>
+<body>
+<include file="public:head" />
+
+<div class="promptbox" style="margin-bottom:20px;">
+		<img src="../Style/static/images/cg_03.png" class="prompt">
+</div>
+<h1>{$message}</h1>
+<p class="msg_btnleft" style="padding-top:20px;padding-left:10px;"><a href="{$jumpUrl}">{:L('msg_jump_desc')}</a></p>
+<script language="javascript">
+   setTimeout("location.href='{$jumpUrl}';",{$waitSecond}*2000);
+</script>
+
+</body>
+</html>

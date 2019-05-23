@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>供求信息平台</title>
+    <link href="../Style/static/css/reset1.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/head.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/yy.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../Style/static/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../Style/static/js/common.js"></script>
+
+</head>
+<style>
+    .yy-tab li{ width:25%;}
+    .yy-fenlei-ul{ width:25%;}
+    .yy-fenlei-ul2{ width:75%; left:25%;}
+    .yy-fenlei-ul_me{
+        width:25%;
+        box-sizing:border-box;
+        border-left:0.1rem solid #d2d2d2;
+        background-color:#fff;
+        position:absolute;
+        top:3.8rem;
+        right:0;
+        z-index:102;
+    }
+    .yy-fenlei-ul_me li a{
+        display:block;
+        width:100%;
+        height:3.4rem;
+        border-bottom:0.1rem solid #d2d2d2;
+        font-size:1.4rem;
+        color:#666;
+        text-align:center;
+        line-height:3.4rem;
+    }
+</style>
+<body class="recipientaddress_bgcolor">
+<div>
+
+        <ul class="yy-tab">
+            <li class="fl"><a href="javascript:;" class="yy-fenlei">分类</a></li>
+            <li class="fl"><a href="javascript:;"><span data-type="1">供应</span></a></li>
+            <li class="fl"><a href="javascript:;"><span data-type="2">求购</span></a></li>
+            <li class="fr"><a href="javascript:;"><span>我的</span></a></li>
+
+        </ul>
+    <div class="yy-fenlei-tab" style="display:none;">
+        <ul class="yy-fenlei-ul">
+            <li data-id="0"><a href="javascript:;">全部</a>
+            <volist name="cate_list" id="val">
+                <li data-id="{$val.id}"><a href="javascript:;">{$val.name}</a></li>
+            </volist>
+        </ul> 
+        <ul class="yy-fenlei-ul2" style="display:none;">
+
+        </ul>
+    </div>
+    <div class="yy-fenlei-tab2" style="display:none;" style="border: 1px solid #ff0003">
+        <ul class="yy-fenlei-ul_me">
+            <li><a href="{:U('Supply/wanshan',array('openid'=>$_GET['openid']))}">我的资料</a></li>
+            <li><a href="{:U('Supply/lists')}">我的发布</a></li>
+        </ul>
+    </div>
+    <ul class="yy-list-g" id="index_list"></ul>
+    <!--all yy-list-g
+    供应 yy-list
+    求购 yy-list-q yy-list-->
+    <div style="height: 30px"></div>
+    <input name="page" type="hidden" value="1">
+    <div class="yy-wyfb-btn">
+    	<a href="{:U('Supply/release')}">我要发布</a>
+    </div>
+    <script >
+        $(function(){
+            fn.index({
+                GetList:"{:u('Supply/ajax_get_brand_li')}",
+                list:"{:u('Supply/ajax_index')}"
+            })
+            $('.yy-tab li:last-child').click(function(){
+                $('.yy-fenlei-tab2').toggle();
+            })
+        })
+    </script>
+
+</div>
+</body>
+</html>

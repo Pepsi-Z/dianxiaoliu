@@ -1,0 +1,126 @@
+<include file="public:header" />
+<!--商品列表-->
+<div class="pad_10" >
+    <form name="searchform" method="get" >
+    <table width="100%" cellspacing="0" class="search_form">
+        <tbody>
+            <tr>
+                <td>
+                <div class="explain_col">
+                    <input type="hidden" name="g" value="admin" />
+                    <input type="hidden" name="m" value="yuyue" />
+                    <input type="hidden" name="a" value="index" />
+                    <input type="hidden" name="menuid" value="{$menuid}" />
+                    &nbsp;&nbsp;订单号 :
+                    <input name="keyword" type="text" class="input-text" size="25" value="{$search.keyword}" />
+                    &nbsp;&nbsp;用户名 :
+                    <input type="text" name="uname" class="input-text" size="12" value="{$search.uname}" />
+                    预约时间 :
+                    <input type="text" name="time_start" id="J_time_start" class="date" size="12" value="{$search.time_start}">
+                    -
+                    <input type="text" name="time_end" id="J_time_end" class="date" size="12" value="{$search.time_end}">
+                    &nbsp;&nbsp;分类 :
+                    <select name="cate_id">
+                        <option value="">--所有--</option>
+                        <volist name="cate" id="val">
+                            <option value="{$val.id}" <if condition="$val['id'] eq $search['cate_id']">selected</if>>{$val.title}</option>
+
+                        </volist>
+                    </select>
+                    &nbsp;&nbsp;状态 :
+                    <select name="status">
+                    <option value="">-{:L('all')}-</option>
+                    <option value="0" <if condition="$search.status eq '0'">selected="selected"</if>>未服务</option>
+                    <option value="1" <if condition="$search.status eq '1'">selected="selected"</if>>已服务</option>
+                    </select>
+                    <input type="submit" name="search" class="btn" value="搜索" />
+                    <div class="bk8"></div>                
+                </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+    <div class="J_tablelist table_list" data-acturi="{:U('yuyue/ajax_edit')}">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width=25><input type="checkbox" id="checkall_t" class="J_checkall"></th>
+                <th width="40"><span data-tdtype="order_by" data-field="id">ID</span></th>
+                <th align="200" align="left"><span data-tdtype="order_by" data-field="title">订单号</span></th>
+                <th width="100"><span data-tdtype="order_by" data-field="uname">会员名</span></th>
+                <th><span data-tdtype="order_by" data-field="item_name">联系电话</span></th>
+                <th width="60"><span data-tdtype="order_by" data-field="cate_id">分类</span></th>
+                <th width="120"><span data-tdtype="order_by" data-field="add_time">预约时间</span></th>
+                <th width="60"><span data-tdtype="order_by" data-field="status">是否服务</span></th>
+                <!--<th width="60">留言</th>-->
+                <th width="150">{:L('operations_manage')}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center"><input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.num}</td>
+                <td align="center">{$val.name}</td>
+                <td align="center">{$val.mobile}</td>
+                <td align="center"><b>{$cate_list[$val['cate_id']]}</b></td>
+                <td align="center">{$val.yuyue_time|date='Y-m-d ',###}</td>
+                <td align="center">
+                <img data-tdtype="toggle" data-id="{$val.id}" data-field="status" data-value="{$val.status}" src="__STATIC__/images/admin/toggle_<if condition="$val.status eq 0">disabled<else/>enabled</if>.gif" />
+                </td>
+                <!--<td align="center">{$val.message}</td>-->
+                <!--<td align="center"><a href="{:u('score_order/edit', array('id'=>$val['id'], 'menuid'=>$menuid))}">处理</a> | <a href="javascript:void(0);" class="J_confirmurl" data-uri="{:u('score_order/delete', array('id'=>$val['id']))}" data-acttype="ajax" data-msg="{:sprintf(L('confirm_delete_one'),$val['title'])}">{:L('delete')}</a></td>-->
+                <td align="center"><a href="javascript:;" class="look" data="{$val.id}">查看</a> |
+                <a href="javascript:;" class="J_showdialog"  data-uri="{:u('yuyue/edit', array('id'=>$val['id'], 'menuid'=>$menuid))}" data-title="处理 - {$val.num}"  data-id="edit" data-acttype="ajax" data-width="350" data-height="210">处理</a>
+                    | <a href="javascript:;" class="J_showdialog"  data-uri="{:u('yuyue/sendmsg', array('id'=>$val['id'], 'menuid'=>$menuid))}" data-title="给{$val.name}发消息"  data-id="edit" data-acttype="ajax" data-width="400" data-height="210">发消息</a>
+                </td>
+            </tr>
+                <tr id="tr_{$val.id}" style="display: none">
+                    <td colspan="9">
+                    
+                                                    留言：<if condition="$val.message neq ''"> {$val.message}<else/>无</if>
+                                                    
+                    <br>
+                    
+                                                       备注：<if condition="$val.note neq ''">{$val.note}<else/>无</if>
+                    </td>
+                </tr>
+            </volist>
+        </tbody>
+    </table>
+    </div>
+    <div class="btn_wrap_fixed">
+        <label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+        <input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('yuyue/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
+        <div id="pages">{$page}</div>
+    </div>
+</div>
+<include file="public:footer" />
+<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+<script>
+    $(function(){
+       $('.look').click(function(){
+           var id = $(this).attr('data');
+           $('#tr_'+id).toggle();
+       })
+    });
+</script>
+<script>
+Calendar.setup({
+    inputField : "J_time_start",
+    ifFormat   : "%Y-%m-%d",
+    showsTime  : false,
+    timeFormat : "24"
+});
+Calendar.setup({
+    inputField : "J_time_end",
+    ifFormat   : "%Y-%m-%d",
+    showsTime  : false,
+    timeFormat : "24"
+});
+</script>
+</body>
+</html>

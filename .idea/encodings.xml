@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/Tpl/admin/default/cardnumber" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/admin/default/cardtype" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/admin/default/cash" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/admin/default/rule" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/home/default/Member/activation_member.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/home/default/Member/activation_member1.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/home/default/Member/add_member.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/home/default/Member/card_number.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/home/default/Member/edit_password.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/home/default/Member/login.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/home/default/Member/password.html" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Tpl/manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Action/admin/cardnumberAction.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Action/admin/cardtypeAction.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Action/admin/cashAction.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Action/admin/ruleAction.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Action/home/MemberAction.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Action/manage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Model/cardnumberModel.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/Lib/Model/cardtypeModel.class.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/manage.php" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/css/home/head.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/css/home/lxt_main.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/css/home/reset.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/js/jquery-2.1.4.min.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/js/layer.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/js/layey_main.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/js/swiper3.1.0.jquery.min.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/static/js/swiper3.1.0.min.css" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,51 @@
+/*公共样式*/
+@import url("font-awesome.css");
+/*头部*/
+header{ position:fixed; top:0; z-index:1003; width:100%; height:43.5px; line-height:43.5px; background-color:#e4007f;}
+header>div{ height:43.5px; line-height:43.5px;}
+header .glyphicon-menu-left{ color:#fff; font-size:18px; vertical-align:middle; font-weight:normal;}
+header .col-xs-2 a{ color:#fff; text-decoration:none;}
+header .glyphicon-menu-down{ padding-left:3px;}
+header .col-xs-2{ margin:0 auto; padding:0;text-align:center;}
+header .col-xs-2 span{ text-align:center; margin:0 auto;}
+header>div a{ font-size:12px; display:block; width:100%; color:#fff;}
+.share{ display:block; width:100%; height:43.5px; background:url(../images/share_wxh.png) no-repeat center center; background-size:17.5px 16px;}
+.search{ display:block; width:100%; height:43.5px; background:url(../images/search_index.png) no-repeat center center; background-size:15px;}
+.col-xs-8{ color:#fff;}
+/*-分享layer*/
+.bg_white .panel{width:100%;position:fixed !important; bottom:0 !important; z-index:1004; background-color:#fff; margin:0; border-radius:0; font-family:"黑体";}
+.bg_white .panel-heading{height:auto; overflow:hidden; padding:5px 15px;}
+.bg_white .panel-heading span{font-size:14px; line-height:30px; color:#999;}
+.bg_white .panel .panel-body{padding:15px 0;}
+.bg_white .panel .panel-body ul{padding:15px 0;}
+.bg_white .panel .panel-body ul li{ list-style:none;}
+.bg_white .panel .panel-body ul img{width:50px; height:50px;}
+.bg_white .panel .panel-body ul  .col-xs-3 a{ display:block; width:100%;color:#666; font-size:10px; text-align:center; line-height:40px; text-decoration:none;}
+.bg_white .panel-footer{height:auto; overflow:hidden; padding:0;}
+.bg_white .panel-footer .btn{border:none; border-radius:0; line-height:30px;}
+/*内容部分*/
+section{ margin:43.5px auto 46.5px auto;}
+/*尾部*/
+footer{ width:100%; position:fixed; bottom:0; z-index:1003;height:46.5px; line-height:46.5px; border-top:1px solid #bebebe; background-color:#fff;}
+footer  ul{ height:46.5px; line-height:46.5px;}
+footer  ul li{ width:20%; float:left; text-align:center;}
+footer  ul li a{ padding:0 !important;  padding-top:5px !important; border-radius:0;}
+footer  ul li a i{ display:block; width:17px; height:17px; margin:0 auto; background-repeat:no-repeat;}
+footer  ul li:first-child a i{ background:url(../images/footer0.png) no-repeat; background-size:100%;}
+footer  ul li:first-child.activeli a i,
+footer  ul li:first-child:hover a i{ background:url(../images/footer0_active0.png) no-repeat; background-size:100%;}
+footer  ul li:hover p{color:#f10582;}
+footer  ul .activeli p{ color:#f10582;}
+footer  ul li:nth-child(2) a i{ background:url(../images/footer1.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(2).activeli a i,
+footer  ul li:nth-child(2):hover a i{ background:url(../images/footer1_active1.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(3) a i{ background:url(../images/footer2.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(3).activeli a i,
+footer  ul li:nth-child(3):hover a i{ background:url(../images/footer2_active2.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(4) a i{ background:url(../images/footer3.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(4).activeli a i,
+footer  ul li:nth-child(4):hover a i{ background:url(../images/footer3_active3.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(5) a i{ background:url(../images/footer4.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(5).activeli a i,
+footer  ul li:nth-child(5):hover a i{ background:url(../images/footer4_active4.png) no-repeat; background-size:100%;}
+footer  ul li a p{ font-size:12px; margin-top:3px; color:#666;}

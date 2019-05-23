@@ -1,0 +1,150 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>个人资料</title>
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+
+<script src="__STATIC__/js/jquery.js" type="text/javascript" ></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript" ></script>
+<script type="text/javascript">
+
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: '<?php echo APPID_INDEX; ?>', // 必填，公众号的唯一标识
+            timestamp: '{$wx_data.timestamp}', // 必填，生成签名的时间戳
+            nonceStr: '{$wx_data.nonceStr}', // 必填，生成签名的随机串
+            signature: '{$wx_data.signature}', // 必填，签名，见附录1
+            jsApiList: [
+                'checkJsApi',
+                'onMenuShareTimeline',
+                'onMenuShareAppMessage',
+                'onMenuShareQQ',
+                'onMenuShareWeibo',
+                'hideMenuItems',
+                'showMenuItems',
+                'hideAllNonBaseMenuItem',
+                'showAllNonBaseMenuItem',
+                'translateVoice',
+                'startRecord',
+                'stopRecord',
+                'onRecordEnd',
+                'playVoice',
+                'pauseVoice',
+                'stopVoice',
+                'uploadVoice',
+                'downloadVoice',
+                'chooseImage',
+                'previewImage',
+                'uploadImage',
+                'downloadImage',
+                'getNetworkType',
+                'openLocation',
+                'getLocation',
+                'hideOptionMenu',
+                'showOptionMenu',
+                'closeWindow',
+                'scanQRCode',
+                'chooseWXPay',
+                'openProductSpecificView',
+                'addCard',
+                'chooseCard',
+                'openCard'
+            ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+        var upload = function(img, num, id) {
+            if (img.length < num + 1) {
+                $('#' + id + ' img').attr("src", "../Style/static/images/icon17.png");
+                return;
+            }
+            var file = img[num];
+
+            setTimeout(function() {
+                wx.uploadImage({
+                    localId: file,
+                    isShowProgressTips: 1, // 默认为1，显示进度提示
+                    success: function(res) {
+            		
+                       upload_imgurl(res.serverId); 
+                    },
+                    fail: function(res) {
+                        alert(JSON.stringify(res));
+                    }
+                });
+            }, 200)
+        }
+
+        wx.ready(function() {
+            var images = {
+                localId: [],
+                serverId: []
+            };
+            document.querySelector('#tx').onclick = function() {
+                wx.chooseImage({
+                    success: function(res) {
+                        var imgs = res.localIds;
+                        
+                        upload(imgs, 0, 'tx');
+                    }
+                });
+            };
+
+        });
+        
+        function upload_imgurl(serverId){
+            var url = "{:U('User/download_img')}&serverId="+serverId;
+            $.post(url,null,function(data){
+                    if(data.state == 0){
+                         alert("上传失败");
+                    }else{
+                        $("#person_img").attr("src",data.imgurl);
+                    }
+            },'json');	
+        }
+</script>
+</head>
+<body style=" background:#eeeeee;">
+<form action="{:U('Supply/wanshan',array('status'=>1))}" method="post">
+<div class="tjsldz_top">
+    <div class="tjsldzleft">
+    <a href="javascript:void();" id="tx">
+	    <if condition="$user_info[cover] eq ''">
+	    	<img  src="../Style/static/images/icon17.png" id="person_img"/>
+	    <else />
+	    	<img src="{$user_info.cover}" id="person_img"/>
+	    </if>
+    </a>
+    <input name="tx_input" type="hidden" id="tx_input"/>
+    </div>
+    <div class="tjsldzright"><if condition="user_info eq ''">姓名<else/>{$user_info.username}</if><notempty name="user_info">[{$user_info['lel']}]</notempty><br>积分：<if condition="$user_info['score'] eq 0">0<else/>{$user_info['score']}</if>分<br>等级：V<if condition="$user_info eq ''">0<else/>{$user_info['level']}</if></div>
+</div>
+        
+            <div class="ws_main">
+                <ul>
+                    <li><span>用户姓名：</span><input name="username" value="{$user_info.username}" type="text" /><a href="javascript:;"></a></li>
+                    <!--<li><span>会员卡号：</span>{$user_info.email}<a href="javascript:;"></a></li>-->
+                    <li><span>手机号：</span><input name="mobile" value="{$user_info.mobile}"  type="text" /><a href="javascript:;"></a></li>
+                    <li><span>微信号：</span><input name="weixin" value="{$user_info.weixin}"  type="text" /><a href="javascript:;"></a></li>
+
+                    <!--<li><span>推荐人电话：</span>-->
+                    <!--<input name="umobile" <if condition="$user_info.umobile neq ''">readonly="readonly"</if> value="{$user_info.umobile}" type="text" />-->
+                    <!--<a href="javascript:;"></a></li>-->
+                    <li><span>性别：</span><label><input type="radio" name="gender" value="1" <if condition="$user_info.gender neq '0'">checked</if>> 男</label><label><input type="radio" name="gender" value="0" <if condition="$user_info.gender eq '0'">checked</if>> 女</label></li>
+                </ul>
+                <input type="hidden" name="id" value="{$user_info.id}">
+                <div class="ws_btn">
+                    <a href="{:U('Supply/index')}"><button type="button">取消</button></a><button type="submit">确定</button>
+                </div>
+            </div>
+            <if condition="$user_info['openid'] neq ''">
+                <input type="hidden" name="openid" value="{$user_info.openid}">
+                <else/>
+            <input type="hidden" name="openid" value="{$_GET['openid']}">
+            </if>
+
+</form> 
+</body>
+</html>

@@ -1,0 +1,57 @@
+<include file="public:header" />
+<!--会员列表-->
+<div class="pad_10" >
+    <form name="searchform" method="get" >
+    <table width="100%" cellspacing="0" class="search_form">
+        <tbody>
+            <tr>
+                <td>
+                <div class="explain_col">
+                    <input type="hidden" name="g" value="admin" />
+                    <input type="hidden" name="m" value="account" />
+                    <input type="hidden" name="a" value="index" />
+                    <input type="hidden" name="menuid" value="{$menuid}" />
+                    &nbsp;关键字 :
+                    <input name="keyword" type="text" class="input-text" size="25" value="{$search.keyword}" />
+                    <input type="submit" name="search" class="btn" value="搜索" />
+                </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <div class="J_tablelist table_list" >
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="133">ID</th>
+                <th width="268" align="left">用户名</th>
+                <th width="226" align="left">邮箱</th>
+                <th width="210" align="center">帐户余额</th>
+                <th width="236">操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center">{$val.id}</td>
+                <td align="left">{$val.username}</td>
+                <td align="left">{$val.email}</td>
+                <td align="center">{$val.user_account}</td>
+                <td align="center"><a href="{:u('account/chongzhi', array('id'=>$val['id'], 'menuid'=>$menuid))}">人工充值</a> | <a href="#">帐户记录</a></td>
+              </tr>
+            </volist>
+    	</tbody>
+    </table>
+    <div class="btn_wrap_fixed">
+        <div id="pages">{$page}</div>
+    </div>
+
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__STATIC__/js/calendar/calendar.js"></script>

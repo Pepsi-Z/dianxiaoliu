@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>雅间预定</title>
+    <include file="public:header" />
+    <style>
+        .zxy-Film img{max-width:100%;}
+    </style>
+</head>
+<body >
+<section class="margin-z">
+    <div class="container zxy-Film">
+        <div class="row">
+            <div class="col-xs-12 zxy-wire">
+                {:C('pin_city_about')}
+            </div>
+            <!--<div class="col-xs-12">
+              <div class="careful-z">
+                <p>请开映前一个小时编辑微信:</p>
+                <p>“<b>电影+影院+场次+几张票+座位</b>”</p>
+                <p>发送到</p>
+                <p>小六客服微信</p>
+              </div>
+            </div>-->
+        </div>
+    </div>
+</section>
+<div style="height:100px;"></div>
+<footer class="footer-z c_bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 margin-z zxy-Call">
+                <a href="tel:{:C('pin_site_tel')}" class="btn btn-default c_movie"><img src="__STATIC__/css/img/zxy-call.png"> 预定 {:C('pin_site_tel')}</a>
+            </div>
+        </div>
+    </div>
+</footer>
+<include file="public:footers" />
+</body>
+</html>

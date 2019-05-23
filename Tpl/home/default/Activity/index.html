@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>限时优惠</title>
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../Style/static/js/lunbo.js"></script>
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+<style>
+		body{ height: 100%;}
+		.promptbox{ margin-top:10%;}
+		h1{ font-weight:normal; text-align:center; margin-top:5%;}
+		.prompt{ width:95px; height:93px; display:block; margin:0 auto;}
+	</style>
+</head>
+<body style=" background:#eeeeee;">
+<empty name="list">
+<div class="promptbox">
+	<img src="../Style/static/images/cw_03.png" class="prompt">
+</div>
+<h1>限时活动已结束！</h1>
+</empty>
+        <volist name="list" id="val" key="k">
+       
+        <div class="Time_limit">
+        	<if condition="$k%2 neq '0'">
+        	<div class=" right_box fr">
+                <div class="yuan1"></div>
+                <a href="{:U('Item/content',array('id'=>$val['id']))}"><div class="yuan2">&yen;{$val.price}</div></a>
+                <div class="yuan3"></div>
+              <a href="{:U('Item/content',array('id'=>$val['id']))}">  <img src="{:get_img($val[img],'item')}" class="right_img fr" width="100"/></a>
+            </div>
+            <a href="{:U('Item/content',array('id'=>$val['id']))}"><p class="font_p" style="text-align: left;">{$val.title|mb_substr=0,20,'utf-8'|strip_tags}</p> </a>
+            <div><p class=""><span id="divdown{$k}" data-id="{$val.id}"></span></p></div>
+            <input type="hidden" name="{$k}" value="{$val.time}">
+            <else/>
+            <div class="right_div fl">
+            <a href="{:U('Item/content',array('id'=>$val['id']))}"> <img src="{:get_img($val[img],'item')}" class="right_img fl" width="100"/> </a>
+            <a href="{:U('Item/content',array('id'=>$val['id']))}"> <div class="yuan4 fl">&yen;{$val.price}</div> </a>
+            <div class="yuan5 fl"></div>
+            <div class="yuan6 fr"></div>
+            </div>
+        	<div class="right_dis fr">
+           <a href="{:U('Item/content',array('id'=>$val['id']))}"> <p class="font_p">{$val.title|mb_substr=0,20,'utf-8'|strip_tags}</p> </a>
+            <p class="" style='text-align:right;'><span id="divdown{$k}" data-id="{$val.id}"></span></p>
+           
+            </div>
+           
+            <input type="hidden" name="{$k}" value="{$val.time}">
+            </if>
+             
+        </div>
+        
+        </volist>       
+<div style="height:55px;"></div>       
+<include file="public:footer" />
+
+
+<script>
+
+    var interval = 1000;
+    function ShowCountDown(year, month, day, h, min, s, divname)
+    {
+    	
+    	 var cc = document.getElementById(divname);
+    	 var id =$('#'+divname).data('id');
+         var nowTime = $('#'+divname).parent().parent().siblings('input[type=hidden]').val();
+    	 //alert(nowTime)
+         var now = new Date(nowTime * 1000);
+ 		 nowTime++;
+ 		$('#'+divname).parent().parent().siblings('input[type=hidden]').val(nowTime);
+         var endDate = new Date(year, month-1, day, h, min, s);
+         var leftTime = endDate.getTime() - now.getTime();
+         if(leftTime < 0){
+             cc.style.color = "#d2d2d2";
+             cc.innerHTML = "此活动已结束";
+             settime(id);
+             return false;
+         }
+         var leftsecond = parseInt(leftTime / 1000);
+         var day1 = parseInt(leftsecond / (24 * 60 * 60 * 6));
+         var day1 = Math.floor(leftsecond /  (60 * 60 * 24));
+         var hours = Math.floor((leftsecond - day1 * 24 * 60 * 60) / 3600);
+         var hour = day1*24+hours;
+         var minute = Math.floor((leftsecond - day1 * 24 * 60 * 60 - hours * 3600) / 60);
+         var second = Math.floor(leftsecond - day1 * 24 * 60 * 60 - hours * 3600 - minute * 60);        
+         //cc.innerHTML =  day1 + "天" + hour + "小时" + minute + "分" + second + "秒";
+         if(hour.toString().length<2){
+        	 hour = '0'+hour;
+         }
+         if(second.toString().length<2){
+        	 second = '0'+second;
+         }
+         if(second.toString().length<2){
+        	 second = '0'+second;
+         }
+         cc.innerHTML = "<p class=\"time_p\"><span>"+hour+"</span> : <span>"+minute+"</span> : <span>"+second+"</span></p>"
+    }
+    
+
+ window.setInterval(function(){
+     <volist name='list' id='val' key ="k">
+        ShowCountDown({$val.y},{$val.m},{$val.d},{$val.h},{$val.min},{$val.s} ,'divdown{$k}');
+     </volist>
+    }, interval);
+ 
+function settime(id){
+	var url = "{:U('Activity/set')}";
+	$.post(url,{ id : id },function(re){	
+	},'json')
+}
+
+</script>

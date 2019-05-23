@@ -1,0 +1,61 @@
+<include file="public:header" />
+<!--栏目列表-->
+<div class="pad_lr_10">
+    <div class="J_tablelist table_list" data-acturi="{:U('activity/ajax_edit')}">
+    <table width="100%" cellspacing="0" id="J_cate_tree">
+        <thead>
+            <tr>
+                <th width="30"><input type="checkbox" name="checkall" class="J_checkall"></th>
+                <th width="30"><span data-tdtype="order_by" data-field="id">ID</span></th>
+                <th>预约项目</th>
+                <!-- <th>普通会员折扣</th>
+                <th>一星会员折扣</th>
+                <th>二星会员折扣</th>
+                <th>三星会员折扣</th>
+                <th>四星会员折扣</th>
+                <th>五星会员折扣</th>
+                <th>高级客户A折扣</th>
+                <th>高级客户B折扣</th>
+                <th>高级客户C折扣</th> -->
+                <th width="180">{:L('operations_manage')}</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="list" id="val" >
+            <tr>
+                <td align="center"><input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.title}</td>
+                <!--<td align="center"><if condition="$val.discount eq 10">暂无折扣<else/>{$val.discount}折</if></td>
+                <td align="center"><if condition="$val.discount1 eq 10">暂无折扣<else/>{$val.discount1}折</if></td>
+                <td align="center"><if condition="$val.discount2 eq 10">暂无折扣<else/>{$val.discount2}折</if></td>
+                <td align="center"><if condition="$val.discount3 eq 10">暂无折扣<else/>{$val.discount3}折</if></td>
+                <td align="center"><if condition="$val.discount4 eq 10">暂无折扣<else/>{$val.discount4}折</if></td>
+                <td align="center"><if condition="$val.discount5 eq 10">暂无折扣<else/>{$val.discount5}折</if></td>
+                <td align="center"><if condition="$val.discount6 eq 10">暂无折扣<else/>{$val.discount6}折</if></td>
+                <td align="center"><if condition="$val.discount7 eq 10">暂无折扣<else/>{$val.discount7}折</if></td>
+                <td align="center"><if condition="$val.discount8 eq 10">暂无折扣<else/>{$val.discount8}折</if></td> -->
+                <td align="center"><a href="javascript:;" class="J_showdialog" data-uri="{:u('activity/edit', array('id'=>$val['id'], 'menuid'=>$menuid))}" data-title="{:L('edit')} - {$val.name}"  data-id="edit" data-acttype="ajax" data-width="520" data-height="150">{:L('edit')}</a> |
+                    <a href="javascript:void(0);" class="J_confirmurl" data-acttype="ajax" data-uri="{:u('activity/delete', array('id'=>$val['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$val['title'])}">{:L('delete')}</a></td>
+            </tr>
+        </volist>
+    	</tbody>
+    </table>
+    </div>
+    <div class="btn_wrap_fixed">
+        <label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+        <input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('activity/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
+        <div id="pages">{$page}</div>
+    </div>
+</div>
+<include file="public:footer" />
+<script src="__STATIC__/js/jquery/plugins/jquery.treetable.js"></script>
+<script>
+$(function(){
+    //initialState:'expanded'
+    $("#J_cate_tree").treeTable({indent:20,treeColumn:2});
+    $(".J_preview").preview();
+});        
+</script> 
+</body>
+</html>

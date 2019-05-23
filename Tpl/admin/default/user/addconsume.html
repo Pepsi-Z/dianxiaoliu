@@ -1,0 +1,96 @@
+
+<div class="dialog_content">
+<form id="info_form" action="{:u('user/addconsume')}" method="post" enctype="multipart/form-data">
+
+		<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+
+            <tr>
+                <th width="120">商品分类:</th>
+                <td>
+                    <select   id="pid" name="pid">
+                        <option value="">--请选择--</option>
+                        <volist name='item_cate' id='vo' >
+                            <option value="{$vo.id}" >{$vo.name}</option>
+                        </volist>
+                    </select>&nbsp;&nbsp;
+                    <select name="cate_id" id="cid">
+                        <option value="">--请选择品牌--</option>
+                    </select>
+                </td>
+            </tr>
+            <tr id="item" style="display:none">
+                <th width="120">商品 :</th>
+                <td>
+
+                <select name="item_id" id="sid">
+                    <option value="">--请选择--</option>
+                </select>
+            </td></tr>
+            <tr>
+                <th width="120">商品个数 :</th>
+                <td><input type="text" name="num" class="input-text" /></td>
+            </tr>
+            <tr>
+                <th>支付方式:</th>
+						<td>
+
+		              &nbsp;<input type="radio"  id="zf" name="zf" value="1" checked>
+		              &nbsp;  余额支付
+
+				</tr>
+
+		</table>
+
+         <input type="hidden" name="uid" value="{$id}">
+
+</form>
+
+</div>
+<script src="__STATIC__/js/jquery.js"></script>
+<script>
+    $(function(){
+        $('#pid').change(function(){
+            $('#cid').get(0).options.length=1;
+            var pid = $(this).val();
+            $.post("{:u('item/ajax_get_brand')}",{ pid:pid },function(data){
+//                alert(data)
+                if(data.status == 1){
+                    $('#cid').get(0).options.length=1;
+                    $.each(data.data,function(i,v){
+                        var $option=$('<option value="'+v.id+'">'+v.name+'</option>');
+                        $('#cid').append($option);
+                    })
+                }else{
+                    $.post("{:u('user/ajax_get_item')}",{ pid:pid },function(data){
+//                        alert(data)
+                        $('#item').show();
+                        if(data.status == 1){
+                            $('#sid').get(0).options.length=1;
+                            $.each(data.data,function(i,v){
+                                var $option=$('<option value="'+v.id+'">'+v.title+'</option>');
+                                $('#sid').append($option);
+                            });
+                        }
+                    },"json");
+
+                }
+            },"json");
+        });
+        $('#cid').change(function(){
+            $('#sid').get(0).options.length=1;
+            var pid = $(this).val();
+            //alert(pid)
+            $.post("{:u('user/ajax_get_item')}",{ id:pid },function(data){
+                //alert(data)
+                $('#item').show();
+                if(data.status == 1){
+                    $('#sid').get(0).options.length=1;
+                    $.each(data.data,function(i,v){
+                        var $option=$('<option value="'+v.id+'">'+v.title+'</option>');
+                        $('#sid').append($option);
+                    });
+                }
+            },"json");
+        });
+    })
+</script>

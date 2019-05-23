@@ -1,0 +1,86 @@
+<include file="public:header" />
+<!--管理员管理-->
+<div class="pad_10" >
+    <a id="export_excel" href="javascript:void();" style="background-color:#0099FF; color:#FFFFFF; padding:5px ">导出线下卡号</a>&nbsp;&nbsp;&nbsp;
+</div>
+<form id="export_excel_form" action="{:U('cardnumber/export_excel')}" method="post">
+<div class="pad_lr_10">
+    <div class="J_tablelist table_list" data-acturi="{:U('cardnumber/ajax_edit')}">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="40"><input type="checkbox" name="checkall" class="J_checkall"></th>
+                <th width="40">ID</th>
+                <th>会员卡号</th>
+                <th>激活码</th>
+
+                <th>卡号类型</th>
+                <th>价钱</th>
+                <th>有效期</th>
+                <!--<th>类型</th>-->
+                <th>使用状态</th>
+                <!--<th width=100>{:L('operations_manage')}</th>-->
+            </tr>
+            </thead>
+    	    <tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <if condition="strtoupper($val['zhuangtai']) eq '已经使用'">
+                    <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                    <elseif condition="strtoupper($val['zhuangtai']) neq '已经使用'"/>
+                    <td align="center"><input type="checkbox" name="id[]" class="J_checkitem" value="{$val.id}"></td>
+                </if>
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.cards}</td>
+                <td align="center">{$val.code}</td>
+                <td align="center">{$val.gname}</td>
+                <td align="center">{$val.money}</td>
+                <td align="center">
+                    <if condition="$val['begin_time'] eq '' ">
+                        无限制
+                     <else/>
+                        {$val.begin_time}- {$val.end_time}
+                    </if>
+
+                </td>
+<!--
+                <td align="center"><if condition="$val['status'] eq 1">普通卡号<elseif condition="$val['status'] eq 2"/>幸运卡号</if></td>
+-->
+                <td align="center">
+                    <if condition="strtoupper($val['zhuangtai']) eq '已经使用'">
+                        <span style="color: #006600">已启用</span>
+                        <elseif condition="strtoupper($val['zhuangtai']) neq '已经使用'"/>
+                        <span style="color: red">未启用</span>
+                    </if>
+
+                </td>
+             <!--   <td align="center">
+                    <if condition="strtoupper($val['zhuangtai']) eq '已经使用'">
+                        <span style="color: #006600">已启用</span>
+                    <elseif condition="strtoupper($val['zhuangtai']) neq '已经使用'"/>
+                        <a href="javascript:;" class="J_confirmurl" data-uri="{:U('cardnumber/delete', array('id'=>$val['id']))}" data-msg="{:sprintf(L('confirm_delete_one'),$val['cards'])}">{:L('delete')}</a>
+                    </if>
+
+                </td>-->
+            </tr>
+            </volist>
+    	   </tbody>
+        </table>
+    </div>
+    <div class="btn_wrap_fixed">
+		<label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+        <!--<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('cardnumber/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />-->
+		<div id="pages">{$page}</div>
+    </div>
+</div>
+</form>
+<include file="public:footer" />
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $('#export_excel').click(function(){
+            $('#export_excel_form').submit();
+        })
+    })
+</script>

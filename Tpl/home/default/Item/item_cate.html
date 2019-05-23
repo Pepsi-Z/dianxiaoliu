@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>小六推荐</title>
+    <include file="public:header" />
+    <style>
+        .wxh_like > div a{padding:0 10px}
+    </style>
+</head>
+<body class="wxh_bggreycolor">
+<section>
+    <div class="container yy_index">
+        <div class="row">
+            <div class="yy_like wxh_like">
+             <volist name="tuijian" id="val">
+                <div class="col-xs-12">
+                    <if condition="$val.chang eq '0'">
+                        <a href="{:U('Item/content',array('id'=>$val['id']))}">
+                            <else/>
+                            <a href="{:U('Item/content',array('id'=>$val['id'],'type'=>4))}">
+                    </if>
+                        <div class="media">
+                            <div class="media-left media-middle pull-left">
+                                <img class="media-object" style="height: 75px;" src="{:attach(get_thumb($val['img'], '_s'), 'item')}" alt="...">
+                            </div>
+                            <div class="media-body pull-right">
+                                <div><h4 class="media-heading pull-left">{$val.title}</h4><span class="pull-right"><em>{$val.min}</em>km</span></div>
+                                <p><em>{$val.item_desc}</em></p>
+                                <div class="yy_bottom">
+                                    <span>￥<b>{$val.tc_price}</b><del>{$val.price}</del></span>
+                                    <strong>优惠<?php echo ($val['price'] - $val['tc_price'])?></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+             </volist>
+                <empty name="tuijian">
+                    <div class="tab-pane" style="margin-top: 15px;">
+                        <img style=" display: block; width:95px; height:93px; margin:0 auto" src="../Style/static/images/cw_03.png" class="prompt">
+                    </div>
+
+                    <h5 class="text-center">
+                        亲,暂无小六推荐商品
+                    </h5>
+                </empty>
+            </div>
+        </div>
+</section>
+<include file="public:footers" />
+</body>
+</html>

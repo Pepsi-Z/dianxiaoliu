@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>热卖专区</title>
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+</head>
+<body>
+    <div class="content_bottom">
+        <ul class="Area_ul bg_ulcolor">
+            <volist name="hot" id="val">
+                <li <if condition="$i%2 eq '0'" >class="fr"<else/>class="right_disli"</if>>
+                <a href="{:U('Item/content',array('id'=>$val['id']))}">
+                    <if condition="$val.tuijian eq 1">
+                        <p class="shouye_comment shouye_pbg">热卖</p>
+                    </if>
+               
+                    <div class="img_div"><img src="{:get_img($val[img],'item')}" /></div>
+                    <p class="area_p">{$val.title|mb_substr=0,16,'utf-8'|strip_tags}</p>
+                    <p><span class="area_spancl">&yen;{$val.price}</span><span class="bg_span1"></span></p>
+                </a>
+                </li>
+            </volist>
+        </ul>
+    </div>
+        
+<div style="height:55px;"></div>       
+<include file="public:footer" />

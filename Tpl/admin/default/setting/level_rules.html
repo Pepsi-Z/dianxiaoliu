@@ -1,0 +1,57 @@
+<include file="public:header" />
+<!--积分设置-->
+<div class="pad_lr_10">
+<form id="info_form" action="{:U('setting/level_rules')}" method="post">
+    <table width="100%" cellspacing="0" class="table_form">
+        <thead>
+        <tr>
+            <th width="100" align="center">会员星级</th>
+            <th  align="left">需要充值
+                金额</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td align="center">一星会员 :</td>
+            <td><input type="text" name="level_rules[level1]" class="input-text" size="10" value="{:C('pin_level_rules.level1')}"> &nbsp;元</td>
+        </tr>
+        <!--<tr>-->
+            <!--<td align="center">二星会员 :</td>-->
+            <!--<td><input type="text" name="level_rules[level2]" class="input-text" size="10" value="{:C('pin_level_rules.level2')}">&nbsp;元</td>-->
+        <!--</tr>-->
+        <tr>
+            <td align="center">三星会员 :</td>
+            <td><input type="text" name="level_rules[level3]" class="input-text" size="10" value="{:C('pin_level_rules.level3')}">&nbsp;元</td>
+        </tr>
+        <!--<tr>-->
+            <!--<td align="center">四星会员 :</td>-->
+            <!--<td><input type="text" name="level_rules[level4]" class="input-text" size="10" value="{:C('pin_level_rules.level4')}">&nbsp;元</td>-->
+        <!--</tr>-->
+        <tr>
+            <td align="center">五星会员 :</td>
+            <td><input type="text" name="level_rules[level5]" class="input-text" size="10" value="{:C('pin_level_rules.level5')}">&nbsp;元</td>
+        </tr>
+		<tr>
+            <td align="center">高级客户:</td>
+            <td><input type="text" name="level_rules[level6]" class="input-text" size="10" value="{:C('pin_level_rules.level6')}">&nbsp;元</td>
+        </tr>
+		
+        <tr>
+            <td colspan="3"><input type="submit" value="{:L('submit')}" id="dosubmit" name="dosubmit" class="btn btn_submit" /></td>
+        </tr>
+    </tbody>
+    </table>
+</form>
+</div>
+<include file="public:footer" />
+<script>
+$('#score_setting').find('input').live('keyup keydown blur',function(){
+    var self = $(this);
+    var val = self.val();
+    val = val.replace(/[^0-9]/g,'');
+    self.val(val);
+});
+</script>
+</body>
+</html>

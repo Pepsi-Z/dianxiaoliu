@@ -1,0 +1,40 @@
+</div>
+<div id="footer">
+    <p class="foot_nav">
+        <a href="{:U('Index/index')}">商城首页</a> | <a href="{:U('book/index')}">商品中心</a> | <a href="{:U('Article/cate',array('cid'=>9))}">优惠信息</a> | <a href="{:U('aboutus/index', array('id'=>2))}">品牌介绍</a>
+    </p>
+    <div style="height:40px; background:#fff; padding:0; overflow:hidden;">
+        &copy;Copyright 2013-2014 <a href="__ROOT__/" class="tdu clr6" target="_blank">{:C('pin_site_name')}</a> 版权所有 
+    </div>
+</div>
+<div id="category" style="left: -100%; ">
+	<div class="close"></div>
+	<dl>
+        	<volist name='index_cate_list' id='vo' >
+               <dt><a href="{:U('book/cate',array('cid'=>$vo['id']))}" class="none_ico"> {$vo.name}</a></dt>
+               <volist name="vo['index_sub']" id='sub' >
+               <dd><a href="{:U('book/cate',array('cid'=>$sub['id']))}" class="none_ico"> {$sub.name}</a></dd>
+                </volist>
+                    <!--<a href="{:U('book/cate',array('cid'=>$vo['id']))}" class="none_ico"> {$vo.name}</a>-->
+            </volist>
+			</dl>
+</div>
+
+
+<script>
+var PINER = {
+    root: "__ROOT__",
+    uid: "<?php echo $visitor['id'];?>", 
+    async_sendmail: "<?php echo $async_sendmail;?>",
+    config: {
+        wall_distance: "<?php echo C('pin_wall_distance');?>",
+        wall_spage_max: "<?php echo C('pin_wall_spage_max');?>"
+    },
+    //URL
+    url: {}
+};
+//语言项目
+var lang = {};
+<volist name=":L('js_lang')" id="val">lang.{$key} = "{$val}";</volist>
+</script>
+<pin:load type="js" href="__STATIC__/js/jquery/plugins/jquery.tools.min.js,__STATIC__/js/jquery/plugins/jquery.masonry.js,__STATIC__/js/jquery/plugins/formvalidator.js,__STATIC__/js/fileuploader.js,__STATIC__/js/pinphp.js,__STATIC__/js/dialog.js,__STATIC__/js/wall.js,__STATIC__/js/item.js,__STATIC__/js/user.js,__STATIC__/js/album.js" />

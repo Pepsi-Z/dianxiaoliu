@@ -1,0 +1,85 @@
+<include file="public:header" />
+<!--会员列表-->
+<div class="pad_10" >
+    <form name="searchform" method="get" >
+    <table width="100%" cellspacing="0" class="search_form">
+        <tbody>
+            <tr>
+                <td>
+                <div class="explain_col">
+                    <input type="hidden" name="g" value="admin" />
+                    <input type="hidden" name="m" value="zhuanpan" />
+                    <input type="hidden" name="a" value="log" />
+                    <input type="hidden" name="menuid" value="{$menuid}" />
+                    &nbsp;用户名 :
+                    <input name="keyword" type="text" class="input-text" size="25" value="{$search.keyword}" />
+                    <input type="submit" name="search" class="btn" value="搜索" />
+                </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <div class="J_tablelist table_list" >
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="133">序号</th>
+                <th width="139" align="left">SN号(中奖号)</th>
+                <th width="155" align="left">奖项</th>
+                <th width="115" align="left"><div align="center">是否已发奖品</div></th>
+                <th width="269" align="center">奖品发送时间</th>
+              <th width="144">中奖者手机号</th>
+                <th width="156">中奖者姓名</th>
+              <th width="201">中奖时间</th>
+                <th width="161">操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center">{$val.id}</td>
+                <td align="left">{$val.snid}</td>
+                <td align="left">{$val.jp_leibei}<br />{$val.jp_name}</td>
+                <td align="left">
+                <div align="center">
+                 <if condition="$val.status eq 0"> 
+                   否
+                     <else /> 
+                     是               
+                 </if>   
+                  </div>             </td>
+                <td align="center">
+                <div align="center">
+                <if condition="$val.do_time.status eq ''"> 
+					 <else /> 
+                     {$val.do_time|date="Y-m-d H:i",###}
+                     </if>
+                      </div></td>
+                <td align="center">{$val.u_phone}</td>
+                <td align="center">{$val.u_name}</td>
+                <td align="center">{$val.addtime|date="Y-m-d H:i",###}</td>
+                <td align="center">
+                <if condition="$val.status eq 0"> 
+                    <a href="{:u('zhuanpan/dojp', array('id'=>$val['id'], 'menuid'=>$menuid))}" onclick="return confirm('确认要发放奖励吗?')">发放奖励</a>
+                     <else /> 
+                      已发放              
+                 </if> 
+                
+                </td>
+              </tr>
+            </volist>
+    	</tbody>
+    </table>
+<div class="btn_wrap_fixed">
+        <div id="pages">{$page}</div>
+    </div>
+
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__STATIC__/js/calendar/calendar.js"></script>

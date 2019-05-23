@@ -1,0 +1,233 @@
+<include file="public:header" />
+<!--全局设置-->
+<div class="pad_lr_10">
+	<form id="info_form" action="{:u('setting/edit')}" method="post" enctype="multipart/form-data">
+	<table width="100%" class="table_form">
+
+        <tr>
+            <th>客服电话 :</th>
+            <td>
+                <input type="text" name="setting[site_tel]" class="input-text" size="40" value="{:C('pin_site_tel')}">
+            </td>
+        </tr>
+<!--
+        <tr>
+            <th>购票服务费 :</th>
+            <td>
+                <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="setting[station_price]" class="input-text" size="40" value="{:C('pin_station_price')}">
+            </td>
+        </tr>
+
+        <tr>
+            <th>同城速递服务费:</th>
+            <td>
+                起步<input  type="text" name="setting[city_min]" class="input-text" size="5" value="{:C('pin_city_min')}">米
+                /单次<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="setting[danci_price]" class="input-text" size="5" value="{:C('pin_danci_price')}">元
+
+            </td>
+        </tr>-->
+
+     <!--   <tr>
+            <th>同城速递往返费用:</th>
+            <td>
+                <input  type="text" name="setting[wangfan_price]" class="input-text" size="8" value="{:C('pin_wangfan_price')}">元
+
+
+            </td>
+        </tr>
+
+        <tr>
+            <th>同城速递超出每公里:</th>
+            <td>
+              <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="setting[mei_price]" class="input-text" size="5" value="{:C('pin_mei_price')}">元
+            </td>
+        </tr>-->
+
+       <!-- <tr>
+            <th>同城速递超出每公里:</th>
+            <td>
+                每超出<input  type="text" name="setting[min_min]" class="input-text" size="5" value="{:C('pin_min_min')}">米
+                / <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="setting[mei_price]" class="input-text" size="5" value="{:C('pin_mei_price')}">元
+
+            </td>
+        </tr>
+
+
+        <tr>
+            <th>商家的配送费:</th>
+            <td>
+                每超出<input  type="text" name="setting[chaochu_min]" class="input-text" size="5" value="{:C('pin_chaochu_min')}">米
+                /<input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="setting[chaochu_price]" class="input-text" size="5" value="{:C('pin_chaochu_price')}">元
+
+            </td>
+        </tr>
+-->
+
+      <!--  <tr>
+            <th>超出一个商家的配送费:</th>
+            <td>
+                <input type="text" size="5"  name="setting[merchant_price]" class="input-text" size="40" value="{:C('pin_merchant_price')}"> 元
+            </td>
+        </tr>-->
+
+
+
+        <tr>
+            <th>订单提醒开关 :</th>
+            <td>
+                <label><input type="radio" <if condition="C('pin_s_waring') eq '1'">checked="checked"</if> value="1" name="setting[s_waring]"> {:L('open')}</label> &nbsp;&nbsp;
+                <label><input type="radio" <if condition="C('pin_s_waring') eq '0'">checked="checked"</if> value="0" name="setting[s_waring]"> {:L('close')}</label>
+                <span class="gray ml10">开启之后在订单管理,没隔3秒会自动提醒新订单</span>
+            </td>
+        </tr>
+
+         <tr>
+              <th>自提折扣:</th>
+              <td>
+                  <input type="text" size="5"  name="setting[fenxiang]" class="input-text" size="40" value="{:C('pin_fenxiang')}">折
+              </td>
+         </tr>
+
+        <tr>
+            <th>自提优惠说明 :</th>
+            <td><textarea name="setting[fenxiang_about]"  style="width:68%;height:100px;">{:C('pin_fenxiang_about')}</textarea></td>
+        </tr>
+        <!--
+                <tr>
+                    <th width="150">消费充值奖励比例:</th>
+                    <td>
+                        <span style="color: red">1元=</span><input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" style="width:50px" name="setting[reward]" id="reward" class="input-text" value="{:C('pin_reward')}" />&nbsp;&nbsp;积分
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>分享奖励说明 :</th>
+                    <td><textarea name="setting[fenxiang_about]" id="fenxiang_about" style="width:68%;height:400px;visibility:hidden;resize:none;">{:C('pin_fenxiang_about')}</textarea></td>
+                </tr>
+                -->
+        <tr>
+            <th>电影收费标准简介 :</th>
+            <td><textarea name="setting[city_about]" id="city_about" style="width:68%;height:400px;visibility:hidden;resize:none;">{:C('pin_city_about')}</textarea></td>
+        </tr>
+
+        <tr>
+            <th>同城速递收费标准:</th>
+            <td><textarea name="setting[city_money]" id="city_money" style="width:68%;height:400px;visibility:hidden;resize:none;">{:C('pin_city_money')}</textarea></td>
+        </tr>
+
+        <tr>
+            <th>同城速递服务内容 :</th>
+            <td><textarea name="setting[city_service]" id="city_service" style="width:68%;height:400px;visibility:hidden;resize:none;">{:C('pin_city_service')}</textarea></td>
+        </tr>
+
+<!--
+        <tr>
+            <th width="150">{:L('ipban_switch')} :</th>
+            <td>
+                <label><input type="radio" <if condition="C('pin_ipban_switch') eq '1'">checked="checked"</if> value="1" name="setting[ipban_switch]"> {:L('open')}</label> &nbsp;&nbsp;
+                <label><input type="radio" <if condition="C('pin_ipban_switch') eq '0'">checked="checked"</if> value="0" name="setting[ipban_switch]"> {:L('close')}</label>
+                <span class="gray ml10">如果本站没有添加黑名单数据，建议关闭改功能提升性能</span>
+            </td>
+        </tr>
+        <tr>
+            <th>商品审核 :</th>
+            <td>
+                <label><input type="radio" <if condition="C('pin_item_check') eq '1'">checked="checked"</if> value="1" name="setting[item_check]"> {:L('open')}</label> &nbsp;&nbsp;
+                <label><input type="radio" <if condition="C('pin_item_check') eq '0'">checked="checked"</if> value="0" name="setting[item_check]"> {:L('close')}</label>
+                <span class="gray ml10">开启之后用户发布的商品默认是未审核状态</span>
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('avatar_size')} :</th>
+            <td>
+                <input type="text" name="setting[avatar_size]" class="input-text" size="40" value="{:C('pin_avatar_size')}">
+                <span class="gray ml10">用户头像规格，用","隔开</span>
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('item_bimg')} :</th>
+            <td>
+                <input type="text" name="setting[item_bimg][width]" class="input-text" size="5" value="{:C('pin_item_bimg.width')}"> × 
+                <input type="text" name="setting[item_bimg][height]" class="input-text" size="5" value="{:C('pin_item_bimg.height')}">
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('item_img')} :</th>
+            <td>
+                <input type="text" name="setting[item_img][width]" class="input-text" size="5" value="{:C('pin_item_img.width')}"> × 
+                <input type="text" name="setting[item_img][height]" class="input-text" size="5" value="{:C('pin_item_img.height')}">
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('item_simg')} :</th>
+            <td>
+                <input type="text" name="setting[item_simg][width]" class="input-text" size="5" value="{:C('pin_item_simg.width')}"> × 
+                <input type="text" name="setting[item_simg][height]" class="input-text" size="5" value="{:C('pin_item_simg.height')}">
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('itemcate_img')} :</th>
+            <td>
+                <input type="text" name="setting[itemcate_img][width]" class="input-text" size="5" value="{:C('pin_itemcate_img.width')}"> × 
+                <input type="text" name="setting[itemcate_img][height]" class="input-text" size="5" value="{:C('pin_itemcate_img.height')}">
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('score_item_simg')} :</th>
+            <td>
+                <input type="text" name="setting[score_item_img][swidth]" class="input-text" size="5" value="{:C('pin_score_item_img.swidth')}"> × 
+                <input type="text" name="setting[score_item_img][sheight]" class="input-text" size="5" value="{:C('pin_score_item_img.sheight')}">
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('score_item_bimg')} :</th>
+            <td>
+                <input type="text" name="setting[score_item_img][bwidth]" class="input-text" size="5" value="{:C('pin_score_item_img.bwidth')}"> × 
+                <input type="text" name="setting[score_item_img][bheight]" class="input-text" size="5" value="{:C('pin_score_item_img.bheight')}">
+            </td>
+        </tr>
+        <tr>
+            <th>{:L('statics_url')} :</th>
+            <td>
+                <input type="text" name="setting[statics_url]" class="input-text" size="40" value="{:C('pin_statics_url')}">
+                <span class="gray ml10">默认为空，外部服务器请填写如：http://s.pinphp.com</span>
+            </td>
+        </tr>-->
+        <tr>
+        	<th></th>
+        	<td><input type="hidden" name="menuid"  value="{$menuid}"/><input type="submit" class="btn btn_submit" name="do" value="{:L('submit')}"/></td>
+    	</tr>
+	</table>
+	</form>
+</div>
+<script src="__STATIC__/js/jquery/plugins/colorpicker.js"></script>
+<script src="__STATIC__/js/kindeditor/kindeditor.js"></script>
+<script>
+    $(function() {
+        KindEditor.create('#city_about', {
+            uploadJson: '{:U("attachment/editer_upload")}',
+            fileManagerJson: '{:U("attachment/editer_manager")}',
+            allowFileManager: true
+        });
+        KindEditor.create('#fenxiang_about', {
+            uploadJson: '{:U("attachment/editer_upload")}',
+            fileManagerJson: '{:U("attachment/editer_manager")}',
+            allowFileManager: true
+        });
+
+        KindEditor.create('#city_service', {
+            uploadJson: '{:U("attachment/editer_upload")}',
+            fileManagerJson: '{:U("attachment/editer_manager")}',
+            allowFileManager: true
+        });
+
+        KindEditor.create('#city_money', {
+            uploadJson: '{:U("attachment/editer_upload")}',
+            fileManagerJson: '{:U("attachment/editer_manager")}',
+            allowFileManager: true
+        });
+    })
+</script>
+<include file="public:footer" />
+</body>
+</html>

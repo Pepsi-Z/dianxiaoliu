@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>凡事帮</title>
+    <include file="public:header" />
+</head>
+<body class="wxhbgcolor_grey">
+<!------头部开始--------->
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-2"><a href="城市.html" class="pull-right">长春<span
+                    class="glyphicon glyphicon-menu-down"></span></a></div>
+            <div class="col-xs-10">
+                <div>
+                    <input type="text" placeholder="商品搜索关键字" class="pull-left wfont12"/>
+                    <button type="button" class="btn btn-default pull-right" onclick="window.location.href='搜索.html'"><span class="wxh_search"></span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!------头部结束--------->
+<!------主体开始--------->
+<section class="section_disbottom">
+    <!--轮播图开始-->
+    <div class="container">
+        <div class="row">
+            <div class="swiper-container wxhindex_banner">
+                <div class="swiper-wrapper">
+                    <volist name="ad" id="val">
+                        <div class="swiper-slide"><img src="data/upload/advert/{$val.content}" style="height: 155px;"/></div>
+                    </volist>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+    <!--轮播图结束-->
+    <!--图标开始-->
+    <div class="container bgcolor_whitewxh wxh_index_nav">
+        <div class="row">
+            <volist name="item_list" id="val">
+                <if condition="$val['type'] eq 0">
+                    <a href="{:U('Item/item_cate',array('id'=>$val['id']))}" class="col-xs-3">
+                        <else/>
+                     <a href="#" class="col-xs-3">
+                </if>
+                    <div>
+                        <img src="{:attach(get_thumb($val['img'], '_m'),'item_cate')}" />
+                    </div>
+                    <p>{$val.name}</p>
+                </a>
+            </volist>
+        </div>
+    </div>
+    <!--图标结束-->
+    <!--商家信息开始-->
+    <div class="container wxh_index_merchant">
+        <volist name="hot" id="val">
+            <div class="row">
+                <div class="media bgcolor_whitewxh">
+                    <a class="pull-left" href="{:U('Item/content',array('id'=>$val['id']))}">
+                        <img  class="media-object" src="{:attach(get_thumb($val['img'], '_m'),'item')}" />
+                    </a>
+                    <div class="media-body">
+                        <h4 class="media-heading wfont14 color333"><a href="{:U('Item/content',array('id'=>$val['id']))}">{$val.title}</a></h4>
+                        <div>
+                            <i id="wxh-star{$val.id}"></i>
+                            <script>
+                                $("#wxh-star{$val.id}").raty({
+                                    start: "{$val.leve}",
+                                    readOnly: true,
+                                    path:"__STATIC__/js/jquery.raty-0.5/img/"
+                                })
+                            </script>
+                            <span class="pull-right wfont12"><&nbsp;500米</span>
+                        </div>
+                        <div><span class="wfont12 color666">&yen;<span>{$val.price}</span></span></div>
+                    </div>
+                </div>
+
+            </div>
+        </volist>
+    </div>
+    <!--商家信息结束-->
+</section>
+<!-----主体结束-------->
+<!-----footer开始-------->
+<include file="public:footers" />
+<!-----footer结束-------->
+<!-- 轮播图js -->
+<script>
+    $(function(){
+        var myswiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            autoplay: 5000
+        });
+    })
+</script>
+</body>
+</html>

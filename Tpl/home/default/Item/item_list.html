@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>产品列表</title>
+    <include file="public:header" />
+</head>
+
+<style>
+    .wxh_top_35{ top:35px;}
+</style>
+
+<if condition="$_GET['type'] eq 4 ">
+    <header>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-2"><a href="javascript:history.go(-1);" class="text-center block"><span class="glyphicon glyphicon-menu-left"></span></a></div>
+                <form action="{:U('Item/item_list',array('id' =>$_GET['id'],'type' =>$_GET['type']))}" method="post">
+                    <div class="col-xs-10">
+                        <div>
+                            <input type="text" name="keyword" value="{$search.keyword}" placeholder="请输入商品名称" class="pull-left wfont12"/>
+                            <button type="submit" class="btn btn-default pull-right"><span class="glyphicon glyphicon-search"></span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </header>
+</if>
+
+
+<body class="wxh_bggreycolor">
+<section >
+    <div class="container">
+        <div  class="row">
+            <div class="col-xs-12 wxh_shoppinglist">
+             <volist name="item_list" id="vo">
+                 <div class="col-xs-6">
+                     <a href="{:U('Item/content',array('id'=>$vo['id'],'type'=>$_GET['type']))}">
+                         <div><img style="height: 112px;" src="{:attach(get_thumb($vo['img'], '_b'), 'item')}"/></div>
+                         <h5 class="wxh_333color wxh_fontoverflow">{$vo.title}</h5>
+                         <p class="text-muted">
+                             <span>自提价：<b class="text-danger" style="font-size:16px;">￥{$vo.tc_price}</b></span>
+                         </p>
+                         <p class="text-muted wxh_font12">
+                             <del>配送价：￥<span>{$vo.price}</span></del>
+                         </p>
+                     </a>
+                 </div>
+             </volist>
+            </div>
+            <empty name="item_list">
+                <div class="tab-pane" style="margin-top: 15px;">
+                    <img style=" display: block; width:95px; height:93px; margin:0 auto" src="../Style/static/images/cw_03.png" class="prompt">
+                </div>
+
+                <h5 class="text-center">
+                    ！暂无商品信息
+                </h5>
+            </empty>
+        </div>
+    </div>
+</section>
+<include file="public:footers" />
+</body>
+</html>

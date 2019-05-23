@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <meta name="format-detection" content="telephone=no" />
+    <title>订单管理</title>
+    <include file="public:header" />
+</head>
+<body class="lxt-color">
+<div class="container">
+
+    <div class="row coupon_box lxt-row">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active col-xs-6 text-center"><a href="#aa" aria-controls="home" role="tab" data-toggle="tab"><span>折扣订单</span></a></li>
+            <li role="presentation" class="col-xs-6 text-center"><a href="#bb" aria-controls="profile" role="tab" data-toggle="tab"><span>团购订单</span></a></li>
+        </ul>
+    </div>
+
+    <div class="tab-content">
+
+        <!--折扣内容-->
+        <div role="tabpanel" class="row tab-pane active unused lxt-tab" id="aa" >
+            <div class="tab-content">
+                <!--未返利-->
+                <div role="tabpanel" class="row tab-pane active unused" id="home">
+                    <div class="col-xs-12">
+                        <div class="row lxt-order">
+                            <div class="col-xs-8">某某商家</div>
+                            <div class="col-xs-4">积分：+10</div>
+                        </div>
+                        <div class="row lxt-order-b">
+                            <div class="col-xs-6 text-left text-muted">2015-12-25 15:22</div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#" class="lxt-a1">删除</a>
+                                <a href="javascript:;" class="lxt-a3">已返利</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row lxt-order">
+                            <div class="col-xs-8">某某商家</div>
+                            <div class="col-xs-4">积分：+10</div>
+                        </div>
+                        <div class="row lxt-order-b">
+                            <div class="col-xs-6 text-left text-muted">2015-12-25 15:22</div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#" class="lxt-a1">删除</a>
+                                <a href="#" class="lxt-a2">返利</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--已返利-->
+                <div role="tabpanel" class="row tab-pane unused" id="profile">
+                    <div class="col-xs-12">
+                        <div class="row lxt-order">
+                            <div class="col-xs-12">某某商家</div>
+                        </div>
+                        <div class="row lxt-confirm-b lxt-order-a">
+                            <a href="订单详情.html">
+                                <div class="col-xs-4"> <img src="__STATIC__/css/img/lxt-img2.png" alt="..."> </div>
+                                <div class="col-xs-8">
+                                    <h4>食用大豆调和油</h4>
+                                    <span class="pull-left">X<span>1</span></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="row lxt-order-b">
+                            <div class="col-xs-6 text-left">折扣：<i>7折</i></div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#" class="lxt-a2">待评价</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="row lxt-order">
+                            <div class="col-xs-12">某某商家</div>
+                        </div>
+                        <div class="row lxt-confirm-b lxt-order-a">
+                            <a href="订单详情.html">
+                                <div class="col-xs-4"> <img src="__STATIC__/css/img/lxt-img2.png" alt="..."> </div>
+                                <div class="col-xs-8">
+                                    <h4>食用大豆调和油</h4>
+                                    <span class="pull-left">X<span>1</span></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="row lxt-order-b">
+                            <div class="col-xs-6 text-left">折扣：<i>8.8折</i></div>
+                            <div class="col-xs-6 text-right">
+                                <span class="lxt-a1">已评价</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--团购内容-->
+
+             <div role="tabpanel" class="row tab-pane  unused lxt-tab" id="bb">
+
+            <div class="row coupon_box wxh_ul_box">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="col-xs-4 active text-center"><a href="#ee" aria-controls="home" role="tab" data-toggle="tab"><span>待付款</span></a></li>
+                    <li role="presentation" class="col-xs-4 text-center"><a href="#dd" aria-controls="home" role="tab" data-toggle="tab"><span>未消费</span></a></li>
+                    <li role="presentation" class="col-xs-4 text-center"><a href="#cc" aria-controls="profile" role="tab" data-toggle="tab"><span>已消费</span></a></li>
+
+                </ul>
+                <style>
+                    .wxh_ul_box .col-xs-4,.wxh_ul_box .col-xs-4 a{ padding: 0; height: 40px; line-height: 40px;}
+                    .coupon_box.wxh_ul_box .nav li:nth-child(2) a{ padding: 0;}
+                    .lxt-a3 { padding: 4px 8px;}
+                </style>
+            </div>
+            <div class="tab-content">
+                <div role="tabpanel" class="row tab-pane active unused" id="ee" >
+                    <div class="col-xs-12">
+                        <div class="row lxt-order">
+                            <div class="col-xs-12">1订单号：201548782554</div>
+                        </div>
+                        <div class="row lxt-confirm-b lxt-order-a">
+                            <a href="订单详情.html">
+                                <div class="col-xs-4"> <img src="__STATIC__/css/img/lxt-img.png" alt="..."> </div>
+                                <div class="col-xs-8">
+                                    <h4>1111200ml*20包</h4>
+                                    <span class="pull-left">X<span>1</span></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="row lxt-order-b">
+                            <div class="col-xs-6 text-left">总价：<i>￥20.00</i></div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#" class="lxt-a1">删除</a>
+                                <a href="#" class="lxt-a2">退款</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div role="tabpanel" class="row tab-pane  unused" id="dd" >
+                    <div class="col-xs-12">
+                        <div class="row lxt-order">
+                            <div class="col-xs-12">2订单号：201548782554</div>
+                        </div>
+                        <div class="row lxt-confirm-b lxt-order-a">
+                            <a href="订单详情.html">
+                                <div class="col-xs-4"> <img src="__STATIC__/css/img/lxt-img.png" alt="..."> </div>
+                                <div class="col-xs-8">
+                                    <h4>1111200ml*20包</h4>
+                                    <span class="pull-left">X<span>1</span></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="row lxt-order-b">
+                            <div class="col-xs-6 text-left">总价：<i>￥20.00</i></div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#" class="lxt-a1">删除</a>
+                                <a href="#" class="lxt-a2">退款</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div role="tabpanel" class="row tab-pane  unused" id="cc" >
+                    <div class="col-xs-12">
+                        <div class="row lxt-order">
+                            <div class="col-xs-12">3订单号：201548782554</div>
+                        </div>
+                        <div class="row lxt-confirm-b lxt-order-a">
+                            <a href="订单详情.html">
+                                <div class="col-xs-4"> <img src="__STATIC__/css/img/lxt-img.png" alt="..."> </div>
+                                <div class="col-xs-8">
+                                    <h4>1111200ml*20包</h4>
+                                    <span class="pull-left">X<span>1</span></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="row lxt-order-b">
+                            <div class="col-xs-6 text-left">总价：<i>￥20.00</i></div>
+                            <div class="col-xs-6 text-right">
+                                <a href="#" class="lxt-a1">删除</a>
+                                <a href="#" class="lxt-a2">退款</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footers" />
+</body>
+</html>

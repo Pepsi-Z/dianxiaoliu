@@ -1,0 +1,47 @@
+/*公共样式*/
+@import url("font-awesome.css");
+/*头部*/
+header{width:100%; height:43.5px; line-height:43.5px; background-color:#40c780;}
+header>div{ height:43.5px; line-height:43.5px;}
+header .glyphicon-menu-left{ color:#fff; font-size:18px; vertical-align:middle; font-weight:normal;}
+header .col-xs-2 a{ color:#fff !important; text-decoration:none;}
+header .glyphicon-menu-down{ padding-left:3px; color:#fff;}
+header .col-xs-2{ margin:0 auto; padding:0;text-align:center;}
+header .col-xs-2 span{ text-align:center; margin:0 auto;}
+header .col-xs-10>div{ width:100%; height:25px; margin-top:9.25px; background-color:#fff; border-radius:10px; overflow:hidden; border:1px solid #fff;}
+header .col-xs-10>div input{ height:inherit; line-height:25px; width:85%; color:#d5d5d5; border:none; display:block; padding-left:15px;}
+header .col-xs-10>div button{ background-color:#2cb36c !important; color:#fff; border:none; width:15%; height:24px; border-radius:11px; border-bottom-right-radius:10px;border-top-right-radius:8px;}
+header .col-xs-10>div button .wxh_search{ display:block; width:11px; height:11px; margin:0 auto; background:url(../img/wxh_indexsearch.png) no-repeat center center; background-size:100%;}
+/*内容部分*/
+.section_disbottom{ margin:0 auto 49px auto;}
+
+/*尾部*/
+footer{ clear:both; width:100%; position:fixed; bottom:0; z-index:1003;height:49px; line-height:49px; border-top:1px solid #bebebe; background-color:#fff;}
+footer  ul{ height:38px !important; line-height:38px;overflow:hidden; margin-top:6px;}
+footer  ul li{ text-align:center; padding:0 !important; border-right:1px solid #bebebe; box-sizing:border-box;}
+footer  ul li a{ display:block !important; width:100%; padding:0 !important;  padding-top:0px !important; border-radius:0;}
+footer  ul li a:hover{ background-color:transparent !important; border:none; margin-top:1px;}
+footer  ul li a:hover p{ color:#40c780;}
+footer  ul li a i{ display:block; width:17.5px; height:16px; margin:0 auto 3px auto; background-repeat:no-repeat;}
+footer  ul li:first-child a i{ background:url(../img/inder_footer0.png) no-repeat; background-size:100%;}
+footer  ul li:first-child.activeli a i,
+footer  ul li:first-child:hover a i{ background:url(../img/inder_footer0active.png) no-repeat; background-size:100%;}
+footer  ul li p{color:#666; font-size:12px;}
+footer  ul .activeli p{ color:#40c780 !important;}
+footer  ul li:nth-child(2) a i{ background:url(../img/inder_footer1.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(2).activeli a i,
+footer  ul li:nth-child(2):hover a i{ background:url(../img/inder_footer1active.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(3) a i{ background:url(../img/inder_footer2.png) no-repeat; background-size:100%;}
+footer  ul li:nth-child(3).activeli a i,
+footer  ul li:nth-child(3):hover a i{ background:url(../img/inder_footer2active.png) no-repeat; background-size:100%;}
+
+a,a:hover{color:#333;}
+.bg-grey{background:#e8e8e8;}
+.Buddylist a{display:block; padding:1rem;}
+.Buddylist a:hover{ background:#ccc;}
+.city_hot ul{margin:0 1rem; overflow:hidden;}
+.city_hot ul li{ width:33.333%; box-sizing:border-box; text-align:center; float:left;}
+.city_hot ul li a{background:#fff; padding:.1rem; margin:.5rem;}
+.city_list{ margin:1rem 0;}
+.city_list p{padding:0 1rem; font-size: 16px;}
+.city_list ul li{ background:#fff; border-bottom:1px solid #ddd;}

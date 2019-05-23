@@ -1,0 +1,42 @@
+<!--添加管理员-->
+<div class="dialog_content">
+	<form id="info_form" name="info_form" action="{:u('group/add')}" method="post">
+	<table width="100%" class="table_form">
+		<tr> 
+	      <th width="80">组名称 :</th>
+	      <td><input type="text" name="name" id="J_name" class="input-text"></td>
+	    </tr>
+	    <tr> 
+	      <th>积分条件:</th>
+	      <td>
+              <input name="cash" id="J_cash" class="input-text" style="width: 50px;">
+              -
+              <input name="end" id="J_end" class="input-text" style="width: 50px;">
+          </td>
+	    </tr>
+	</table>
+	</form>
+</div>
+<script>
+$(function(){
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+	$("#J_name").formValidator({onshow:'请输入组名称，不能为空',onfocus:'请输入组名称'}).inputValidator( {
+                min:2, max:20, onerror:'组名最小2个字符，最大20个字符'});
+    /*$("#J_cash").formValidator({onshow:'积分条件',onfocus:'请输入积分条件',defaultvalue:'0'}).inputValidator( {
+       min:0, max:20, onerror:'请正确输入积分条件！'});*/
+    $("#J_end").formValidator({onshow:'积分条件',onfocus:'请输入积分条件',defaultvalue:'0'}).inputValidator( {
+        min:0, max:20, onerror:'请正确输入积分条件！'});
+
+
+    $('#info_form').ajaxForm({success:complate,dataType:'json'});
+    function complate(result){
+        if(result.status == 1){
+            $.dialog.get(result.dialog).close();
+            $.pinphp.tip({content:result.msg});
+            window.location.reload();
+        } else {
+            $.pinphp.tip({content:result.msg, icon:'alert'});
+        }
+    }
+});
+</script>

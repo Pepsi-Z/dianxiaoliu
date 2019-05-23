@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>账户余额</title>
+    <include file="public:header" />
+<body class="bg_color">
+<!------主体--------->
+<section>
+    <div class="container yy_account">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <p>账户余额(元)</p>
+                <p>￥{$user['money']}<if condition="$user.money eq ''">0.00</if></p>
+            </div>
+            <button id="cz" type="button" class="btn yy_out yy_address_btn">充值</button>
+            <button id="jilu" type="button" class="btn yy_out yy_address_btn yy_white">充值记录</button>
+            <button id="tixian" type="button" class="btn yy_out yy_address_btn yy_white">申请提现</button>
+        </div>
+    </div>
+</section>
+<!-----主体结束-------->
+<include file="public:footers" />
+
+</body>
+<script>
+    $('#jilu').click(function(){
+        var czjl = "{:U('User/czjl')}";
+        window.location.href = czjl;
+    });
+    $('#cz').click(function(){
+        var cz = "{:U('Card/hychongzhi')}";
+        window.location.href = cz;
+    });
+    $('#tixian').click(function(){
+        var tx = "{:U('Card/tixian')}";
+        window.location.href = tx;
+    })
+</script>
+</html>

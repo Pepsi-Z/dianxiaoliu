@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+/*办卡*/
+.zxy-Logon .card-z,.zxy-Logon .zxy-money{ height:35px; line-height:35px; margin-bottom:10px; font-size:14px;}
+.zxy-Logon .card-z .form-group span{ position:absolute; top:8px; right:3px; color:#666; z-index:100; font-size:18px;}
+.zxy-Logon .card-z select{ display:block;float:right;background: none !important; border:solid 1px #ccc; position:relative; border-radius:5px;}
+.zxy-money b{ font-size:16px; color:#F00;}
+.zxy-Logon{ margin-top:20px; color:#333;}
+.zxy-Logon form .input-group{ background:#FFF; height:35px; border-radius:5px; border:solid 1px #CCC;position:relative;}
+.zxy-Logon form .input-group span{ width:35px; height:30px;background:url(../img/zxy-name.png) no-repeat center center; background-size:18px 22px; border: none; border-right: none;}
+.zxy-Logon form .input-group span:nth-child(2){width:1px; height:20px; background:#ccc; position:absolute; left:34px; top:7.5px;z-index:5;}
+.zxy-Logon form .input-group input{border: none; border-left: none; background:#FFF;}
+.zxy-Logon form .form-group:nth-child(2) .input-group{ position:relative;}
+.zxy-Logon form .form-group:nth-child(2) .input-group span:nth-child(1){width:35px; height:30px; background:url(../img/zxy-shouji.png) no-repeat center center; background-size:15px 22px;border:none; border-right: none;}
+.zxy-Logon form .form-group:nth-child(3) .input-group span:nth-child(2){width:1px; height:20px; background:#ccc; position:absolute; left:34px; top:7.5px;z-index:10;}
+.zxy-Logon form .form-group:nth-child(3).Verification-z .input-group input{ width:70%;}
+.zxy-Logon form .form-group:nth-child(3).Verification-z .input-group button{ float:right;width:30%; height:35px; line-height:35px; background:#f8f8f8;  border-radius:0 5px 5px 0 ; border:none; font-size:12px; color:#999; border-left: solid 1px #ccc; text-align:center; padding:0;}
+.zxy-Logon form .form-group:nth-child(3) .input-group,.zxy-Logon form .form-group:nth-child(4) .input-group{ position:relative;}
+.zxy-Logon form .form-group:nth-child(3) .input-group span:nth-child(1){background:url(../img/zxy-suo0.png) no-repeat center center; background-size:18px 22px;}
+.zxy-Logon form .form-group:nth-child(3) .input-group span:nth-child(2),.zxy-Logon form .form-group:nth-child(4) .input-group span:nth-child(2){width:1px; height:20px; background:#ccc; position:absolute; left:34px; top:7.5px;z-index:10;}
+.zxy-Logon form .form-group:nth-child(4) .input-group span:nth-child(1){background:url(../img/zxy-suo.png) no-repeat center center; background-size:16px 22px;}
+.zxy-number{ height:25px;margin-bottom:10px; line-height:25px; font-size:15px;}
+.zxy-number b{ color:#999; line-height:25px; font-weight:normal; font-size:20px}
+.zxy-payment a{ display:block;width:100%; height:40px; line-height:40px; padding:0; font-size:16px;background:#66ccee; border:none; margin-top:30px; margin-bottom:20px; color:#FFF;}
+/*激活*/
+.zxy-activation{ overflow:hidden;height:40px; font-size:14px; color:#333; line-height:40px;margin-bottom:10px;}
+.zxy-activation b{ color:#999; font-size:20px;}

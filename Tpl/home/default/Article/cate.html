@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<include file="public:headtop" />
+</head>
+<body>
+<include file="public:head" />
+
+<div id="content">
+	<div class="module_special">
+        <h2 class="common_title"><b>{$cate_name}</b></h2>
+    </div>
+<UL class=wxlist>
+<!--循环开始-->
+<volist name="item_list" id="item">
+<A href="{:U('Article/show',array('id'=>$item['id']))}">
+<LI style="WIDTH: auto">
+<DIV class=InfoTitle>{$item.title}</DIV>
+<if condition="$item['img']"><DIV class=InfoPicture><IMG src="{:attach($item['img'], 'article')}"></DIV></if>
+<DIV class=InfoSContent>{$item.intro}...</DIV>
+<DIV class=ShowInfo>点击阅读全文&gt;&gt;</DIV></LI></A>
+</volist>
+</UL>
+
+</div>
+
+<include file="public:footer" />
+</body>
+</html>

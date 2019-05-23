@@ -1,0 +1,94 @@
+<include file="public:header" />
+<!--会员列表-->
+<div class="pad_10" >
+    <form name="searchform" method="get" >
+    <table width="100%" cellspacing="0" class="search_form">
+        <tbody>
+            <tr>
+                <td>
+                <div class="explain_col">
+                    <input type="hidden" name="g" value="admin" />
+                    <input type="hidden" name="m" value="user" />
+                    <input type="hidden" name="a" value="index" />
+                    <input type="hidden" name="menuid" value="{$menuid}" />
+                    &nbsp;关键字 :
+                    <input name="keyword" type="text" class="input-text" size="25" value="{$search.keyword}" />
+                    <input type="submit" name="search" class="btn" value="搜索" />
+                </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <div class="J_tablelist table_list" data-acturi="{:U('user/ajax_edit')}">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width=25><input type="checkbox" id="checkall_t" class="J_checkall"></th>
+                <th><span data-tdtype="order_by" data-field="id">ID</span></th>
+                <th width="40" align="center"><span data-tdtype="order_by" data-field="img">头像</span></th>
+                <th width="80"><span data-tdtype="order_by" data-field="username">用户名</span></th>
+                <th width="120" align="center"><span data-tdtype="order_by" data-field="card_number">卡号</span></th>
+                <th width="60" align="center"><span data-tdtype="order_by" data-field="mobile">联系电话</span></th>
+                <th width="60" align="center"><span data-tdtype="order_by" data-field="score">积分</span></th>
+                <th width="60" align="center"><span data-tdtype="order_by" data-field="money">卡价钱</span></th>
+                <th width="80" align="center">卡类型</th>
+                <th width="180" align="center">有效期</th>
+                <th width="120"><span data-tdtype="order_by" data-field="reg_time">加入时间</span></th>
+                <th width="120">二维码</th>
+                <th width="220">{:L('operations_manage')}</th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center"><input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
+                <td align="center">{$val.id}</td>
+                <td align="center">
+                    <if condition="$val.cover neq ''">
+                        <img style="width: 50px;height: 50px;" src="{$val['cover']}" />
+                        <else/>
+                        <img src="{:avatar($val['id'], 32)}" />
+                    </if>
+
+                </td>
+                <td align="center"><span data-tdtype="edit" data-field="name" data-id="{$val.id}" class="tdedit"><if condition="$val['name']">{$val['name']}<else/>{$val['wechatid']}</if></span></td>
+                 <td align="center">{$val.card_number}</td>
+                <td align="center"><if condition="$val.tel eq ''">0<else/>{$val.tel}</if></td>
+                <td align="center">{$val.score}</td>
+                <td align="center">
+                    <if condition="$val.money eq ''">0.00<else/>{$val.money}</if>
+                    <!--<a href="{:U('yue_log/logs',array('uid'=>$val['id']))}" title="点击查看余额明细">-->
+                  <!--  </a>-->
+                </td>
+                <td align="center">{$val.cardname}</td>
+                <td align="center">{$val.begin_time} - {$val.end_time}</td>
+                <!--<td align="center">{$val.level}</td>-->
+                <td align="center">{$val.reg_time|date="Y-m-d H:i",###}</td>
+                <td align="center"><img style="width: 50px;height:50px;" src="{$val['qr_code']}" /></td>
+                <!--<td align="center">{$val.last_time|date="Y-m-d H:i",###}</td>-->
+               <!-- <td align="center">{$val.last_ip}</td>-->
+              <!--  <td align="center"><img data-tdtype="toggle" data-id="{$val.id}" data-field="daren" data-value="{$val.daren}" src="__STATIC__/images/admin/toggle_<if condition="$val.daren eq 0">disabled<else/>enabled</if>.gif" /></td>-->
+               <!-- <td align="center"><img data-tdtype="toggle" data-id="{$val.id}" data-field="status" data-value="{$val.status}" src="__STATIC__/images/admin/toggle_<if condition="$val.status eq 0">disabled<else/>enabled</if>.gif" /></td>-->
+                <td align="center">
+                   <!-- <a href="javascript:;" class="J_showdialog" data-uri="{:u('user/addconsume', array('id'=>$val['id'], 'menuid'=>$menuid))}" data-title="添加消费明细-{$val.username}" data-id="edit" data-width="520" data-height="220">添加消费</a>|-->
+                   <!--<a href="javascript:;" class="J_showdialog" data-uri="{:u('user/chongzhi', array('id'=>$val['id'], 'menuid'=>$menuid))}" data-title="充值-{$val.username}" data-id="edit" data-width="400" data-height="120">充值</a>|-->
+                <a href="javascript:;" class="J_showdialog" data-uri="{:u('user/edit', array('id'=>$val['id'], 'menuid'=>$menuid))}" data-title="编辑-{$val.username}" data-id="edit" data-width="520" data-height="220">编辑</a> | <a href="javascript:void(0);" class="J_confirmurl" data-uri="{:u('user/delete', array('id'=>$val['id']))}" data-acttype="ajax" data-msg="{:sprintf(L('confirm_delete_one'),$val['username'])}">{:L('delete')}</a></td>
+            </tr>
+            </volist>
+    	</tbody>
+    </table>
+    <div class="btn_wrap_fixed">
+        <label class="select_all"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+        <input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('user/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
+        <div id="pages">{$page}</div>
+    </div>
+
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__STATIC__/js/calendar/calendar.js"></script>

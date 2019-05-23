@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>商家扫码</title>
+   <include file="public:mheader" />
+    <style>
+        .c_fanli img{ margin: 20px auto 30px auto;}
+        .c_fl{background:#fff; padding:10px 10px 30px 10px;;border-radius:5px;}
+        .c_fl h5{height:20px; margin-bottom:30px;}
+        .c_fl .zxy-payment a{background:#65CCED; border:none;}
+        .c_fl .zxy-payment{margin-top:20px;}
+    </style>
+</head>
+<body class="lxt-color">
+<section class="section_topdis">
+    <form id="form2" action="{:U('Shop/fan_score')}" method="post">
+        <div class="container">
+            <div class="c_fanli"><img src="__STATIC__/manage/img/fll.png" ></div>
+            <div class="c_fl">
+            <h5>会员名称：<b>{$user.name}</b></h5>
+            <h5>会员卡号：<b>{$user.card_number}</b></h5>
+                <div class="form-group">
+                    <div class="input-group col-xs-12">
+                        <input type="text" id="money" name="money" class="form-control" placeholder="请输入用户消费金额" />
+                    </div>
+                        <input type="hidden" name="uid" value="{$user.id}"/>
+                        <input type="hidden" name="sid" value="{$_SESSION['manage']['id']}"/>
+                </div>
+            <div class="zxy-payment margin-z"><a id="submit1" href="javascript:;" class="btn btn-primary btn-block">确定</a></div>
+            </div>
+        </div>
+    </form>
+</section>
+</body>
+<script>
+    $(function(){
+        $("#submit1").click(function(e){
+            var money  = parseInt($('#money').val()) ;
+            if(!money){
+                layer.msg('请输入用户消费金额');
+                return false;
+            }
+            var merchant = "{$_SESSION['manage']}";
+            if(money){
+                 if(merchant) {
+                     $("#form2").submit();
+                 }else{
+                     layer.msg('您没有登陆请去商家登陆！');
+                     window.location.replace("{:U('Shop/m_login')}");
+
+                 }
+            }
+        });
+
+    })
+</script>
+</html>

@@ -1,0 +1,114 @@
+<!--添加会员-->
+<div class="dialog_content">
+	<form id="info_form" action="{:u('user_merchant/add')}" method="post">
+	<table width="100%" class="table_form">
+		<tr>
+			<th width="100">所属商家 :</th>
+			
+			<td>
+			<select name='mid' id="mid">
+                <option value=''>--请选择所属商家--</option>
+                <volist name="merchant" id="vo" >
+                    <option value='{$vo.id}'>{$vo.title}</option>
+                </volist>
+			</select>
+			</td>
+		</tr>
+
+        <tr>
+            <th width="80">商家电话:</th>
+            <td><input type="text" name="tel" id="J_tel" class="input-text"></td>
+        </tr>
+
+        <tr>
+			<th>新密码 :</th>
+			<td><input id="password" type="password" name="password" class="input-text"></td>
+		</tr>
+        <tr>
+			<th>重复密码 :</th>
+			<td><input id="repassword" type="password" name="repassword" class="input-text"></td>
+		</tr>
+        
+	    <tr>
+			<th>{:L('enabled')} :</th>
+			<td>
+				<label><input type="radio" name="status" value="1" checked="checked"> {:L('yes')}</label>&nbsp;&nbsp;
+				<label><input type="radio" name="status" value="0" > {:L('no')}</label>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="id" value="{$info.id}" />
+	</form>
+</div>
+<script src="__STATIC__/js/fileuploader.js"></script>
+<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+<script>
+    var check_tel_url = "{:U('user_merchant/ajax_check_tel')}";
+    $.formValidator.initConfig({formid:"info_form",autotip:true});
+    $("#password").formValidator({onshow:'请输入新密码(密码长度6-12)',onfocus:'请输入新密码(密码长度6-12)'}).inputValidator({min:6,onerror:'请输入新密码(密码长度6-12)'});
+    $("#repassword").formValidator({onshow:'请输入重复密码(密码长度6-12)',onfocus:'请输入重复密码(密码长度6-12)'}).inputValidator({min:1,onerror:'请输入重复密码(密码长度6-12)'});
+    $("#J_tel").formValidator({onshow:'请输入手机号码',onfocus:'请输入手机号码'}).inputValidator({min:6,onerror:'请输入手机号码'}).ajaxValidator({
+        type : "get",
+        url : check_tel_url,
+        datatype : "json",
+        async:'false',
+        success : function(result){
+            if(result){
+                return true;
+            }else{
+                return false;
+
+            }
+        },
+        onerror : '手机号码已经存在',
+        onwait : '正在检测'
+    })
+
+    $('#info_form').ajaxForm({success:complate,dataType:'json'});
+    function complate(result){
+        if(result.status == 1){
+            $.dialog.get(result.dialog).close();
+            $.pinphp.tip({content:result.msg});
+            window.location.reload();
+        } else {
+            $.pinphp.tip({content:result.msg, icon:'alert'});
+        }
+    }
+</script>
+<script>
+$(function(){
+
+	//上传图片
+    var uploader = new qq.FileUploaderBasic({
+    	allowedExtensions: ['jpg','gif','jpeg','png','bmp','pdg'],
+        button: document.getElementById('J_upload_img'),
+        multiple: false,
+        action: "{:U('user/ajax_upload_imgs')}",
+        inputName: 'img',
+        forceMultipart: true, //用$_FILES
+        messages: {
+        	typeError: lang.upload_type_error,
+        	sizeError: lang.upload_size_error,
+        	minSizeError: lang.upload_minsize_error,
+        	emptyError: lang.upload_empty_error,
+        	noFilesError: lang.upload_nofile_error,
+        	onLeave: lang.upload_onLeave
+        },
+        showMessage: function(message){
+        	$.pinphp.tip({content:message, icon:'error'});
+        },
+        onSubmit: function(id, fileName){
+        	$('#J_upload_img').addClass('btn_disabled').find('span').text(lang.uploading);
+        },
+        onComplete: function(id, fileName, result){
+        	$('#J_upload_img').removeClass('btn_disabled').find('span').text(lang.upload);
+            if(result.status == '1'){
+        		$('#J_img').val(result.data);
+        	} else {
+        		$.pinphp.tip({content:result.msg, icon:'error'});
+        	}
+        }
+    });
+});
+</script>

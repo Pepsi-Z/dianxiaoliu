@@ -1,0 +1,58 @@
+<include file="public:header" />
+<!--会员列表-->
+<div class="pad_10" >
+    <form action="{:U('baoming/index')}"  method="post" >
+    <table width="100%" cellspacing="0" class="search_form">
+        <tbody>
+            <tr>
+                <td>
+                <div class="explain_col">
+                    &nbsp;宝贝姓名 :
+                    <input name="keyword" type="text" class="input-text" size="25" value="{$search.keyword}" />
+                    <input type="submit" name="search" class="btn" value="搜索" />
+                </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th><span data-tdtype="order_by" data-field="id">ID</span></th>
+                <th width="80" align="center"><span data-tdtype="order_by" data-field="img">宝贝姓名</span></th>
+                <th width="80" align="center"><span data-tdtype="order_by" data-field="usercid">宝贝生日</span></th>
+                <th align="80"><span data-tdtype="order_by" data-field="username">父母姓名</span></th>
+                <th align="80"><span data-tdtype="order_by" data-field="wechatid">性别</span></th>
+                <th width="80" align="center"><span data-tdtype="order_by" data-field="email">试听时间</span></th>
+                <th width="100"><span data-tdtype="order_by" data-field="sex">电话</span></th>
+                <th width="120" align="center"><span data-tdtype="order_by" data-field="score">提交信息时间</span></th>
+                <th width="120"><span data-tdtype="order_by" data-field="last_time">操作</span></th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.baby_name}</td>
+                <td align="center">{$val.baby_birthday}</td>
+                <td align="center">{$val.parent_name}</td>
+                <td align="center">{$val.sex}</td>
+                <td align="center">{$val.time}</td>
+                <td align="center">{$val.tel}</td>
+                <td align="center">{$val.datetime}</td>
+                <td align="center">
+     			<a href="javascript:void(0);" class="J_confirmurl" data-uri="{:u('baoming/delete', array('id'=>$val['id']))}" data-acttype="ajax" data-msg="{:sprintf(L('confirm_delete_one'),$val['username'])}">{:L('delete')}</a></td>
+            </tr>
+            </volist>
+    	</tbody>
+    </table>
+
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__STATIC__/js/calendar/calendar.js"></script>

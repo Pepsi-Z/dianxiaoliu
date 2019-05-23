@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>
+    <if condition="$_GET['p_type'] eq '1'">
+        代办
+        <else/>
+        家政
+     </if>
+</title>
+    <include file="public:header" />
+</head>
+<body class="wxhbgcolor_grey">
+<!------主体开始--------->
+<section> 
+  <!--tab菜单-->
+  <div class="container wxh_reputation">
+    <div class="row wxh_tab">
+      <div class="col-xs-3" id="shopLeft">
+          <ul class="nav nav-tabs  wxh_bottomdis" role="tablist">
+              <volist name="cate_list" id="val" >
+                  <li role="presentation" <if condition="$key eq 0" >class="active"</if>>
+                  <a href="javascript:;" class="merchant" t_name="{$val.name}" bid="{$val.id}" type="1" aria-controls="home" role="tab" data-toggle="tab"> {$val.name}</a>
+                  </li>
+              </volist>
+          </ul>
+      </div>
+      <div class="col-xs-9" id="shopRight">
+            <div class="tab-content">
+                <!--1开始---->
+                      <div role="tabpanel" class="tab-pane  active" id="home">
+                      		<div class="col-xs-12 wxh_agencyhouse_box" id="m_merchant">
+                                <volist name="merchant_list" id="v">
+                                    <div class="media bgcolor_whitewxh">
+                                        <a  class="pull-left tishi" href="{:U('Item/agency_content',array('id'=>$v['id'],'type'=>1,'p_type'=>$_GET['p_type']))}">
+                                            <img class="media-object" src="{:attach(get_thumb($v['img'], '_s'), 'merchant')}">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading wfont14 color333"><a href="{:U('Item/agency_content',array('id'=>$v['id'],'type'=>1,'p_type'=>$_GET['p_type']))}" class="color333 tishi">{$v.title}</a>
+                                            </h4>
+
+                                            <div>
+                                                <i id="wxh-star{$v.id}"></i>
+                                                <script>
+                                                    $("#wxh-star{$v.id}").raty({
+                                                        start: "{$v.level}",
+                                                        readOnly: true,
+                                                        path:"__STATIC__/js/jquery.raty-0.5/img/"
+                                                    })
+                                                </script>
+                                                <span class="pull-right wfont12 color666 text-right">销量<span>{$v.yuexiao}</span>份</span>
+                                            </div>
+                                            <div class="wxh_media_bodylast">
+                                                <if condition="$v['peisong'] neq '' ">
+                                                     <span class="wfont12 color666"><span>配送费<span>{$v.qisong}</span>元</span>
+										            <span class="wfont12 color666 pull-right">往返<span>{$v.peisong}</span>元</span></span>
+                                                    <else/>
+                                                     <span class="wfont12 color666"><span>&yen;<span>{$v.qisong}</span>{$v.qisong_teg}</span>
+                                                </if>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </volist>
+
+                             </div>
+                      </div>
+                <!---1完--->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!------主体结束--------->
+<include file="public:footers" />
+<script>
+    //主菜单
+    $(".merchant").click(function(e){
+        var id = $(this).attr('bid');
+        var type = $(this).attr('type');
+        var name= $(this).attr('t_name');
+        $('#m_merchant').html('');  //清空
+        $.ajax({
+            type: "post",
+            url: "{:U('Item/item_merchant')}",
+            data: {id: id,type:type},
+            dataType: "json",
+            success: function (data) {
+                var news_html = "";
+                    if(data){
+                        $.each(data,function(i,v){
+                            var id= v.id;
+                            var peizhi="";
+                            if(v.peisong){
+                                var p_type = "{$_GET['p_type']}";
+                                if(name == '干洗') {
+                                    peizhi = "<span class=\"wfont12 color666\"><span>配送费<span>" + v.qisong + "</span>元</span>" +
+                                    "<span class=\"wfont12 color666 pull-right\">往返<span>" + v.peisong + "</span>元</span></span>";
+                                    var h="{:U('Item/agency_content',array('id'=>'"+id+"','type'=>'"+1+"','p_type'=>'"+p_type+"'))}"
+                                }else if(name == '宠物洗澡'){
+                                    peizhi = "<span class=\"wfont12 color666\"><span>&yen;<span>" + v.qisong + "</span>元/次</span>" +
+                                    "<span class=\"wfont13 color666 pull-right\">往返<span>" + v.peisong + "</span>/次</span></span>";
+                                    var h="{:U('Item/agency_content',array('id'=>'"+id+"','type'=>'"+3+"'))}"
+                                }else{
+                                    peizhi = "<span class=\"wfont12 color666\"><span>起步费<span>"+ v.qisong+"</span>元</span>";
+
+                                }
+
+                            }else{
+
+                                if(v.title == '中介/房屋'){
+                                    peizhi = "<span class=\"wfont12 color666\"><span>&yen;<span>"+ v.qisong+"</span>"+ v.qisong_teg+"</span>";
+                                    var h="{:U('Item/agency_content',array('id'=>'"+id+"','ci'=>1))}"
+                                }else{
+                                    peizhi = "<span class=\"wfont12 color666\"><span>&yen;<span>"+ v.qisong+"</span>"+ v.qisong_teg+"</span>";
+                                    var h="{:U('Item/agency_content',array('id'=>'"+id+"'))}"
+                                }
+
+
+
+                            }
+
+
+                            var img = v.img;
+                            if(v.qisong){
+                                news_html +=  "<div class=\"media  bgcolor_whitewxh\">"+
+                                "<a class=\"pull-left tishi\" href=\""+h+"\">"+
+                                "<img class=\"media-object\" src=\"{:attach(get_thumb('"+img+"', '_m'),'merchant')}\"></a>"+
+                                "<div class=\"media-body\">"+
+                                "<h4 class=\"media-heading wfont14 color333\"><a href=\""+h+"\" class=\"color333 tishi\">"+ v.title+"</a></h4><div>"+
+                                "<i id=\"wxh-star"+ v.id+"\"></i>"+
+                                "<script>$(\"#wxh-star"+ v.id+"\").raty({start:\""+ v.level+"\", readOnly:true, path:\"__STATIC__/js/jquery.raty-0.5/img/\" })<\/script>"+
+                                "<span class=\"pull-right wfont12 color666  text-right\">销量<span>"+v.yuexiao+"</span>份</span></div>"+
+                                "<div class=\"wxh_media_bodylast\">"+peizhi+
+                                "</div></div></div>"
+
+                            }else{
+                                news_html +=  "<div class=\"media  bgcolor_whitewxh\">"+
+                                "<a class=\"pull-left tishi\"  href=\"{:U('Item/agency_content',array('id'=>'"+id+"'))}\" >"+
+                                "<img class=\"media-object\" src=\"{:attach(get_thumb('"+img+"', '_m'),'merchant')}\"></a>"+
+                                "<div class=\"media-body\">"+
+                                "<h4 class=\"media-heading wfont14 color333\"><a href=\"{:U('Item/agency_content',array('id'=>'"+id+"'))}\"  class=\"color333\">"+ v.title+"</a></h4><div>"+
+                                "<i id=\"wxh-star"+ v.id+"\"></i>"+
+                                "<script>$(\"#wxh-star"+ v.id+"\").raty({start:\""+ v.level+"\", readOnly:true, path:\"__STATIC__/js/jquery.raty-0.5/img/\" })<\/script>"+
+                                "<span class=\"pull-right wfont12 color666  text-right\">销量<span>"+v.yuexiao+"</span>份</span></div>"+
+                                "<div class=\"wxh_media_bodylast\">"+
+                                "</div></div></div>"
+                            }
+
+                        });
+                    }else{
+                        news_html +=  "<div class=\"media  bgcolor_whitewxh\">暂无数据</div>";
+                    }
+
+                $('#m_merchant').append(news_html);
+
+                /*$('.tishi').click(function(){
+                    var k_moblie = "{:C('pin_site_tel')}";
+                    layer.msg('客服电话：'+k_moblie);
+                })*/
+
+            }
+
+        });
+    });
+
+    /*$('.tishi').click(function(){
+        var k_moblie = "{:C('pin_site_tel')}";
+        layer.msg('客服电话：'+k_moblie);
+    })*/
+
+
+</script>
+<script>
+	$(function(){
+		var h=$(window).height();	
+		$('body').css('overflow','hidden')
+		$('#shopLeft').css({
+			height:h,
+			overflow:'auto'
+		})
+		$('#shopRight').css({
+			height:h,
+			overflow:'auto'
+		})
+
+        $('.nav-tabs li').click(function(){
+            $(this).addClass('active').siblings('li').removeClass('active');
+            $('.tabContent:eq('+$(this).index()+')').show().siblings('.tabContent').hide();
+        });
+	})
+</script>
+</body>
+</html>

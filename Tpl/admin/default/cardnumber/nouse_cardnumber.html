@@ -1,0 +1,53 @@
+<include file="public:header" />
+<!--管理员管理-->
+<form id="export_excel_form" action="{:U('cardnumber/export_excel')}" method="post">
+<div class="pad_lr_10">
+    <div class="J_tablelist table_list" data-acturi="{:U('cardnumber/ajax_edit')}">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="40"></th>
+                <th width="40">ID</th>
+                <th>会员卡号</th>
+                <th>类型</th>
+                <th>使用状态</th>
+                <!--<th width=100>{:L('operations_manage')}</th>-->
+            </tr>
+            </thead>
+    	    <tbody>
+            <volist name="list" id="val" >
+            <if condition="strtoupper($val['zhuangtai']) neq '已经使用'">
+                <if condition="$val['status'] eq 2">
+            <tr>
+
+                <td align="center">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.cards}</td>
+                <td align="center"><if condition="$val['status'] eq 1">普通卡号<elseif condition="$val['status'] eq 2"/>幸运卡号</if></td>
+                <td align="center"><span style="color: red">未启用</span></td>
+            </tr>
+                    <else/>
+                </if>
+            <else/>
+            </if>
+            </volist>
+    	   </tbody>
+        </table>
+    </div>
+    <div class="btn_wrap_fixed">
+		<label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+        <!--<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('cardnumber/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />-->
+		<div id="pages">{$page}</div>
+    </div>
+</div>
+</form>
+<include file="public:footer" />
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $('#export_excel').click(function(){
+            $('#export_excel_form').submit();
+        })
+    })
+</script>

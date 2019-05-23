@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>商品详情</title>
+    <include file="public:header" />
+</head>
+<body class="zxy-bac">
+<!----------主题开始------------->
+<!----banner----->
+<div class="container">
+    <div class="row">
+        <div class="bannerbox-z">
+            <div class="swiper-container banner-z">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="__STATIC__/css/img/tu-z.jpg"/></div>
+                    <div class="swiper-slide"><img src="__STATIC__/css/img/tu-z.jpg"/></div>
+                    <div class="swiper-slide"><img src="__STATIC__/css/img/tu-z.jpg"/></div>
+                </div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---banner结束---->
+<div class="container">
+    <div class="row zxy-Commodity">
+        <!--资料---->
+        <div class="col-xs-12 Data-z">
+            <h5>肖三婆四川特产美食特色小吃盐水鸭</h5>
+            <i id="zxy-star0"></i>
+            <script>
+                $("#zxy-star0").raty({
+                    start: "4",
+                    readOnly: true,
+                    path: "__STATIC__/css/js/jquery.raty-0.5/img/"
+                })
+            </script>
+            <p><b>￥128.00</b><em><&nbsp;500m</em></p>
+
+            <div class="zxy-cart-ul">
+                <span class="pull-left">数量：</span>
+                <ul class="zxy-cart-ul">
+                    <li class="zxy-lia"><a href="javascript:;" class="text-center">-</a></li>
+                    <li>
+                        <input type="text" value="1" class=" text-center">
+                    </li>
+                    <li class="zxy-lib"><a href="javascript:;" class="text-center">+</a></li>
+                </ul>
+                <div class="pull-right"><a class="btn btn-default" href="购物车.html">加入购物车</a></div>
+            </div>
+        </div>
+
+
+        <!---详情---->
+        <div class="col-xs-12 Details-z">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="col-xs-6 text-center active Thum-z"><a href="#home" aria-controls="home"
+                                                                                      role="tab"
+                                                                                      data-toggle="tab">图文详情</a></li>
+                <li role="presentation" class="col-xs-6 text-center"><a href="#profile" aria-controls="profile"
+                                                                        role="tab" data-toggle="tab">评论</a></li>
+            </ul>
+            <div class="nav-tabsW" style="height:40px; display:none"></div>
+        </div>
+        <!-- 内容 -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="home">
+                <!--1图文-->
+                <div class="Image-z">
+                    <img src="__STATIC__/css/img/xiangqing_0.jpg">
+                    <img src="__STATIC__/css/img/xiangqing_1.jpg">
+                </div>
+                <!--1图文结束-->
+            </div>
+            <div role="tabpanel" class="tab-pane" id="profile">
+                <!--2评论开始-->
+                <div class="col-xs-12 Comment-z">
+                    <div class="col-xs-3">
+                        <div><img src="__STATIC__/css/img/touxinag.jpg"></div>
+                    </div>
+                    <div class="col-xs-9">
+                        <p><b>霍建华</b>
+                            <time class="pull-right">2018-11-28</time>
+                        </p>
+                        <p>买了好3种~牛肉干、冷香兔丁、还有麻辣兔头~都挺不错的~好吃~以前只买过牛肉干~好吃的停不下来~！！</p>
+                    </div>
+                </div>
+                <div class="col-xs-12 Comment-z">
+                    <div class="col-xs-3 ">
+                        <div><img src="__STATIC__/css/img/touxinag.jpg"></div>
+                    </div>
+                    <div class="col-xs-9">
+                        <p><b>霍建华</b>
+                            <time class="pull-right">2018-11-28</time>
+                        </p>
+                        <p>买了好3种~牛肉干、冷香兔丁、还有麻辣兔头~都挺不错的~好吃~以前只买过牛肉干~好吃的停不下来~！！</p>
+                    </div>
+                </div>
+                <!--2评论结束-->
+            </div>
+        </div>
+        <!---详情结束--->
+
+    </div>
+</div>
+<div class="Blank-z"></div>
+
+<!------结束-------->
+
+<!-----footer开始-------->
+<div class="container">
+    <div class="row zxy-Tail">
+        <div class="col-xs-12">
+            <span class="pull-left">合计：<b>￥128.00</b></span>
+            <a href="购物车-确认订单.html" class="btn btn-default pull-right">立即购买</a>
+        </div>
+    </div>
+</div>
+
+
+<!-----footer结束-------->
+
+<include file="public:footers" />
+<script>
+    $(".accordion").accordion();
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay: 5000
+    });
+
+    $(document).ready(function (e) {
+        $('.Information-z .Att-z a').click(function () {
+            $(this).addClass("Thum-z").siblings().removeClass("Thum-z");
+        })
+    });
+</script>
+</body>
+</html>

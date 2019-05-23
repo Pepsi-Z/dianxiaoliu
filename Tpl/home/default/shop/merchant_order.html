@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<meta name="format-detection" content="telephone=no" />
+<title>订单管理</title>
+<include file="public:mheader" />
+</head>
+<body class="lxt-color">
+<div class="container">
+    <div class="row coupon_box lxt-row">
+  <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class=" active col-xs-6 text-center">
+          <a href="{:U('Shop/merchant_order')}"><span>折扣订单</span></a>
+      </li>
+      <li role="presentation" class=" col-xs-6 text-center">
+          <a href="{:U('Shop/order_tuan',array('status'=>1))}">
+              <span>团购订单</span>
+          </a>
+      </li>
+  </ul>
+  </div>
+    
+<div class="tab-content">
+
+<!--折扣内容-->
+ <div role="tabpanel" class="row lxt_integral tab-pane active unused lxt-tab" id="aa" >     
+    <table class="table">
+        	<tr>
+            	<th>会员卡号</td>
+                <th>时间</td>
+                <th>积分</td>
+                <th>状态</td>
+            </tr>
+        <volist name="integral_list" id="val">
+            <tr>
+            	<td>{$val.card_number}</td>
+            	<td>{$val.add_time|date="Y-m-d",###}</td>
+            	<td class="lxt_increase">+{$val.score}</td>
+                <if condition="$val.status eq 0 ">
+                    <td class="lxt-blue">未返利</td>
+                    <else/>
+                    <td>已返利</td>
+                </if>
+
+
+            </tr>
+        </volist>
+		</table>
+</div>
+<!--团购内容-->
+</div>
+</div>
+
+
+
+</body>
+</html>

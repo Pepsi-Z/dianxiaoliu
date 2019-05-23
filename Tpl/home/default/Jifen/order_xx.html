@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>领取奖励</title>
+<include file="public:header" />
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<style>
+    .xiangqing,.xq_main{width:100%;}
+    .xq_main{min-height:150px;}
+</style>
+</head>
+<body style="background:#eeeeee;">
+        <div class="xiangqing bg_colorxq">
+        	<p><img src="../Style/static/images/icon41.png" class="fl"/>
+        	订单状态：
+        		<if condition="$score_info.status eq 1">
+                <a href="javascript:;" style="color:#40C780;margin-right:10px;">待发货</a>
+                <elseif condition="$score_info.status eq 2" />
+                <a href="javascript:;" style="color:#40C780;margin-right:10px;">待收货</a>
+                <elseif condition="$score_info.status eq 3" />
+                <a href="javascript:;" style="color:#40C780;margin-right:10px;">完成</a>
+                </if>
+        	</p>
+        </div>
+        <div class="xiangqing bg_colorxq1">
+        	<p><img src="../Style/static/images/icon42.png" class="fl"/>收货人：{$score_info.uname}<span class="fr">{$score_info.mobile}</span></p>
+            <p class="left_pdis">{$score_info.xx_address}</p>
+        </div>
+        <div class="xq_main">
+        	<!--<p class="titile_p">店铺：{:C('pin_site_name')}</p>-->
+            <div class="shopping_box border_bottom">
+            	<a href="#">
+                    <img src="{:get_img($score_info[img],'score_item')}"/>
+                    <p class="shopping_p line_height">{$score_info.title}</p>
+                    <p class="shopping_p"><i>￥{$score_info.score}</i><span>x {$score_info.item_num}</span></p>
+                </a>
+            </div>
+            <!--<input type="text" placeholder="给卖家留言"  class="liuyan_button"/>-->
+            <div class="bottom_p" style="border-top:none"><p class="titile_p1"><span>共 {$score_info.item_num} 件商品，合计：<span>￥{$score_info.order_score}</span></span></p></div>
+        </div>
+        <!--<div class="xq_bottom">
+        	<span>共<i> {$score_info.item_num} </i> 件，总金额<i> ￥{$score_info.order_score}</i></span>
+            <input type="button" value="提交订单" class="bottom_button fr"/>
+        </div>-->
+</body>
+<include file="public:footers" />
+</html>

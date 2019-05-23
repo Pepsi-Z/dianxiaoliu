@@ -1,0 +1,57 @@
+<include file="public:header" />
+<!--网站设置-->
+<div class="pad_lr_10">
+    <form id="info_form" action="{:u('cardnumber/cardnumber')}" method="post" enctype="multipart/form-data">
+        <table width="100%" class="table_form">
+            <tr>
+                <th width="80">生成类型:</th>
+                <td>
+                    <input type="radio" name="line" id="type_y"  value="0" class="input-text">线上
+                    <input type="radio" name="line" id="type_w"   value="1"  class="input-text">线下
+                </td>
+            </tr>
+
+            <tr id="cardtype" style="display:none">
+                <th width="80">会员卡类型:</th>
+                <td>
+                    <select name="cardtype" id="field">
+                        <volist name="cardtype" id="val">
+                            <option value="{$val.id}">{$val.gname}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th width="150">生产8位卡号数量 :</th>
+                <td>
+                    <input type="text" name="cards" id="cards" class="input-text"  />
+                </td>
+            </tr>
+
+            <tr>
+                <th></th>
+                <td><input type="submit" class="btn btn_submit" value="{:L('submit')}"/></td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include file="public:footer" />
+</body>
+<script>
+    $(function(){
+
+        $('#type_y').attr('checked',true);
+       // document.getElementById("cardtype").innerHTML = "";
+
+        $('#type_y').click(function(){
+            $('#cardtype').attr('style','display:none');
+            //document.getElementById("cardtype").innerHTML = "";
+        })
+
+        $('#type_w').click(function(){
+            $('#cardtype').attr('style','');
+        })
+    })
+</script>
+</html>

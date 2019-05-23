@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>会员提现</title>
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../Style/static/js/lunbo.js"></script>
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+<include file="public:header" />
+    <style>
+        .zxy-Logon form .input-group{ margin-bottom:10px;}
+        .text_input{border-radius: 10px!important;}
+    </style>
+</head>
+<body style="background:#eeeeee;">
+
+      <!--  <form action="{:U('Card/hychongzhi')}" method="post">
+        <div class="Recharge_div">
+        	<span>金额</span>
+            <input type="text" name="money" class="text_input"/>
+            <input type="submit" value="确认" class="button_input" style="background-color:#C4374A;color:#FFF;"/>
+        </div>
+        </form>-->
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 zxy-Logon">
+                    <form action="{:U('Card/tixian')}" method="post" id="form2">
+                        <div class="form-group">
+                            <label class="text">提现金额</label>
+                            <div class="input-group col-xs-12">
+                                <!--<span class="input-group-addon"></span>
+                                <span></span>-->
+                                <input  type="text" id="money" name="money" class="form-control text_input" placeholder="仅支持10元以上提现" maxlength="18">
+                            </div>
+
+                            <label class="text">开户银行</label>
+                            <div class="input-group col-xs-12">
+                                <input  type="text" name="bank"  id="bank" class="form-control text_input" placeholder="请输入开户银行">
+                            </div>
+
+                            <label class="text">银行卡号</label>
+                            <div class="input-group col-xs-12">
+                                <input  type="text" name="bank_num" id="bank_num" class="form-control text_input" placeholder="请输入银行卡号">
+                            </div>
+
+                            <label class="text">汇款账户开户名</label>
+                            <div class="input-group col-xs-12">
+                                <input  type="text" name="bank_name" id="bank_name" class="form-control text_input" placeholder="请输入汇款账户开户名">
+                            </div>
+
+                            <label class="text">开户行地址</label>
+                            <div class="input-group col-xs-12">
+                                <input  type="text" name="bank_address" id="bank_address" class="form-control text_input" placeholder="请输入开户行地址">
+                            </div>
+
+
+                            <a  id="tijiao" href="javascript:;" class="btn yy_out yy_address_btn">提交</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+<div style="height:55px;"></div>
+<script>
+  $(function(){
+
+      $("#tijiao").click(function(e){
+          var money  = $('#money').val();
+          var umoney= "{$money}";
+          var bank = $('#bank').val();
+          var bank_num = $('#bank_num').val();
+          var bank_name = $('#bank_name').val();
+          var bank_address = $('#bank_address').val();
+          if(money == ''){
+              layer.msg('请输入提现金额');
+              return false;
+          }
+          if(bank == ''){
+              layer.msg('请输入开户银行');
+              return false;
+          }
+          if(bank_num == ''){
+              layer.msg('请输入银行卡号');
+              return false;
+          }
+          if(bank_name == ''){
+              layer.msg('请输入汇款账户开户名');
+              return false;
+          }
+          if(bank_address == ''){
+              layer.msg('请输入开户行地址');
+              return false;
+          }
+
+          if(Number(money) > Number(umoney) && Number(money) > Number(10)){
+              layer.msg('输入金额不正确,请重新输入');
+              return false;
+          }else{
+              $("#form2").submit();
+          }
+
+      });
+
+  })
+</script>
+<include file="public:footers" />

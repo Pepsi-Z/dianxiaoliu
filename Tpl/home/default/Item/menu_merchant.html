@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>
+        <if condition="$_GET['type'] eq '5'">
+            折扣
+            <elseif condition="$_GET['type'] eq '6'"/>
+            套餐
+            <elseif condition="$_GET['type'] eq '7'"/>
+            商家
+        </if>
+    </title>
+    <style>
+        .tao{
+            display: block;
+            width: 35px;
+            height: 35px;
+            background: transparent url("__STATIC__/css/img/wxh_bluezhe1.png") no-repeat scroll center center / 35px 35px;
+            z-index: 90;
+            position: absolute;
+            top: 10px;
+            left: 7px;
+        }
+
+        .zhe{
+            display: block;
+            width: 35px;
+            height: 35px;
+            background: transparent url("__STATIC__/css/img/wxh_bluezhe3.png") no-repeat scroll center center / 35px 35px;
+            z-index: 90;
+            position: absolute;
+            top: 10px;
+            left: 7px;
+        }
+    </style>
+    <include file="public:header" />
+    <script>
+        $(document).ready(function(e) {
+            //主tab
+            var h=$(window).height()-200;
+            $('.yy_ul').css({
+                'height':h,
+                'overflow':'auto'
+            })
+            $('.yy_tabBarS li').click(function () {
+                var i = $('.yy_tabBarS li').index($(this)[0]);
+                var elm='<div class="c_black"></div>';
+
+                if($('.c_black').length>0){
+                    //$('.c_black').remove();
+                }else{
+                    $('.yy_tabS').append(elm);
+                }
+
+
+                $('.c_filter').find('ul').css('display','none');
+                $(this).parents('.yy_tabS').find('ul').eq(i+1).slideDown();
+
+
+                //black
+                $('.c_black').click(function(){
+                    $('.c_filter').find('ul').css('display','none');
+                    $(this).remove();
+                });
+                //附近tab
+                $('.yy_xl a').click(function () {
+                    var i = $('.yy_xl a').index($(this)[0]);
+                    var elm='<div class="c_black"></div>';
+
+                    if($('.c_black').length>0){
+                        //$('.c_black').remove();
+                    }else{
+                        $('.yy_xl').append(elm);
+                    }
+                    $(this).closest('.pull-left').siblings('.pull-right').find('div').css('display','none');
+                    $(this).parents('.yy_xl').find('.yy_list').eq(i+0).show();
+
+                    //black
+                    $('.c_black').click(function(){
+                        $('.pull-right').find('div').css('display','none');
+                        $(this).remove();
+                    })
+                });
+            });
+        });
+    </script>
+</head>
+<body class="bac-zxy">
+<section class="margin-z">
+    <div class="container zxy-Car">
+        <div class="row yy_tabS">
+            <ul class="nav nav-pills col-xs-12 margin-z yy_tabBarS" id="poifilter-bar" class="poifilter-bar">
+                <li class="dropdown col-xs-4 margin-z yy_tebLiS">
+                    <a class="dropdown-toggle" class="j-nav-item nav-item nav-right-sep" href="javascript:;" role="button">
+                        <if condition="$search['pname'] neq ''">
+                            {$search['pname']}
+                            <else/>
+                            全部
+                        </if>
+                        <span class="caret"></span>
+                    </a>
+                </li>
+                <li role="presentation yy_tebLiS" class="dropdown col-xs-4 margin-z">
+                    <a class="dropdown-toggle" class="j-nav-item nav-item nav-right-sep" href="javascript:;" role="button" >
+                        <if condition="$search['town_name'] neq ''">
+                            {$search['town_name']}
+                            <else/>
+                            附近
+                        </if>
+                        <span class="caret"></span>
+                    </a>
+                </li>
+                <li role="presentation yy_tebLiS" class="dropdown col-xs-4 margin-z">
+                    <a class="dropdown-toggle" class="j-nav-item nav-item"  href="javascript:;" role="button">
+                        <if condition="$search['zname'] neq ''">
+                            {$search['zname']}
+                            <else/>
+                            智能排序
+                        </if>
+                        <span class="caret"></span>
+                    </a>
+                </li>
+            </ul>
+            <!--筛选-->
+            <div class="c_filter">
+            <ul style="display:none;" class="yy_ul">
+                <volist name="item_list" id="val">
+                    <li>
+                        <if condition="$val['type'] eq 0">
+                            <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}" >
+                        <elseif condition="$val['type'] eq 6"/>
+                            <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}" >
+                        <elseif condition="$val['type'] eq 2"/>
+                            <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}" >
+                        <elseif condition="$val['type'] eq 1"/>
+                            <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}">
+                        <elseif condition="$val['type'] eq 3"/>
+                             <a href="{:U('Item/city_express')}" >
+                        <elseif condition="$val['type'] eq 4"/>
+                             <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'p_type'=>2,'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}" >
+                        <elseif condition="$val['type'] eq 5"/>
+                             <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}" >
+                        <elseif condition="$val['type'] eq 7"/>
+                              <a href="{:U('Item/hotel')}">
+                        <elseif condition="$val['type'] eq 8"/>
+                              <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}" >
+                        <elseif condition="$val['type'] eq 9"/>
+                              <a href="{:U('Item/menu_merchant',array('id'=>$val['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'km'=>$_GET['km'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}" >
+                        </if>
+                        {$val.name}
+                        </a>
+                    </li>
+                </volist>
+            </ul>
+                <ul style="display:none;" class="yy_ul">
+                    <li style="width:100%; height:200px; background-color:#ebebeb;" class="yy_xl">
+                        <div class="pull-left" style="width:50%; background-color:#fff;">
+                                <p><a href="#">附近</a></p>
+                            <volist name="city_list" id="vo">
+                                <p><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'town'=>$vo['id'],'z_name'=>$_GET['z_name']))}">{$vo.name}</a></p>
+                            </volist>
+                        </div>
+                        <!--附近筛选-->
+                        <div class="pull-right" style="width:50%; background-color:#ebebeb;">
+                            <div class="yy_list">
+                                <p><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'tid'=>$_GET['tid'],'z_name'=>$_GET['z_name'],'km'=>1))}">1km</a></p>
+                                <p><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'tid'=>$_GET['tid'],'z_name'=>$_GET['z_name'],'km'=>3))}">3km</a></p>
+                                <p><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'tid'=>$_GET['tid'],'z_name'=>$_GET['z_name'],'km'=>5))}">5km</a></p>
+                                <p><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'tid'=>$_GET['tid'],'z_name'=>$_GET['z_name'],'km'=>10))}">10km</a></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <ul style="display:none;" class="yy_ul">
+                    <li><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'z_name'=>'好评','tid'=>$_GET['tid'],'town'=>$_GET['town'],'km'=>$_GET['km']))}">好评</a></li>
+                    <li><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'z_name'=>'最大优惠','tid'=>$_GET['tid'],'town'=>$_GET['town'],'km'=>$_GET['km']))}">最大优惠</a></li>
+                    <li><a href="{:U('Item/menu_merchant',array('id'=>$_GET['id'],'foot_id'=>$_GET['foot_id'],'type'=>$_GET['type'],'z_name'=>'最高人气','tid'=>$_GET['tid'],'town'=>$_GET['town'],'km'=>$_GET['km']))}">最高人气</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <!--位置--->
+            <div class=" col-xs-12 Pull-z">
+                <div class="col-xs-10  margin-z pull-left">
+                    {$_SESSION['address']}附近
+                </div>
+                <div class="col-xs-2 margin-z">
+                    <!--<a href="#" class="glyphicon glyphicon-repeat pull-right"></a>-->
+                </div>
+            </div>
+            <!-----banner----->
+            <div class=" col-xs-12 margin-z zxy-Commodities">
+                <div class="bannerbox-z">
+                    <div class="swiper-container banner-z">
+                        <div class="swiper-wrapper">
+                            <volist name="ad" id="val">
+                                <div class="swiper-slide"><img style="height: 133px;" src="data/upload/advert/{$val.content}" /></div>
+                            </volist>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </div>
+            <!---产品--->
+            <div class="col-xs-12 margin-z zxy_agencyhouse_box">
+               <if condition="$_GET['type'] eq '5'" >
+                   <volist name="merchant_list" id="v">
+                       <if condition="$v.chang eq '0'">
+                           <a class="pull-left" href="{:U('Item/merchant_info',array('id'=>$v['id']))}" class="yy_discount_A">
+                               <else/>
+                               <a class="pull-left" href="{:U('Item/merchant_info',array('id'=>$v['id'],'type'=>4))}" class="yy_discount_A">
+                       </if>
+                       <div class="media  bgcolor_whitezxy">
+                            <span class="pull-left" style="margin-right:10px;">
+                               <img style="width:80px;height:65px;"  class="media-object" src="{:attach(get_thumb($v['img'], '_s'), 'merchant')}" alt="...">
+                               <i class="zhe"></i>
+                            </span>
+                           <div class="media-body">
+                               <h4 class="media-heading wfont14 color333">{$v.title}<!--<span class="yy_piao"></span><span class="yy_zhe"></span>--></h4>
+                               <div>
+                                   <i id="zxy-star{$v.id}"></i>
+                                   <script>
+                                       $("#zxy-star{$v.id}").raty({
+                                           start:"{$v['start']}",
+                                           readOnly:true,
+                                           path:"__STATIC__/js/jquery.raty-0.5/img/"
+                                       })
+                                   </script>
+                                   <!--<span>305评价</span>
+                                   <span class="consumption-z pull-right">人均￥118</span>-->
+                               </div>
+                               <div class="zxy_media_bodylast">
+                                   <span>{$v.min}km</span>
+                               </div>
+                               <div class="c_zkou"><em>{$v.discount}</em>折</div>
+                           </div>
+                       </div>
+                       </a>
+                   </volist>
+                <elseif condition="$_GET['type'] eq '6'"/>
+                   <volist name="merchant_list" id="v">
+                       <a class="pull-left" href="{:U('Item/merchant_info',array('id'=>$v['id']))}">
+                       <div class="media  bgcolor_whitezxy">
+                            <span class="pull-left" style="margin-right:10px;">
+                               <img style="width:80px;height:65px;" class="media-object" src="{:attach(get_thumb($v['img'], '_s'), 'merchant')}" alt="...">
+                               <i class="tao"></i>
+                            </span>
+                           <div class="media-body">
+                               <h4 class="media-heading wfont14 color333">{$v.title}<!--<span class="yy_piao"></span>--></h4>
+                               <div>
+                                   <i id="zxy-star{$v.id}"></i>
+                                   <script>
+                                       $("#zxy-star{$v.id}").raty({
+                                           start:"{$v['start']}",
+                                           readOnly:true,
+                                           path:"__STATIC__/js/jquery.raty-0.5/img/"
+                                       })
+                                   </script>
+                                   <!--<span>305评价</span>
+                                   <span class="consumption-z pull-right">人均￥118</span>-->
+                               </div>
+                               <div class="zxy_media_bodylast">
+                                   <span>{$v.address}</span>
+                                   <span>{$v.min}km</span>
+                               </div>
+                           </div>
+                       </div>
+                       </a>
+                   </volist>
+                <else/>
+                   <!--遍历开始-->
+                   <volist name="merchant_list" id="v">
+                       <if condition="$v.chang eq '0'">
+                           <a href="{:U('Item/merchant_info',array('id'=>$v['id']))}" class="yy_discount_A">
+                               <else/>
+                               <a href="{:U('Item/merchant_info',array('id'=>$v['id'],'type'=>4))}" class="yy_discount_A">
+                       </if>
+                       <div class="media  bgcolor_whitezxy">
+                           <span class="pull-left" style="margin-right:10px;">
+                               <img class="media-object" src="{:attach(get_thumb($v['img'], '_s'), 'merchant')}" style="width:80px;height:65px;">
+                            </span>
+                           <div class="media-body">
+                               <h4 class="media-heading wfont14 color333">{$v.title}</h4>
+                               <div>
+                                   <i id="zxy-star{$v.id}"></i>
+                                   <script>
+                                       $("#zxy-star{$v.id}").raty({
+                                           start:"{$v['start']}",
+                                           readOnly:true,
+                                           path:"__STATIC__/js/jquery.raty-0.5/img/"
+                                       })
+                                   </script>
+                                   <!--<span>305评价</span>-->
+                                   <span class="consumption-z pull-right">{$v.min}km</span>
+                               </div>
+                               <div class="zxy_media_bodylast">
+                                   <span>{$v.address}</span>
+                               </div>
+                           </div>
+                       </div>
+                       </a>
+                   </volist>
+               </if>
+                <empty name="merchant_list">
+                    <div class="tab-pane" style="margin-top: 15px;">
+                        <img style=" display: block; width:95px; height:93px; margin:0 auto" src="../Style/static/images/cw_03.png" class="prompt">
+                    </div>
+
+                    <h5 class="text-center">
+                        !抱歉亲,暂无数据
+                    </h5>
+                    <!-- <div class="media  bgcolor_whitezxy">
+                         !抱歉亲,暂无数据
+                     </div>-->
+
+                </empty>
+            </div>
+        </div>
+    </div>
+</section>
+<include file="public:footers" />
+<!-- Initialize Swiper -->
+<script>
+    $(".accordion").accordion();
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay:5000
+    });
+</script>
+
+</body>
+</html>

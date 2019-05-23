@@ -1,0 +1,132 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="../Style/js/touchslider.dev.js"></script>
+    <meta  name="viewport"  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>课程体系</title>
+    <link  rel="shortcut icon"  href="../Style/lesson_files/favicon.ico">
+    <link  rel="stylesheet"  href="../Style/lesson_files/semantic.min.css">
+    <link  rel="stylesheet"  href="../Style/lesson_files/base.css">
+	<script  type="text/javascript"  src="../Style/lesson_files/jquery-1.4.4.min.js"></script>
+	
+    <script  type="text/javascript"  src="../Style/lesson_files/config.js"></script>
+    <script  type="text/javascript"  src="../Style/lesson_files/share.js"></script>
+	<style>
+	.over_fllow{height: 41px;overflow: hidden;}
+	 ul li{list-style: none;}
+	.class_list_item{display:block;margin: 10px auto;box-shadow: 1px 1px 1px #AFAFAF;}
+	.noshow{display:none;}
+	.ui.button{border-radius: 0;}
+	</style>
+	<script>
+		$(window).scroll(function(){
+			// 当滚动到最底部以上1像素时， 加载新内容
+			if ($(document).height() - $(this).scrollTop() - $(this).height()<1) loadMore();
+		});
+	
+	
+		function loadMore(){
+			var p = $(".system_page").html();
+			var num = $(".system_num").html();
+            var load = $(".system_load").html();
+			if(p > num){
+				$(".bottom-pull").addClass('noshow');				
+				return false;
+			}
+            if(load == 2){
+                return false;
+            }
+
+            $(".system_load").html('2');
+			$(".system_warn").removeClass('noshow');
+			$.ajax({
+				url : '/Wap/System/loging',
+				data:{p:p},
+				dataType : 'json',
+				success : function(json){
+					//alert(json.length);
+					
+					var item ='';
+					for(var i=0; i<json.length; i++){
+						var url ="/Wap/Class/Index/pid/"+json[i].id+"/token/dcyluh1400743674"
+						item += "<a href='"+url+"' class='class_list_item'> <li class='common-dlist cf ' style='padding-top: 15px;'> <img width='100%' src='"+json[i].img+"' class='l-c' /> <div class='r-c'><h3 class='bold clip'>"+json[i].name+"</h3><p class='clip over_fllow'>"+json[i].intro+"</p></div></li></a>";
+					}
+					//alert(item);
+					$(".system_page").html(parseInt(p)+1);
+					$(".class_item").append(item);
+					$(".system_warn").addClass('noshow');
+                    $(".system_load").html('1');
+				},
+                error: function(){ //失败
+                    $(".system_load").html('1');
+                }
+            });
+		}
+	</script>
+</head>
+<body  class="pg-course-list">
+	<input  type="hidden"  id="wechat_id"  value="oNeCLjnc8zkOnFUAiPzfcKmIFGQ4">
+    <header>课程体系<i  class="home icon"></i></header>
+    <div  class="content cf"  style="padding-bottom:40px;">
+				<ul  class="class_item">
+		<a  href="{:U('Lesson/zh_lesson')}"  class="class_list_item">
+        <li  class="common-dlist cf "  style="padding-top: 15px;">
+             <img  width="100%"  src="../Style/lesson_files/MTQwMDc0MjQ5Ng=="  class="l-c">
+            <div  class="r-c">
+                <h3  class="bold clip">综合课程体系</h3>
+                <p  class="clip over_fllow">激发宝宝对学习兴趣</p>
+            </div>
+        </li>
+        </a><a  href="{:U('Lesson/yd_lesson')}"  class="class_list_item">
+        <li  class="common-dlist cf "  style="padding-top: 15px;">
+             <img  width="100%"  src="../Style/lesson_files/MTQwMDc0MjUyOA=="  class="l-c">
+            <div  class="r-c">
+                <h3  class="bold clip">运动课程体系</h3>
+                <p  class="clip over_fllow">增加宝宝运动愉悦情趣</p>
+            </div>
+        </li>
+        </a><a  href="{:U('Lesson/yy_lesson')}"  class="class_list_item">
+        <li  class="common-dlist cf "  style="padding-top: 15px;">
+             <img  width="100%"  src="../Style/lesson_files/MTQwMDc0MjU2OQ=="  class="l-c">
+            <div  class="r-c">
+                <h3  class="bold clip">音乐课程体系</h3>
+                <p  class="clip over_fllow">带领宝宝一起感受世界音乐</p>
+            </div>
+        </li>
+        </a><a  href="{:U('Lesson/cy_lesson')}"  class="class_list_item">
+        <li  class="common-dlist cf "  style="padding-top: 15px;">
+             <img  width="100%"  src="../Style/lesson_files/MTQwMDc0MjYwOQ=="  class="l-c">
+            <div  class="r-c">
+                <h3  class="bold clip">创意课程体系</h3>
+                <p  class="clip over_fllow">色彩、手工、厨艺以及小小设计师</p>
+            </div>
+        </li>
+        </a><a  href="{:U('Lesson/yuyan_lesson')}"  class="class_list_item">
+        <li  class="common-dlist cf "  style="padding-top: 15px;">
+             <img  width="100%"  src="../Style/lesson_files/MTQwMDc0MjYzMw=="  class="l-c">
+            <div  class="r-c">
+                <h3  class="bold clip">语言课程体系</h3>
+                <p  class="clip over_fllow">中英文口语教学</p>
+            </div>
+        </li>
+        </a>		</ul>
+		
+        <div  class="bottom-pull">
+       		 <span  class="noshow system_warn">加载中  ...</span>
+        	<span  class="noshow system_page">2</span>
+        	<span  class="noshow system_num">1</span>
+            <span  class="noshow system_load">1</span>
+        
+        
+        </div>    </div>
+    <div  class="wx-fixed-book">	
+
+	<a  href="{:U('Lesson/yyst_lesson')}">
+		<div  class="J-confirm-dialog ui teal button fluid">预约试听</div>
+	</a>
+	
+		
+	</div>
+	<script  type="text/javascript"  src="../Style/lesson_files/common.js"></script>
+		
+
+</body></html>

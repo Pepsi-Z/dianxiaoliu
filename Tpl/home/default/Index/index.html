@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>首页</title>
+    <include file="public:header" />
+    <style>
+        .yy_index .yy_iconBox li .wxh_font11{ font-size: 11px !important;}
+    </style>
+</head>
+<script>
+    $(function(){
+        var myswiper = new Swiper('.swiper-container', {
+            pagination: '.swiper-pagination',
+            autoplay: 5000
+        });
+
+    });
+
+    var name = "{$_SESSION['city_name']}";
+    if(name == '' ){
+        getLocation();
+    }
+    function getLocation()
+    {
+        if (navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(showPosition,showError);
+        }
+        else{x.innerHTML="Geolocation is not supported by this browser.";}
+    }
+    function showPosition(position)
+    {
+        user_jw(position.coords.longitude,position.coords.latitude)
+        /*x.innerHTML="Latitude: " + position.coords.latitude +
+         "<br />Longitude: " + position.coords.longitude;*/
+    }
+    function showError(error)
+    {
+        switch(error.code)
+        {
+            case error.PERMISSION_DENIED:
+                x.innerHTML="User denied the request for Geolocation."
+                break;
+            case error.POSITION_UNAVAILABLE:
+                x.innerHTML="Location information is unavailable."
+                break;
+            case error.TIMEOUT:
+                x.innerHTML="The request to get user location timed out."
+                break;
+            case error.UNKNOWN_ERROR:
+                x.innerHTML="An unknown error occurred."
+                break;
+        }
+    }
+
+    function user_jw(j,w){
+        var url = "{:u('Index/get_city_name')}";
+        $.post(url,{jing:j,wei:w},function(data){
+            $('#city_name').html(data.city);
+            window.location.reload();//刷新当前页面.
+
+        },'json');
+    }
+
+</script>
+<body class="yy_bg">
+<header>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-2"><a href="{:U('Index/province')}" class="pull-right" ><span id="city_name">{$_SESSION['city_name']}</span><span class="glyphicon glyphicon-menu-down"></span></a></div>
+            <form action="{:U('Index/search')}" method="post">
+                <div class="col-xs-10">
+                    <div>
+                        <input type="text" name="keyword" value="{$search.keyword}" placeholder="商品搜索关键字" class="pull-left wfont12"/>
+                        <button type="submit" class="btn btn-default pull-right"><span class="glyphicon glyphicon-search"></span></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</header>
+
+<style>
+    .gonggao{position:absolute;left:0 top:0;z-index:99998; width:100%; background:rgba(255,255,255,.5);padding:3px 0;color:#424542;}
+    .gonggao span{position:absolute;left:0; top:2px; z-index:99999;}
+    .gonggao marquee{margin-left:65px; line-height: 25px;}
+    header .col-xs-10 > div input {
+        color: #000000;
+    }
+</style>
+<!------头部结束--------->
+<!------主体开始--------->
+<div class="gonggao"><span class="pull-left"><img src="static/images/laba.png">公告：</span><marquee scrollamount="3"  class="pull-left">{:C('pin_fenxiang_about')}</marquee></div>
+
+<section>
+    <div class="container yy_index">
+        <div class="row">
+            <!--banner-->
+            <div class="swiper-container yy_banner">
+                <div class="swiper-wrapper">
+                    <volist name="ad" id="val">
+                        <div class="swiper-slide"><img style="height: 133px;" src="data/upload/advert/{$val.content}" /></div>
+                    </volist>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+            </div>
+            <!--banner结束 -->
+            <!--10个图标开始-->
+            <ul class="col-xs-12 yy_iconBox">
+                <volist name="item_list" id="val">
+                    <li class="text-center pull-left">
+
+                        <if condition="$val['type'] eq 0">
+                                <?php if($val['status'] == 1){ ?>
+                                    <a href="{:U('Item/item_merchant',array('id'=>$val['id'],'type'=>$val['type']))}" >
+                                        <?php }else{?>
+                                        <a href="#" >
+                                            <?php }?>
+                        <elseif condition="$val['type'] eq 6"/>
+                                <?php  if($val['status'] == 1){ ?>
+                                     <a href="{:U('Item/item_merchant',array('id'=>$val['id'],'type'=>$val['type']))}" >
+                                         <?php }else{?>
+                                         <a href="#" >
+                                             <?php }?>
+                        <elseif condition="$val['type'] eq 2"/>
+                                 <?php  if($val['status'] == 1){ ?>
+                                    <a href="{:U('Item/item_merchant',array('id'=>$val['id'],'type'=>$val['type']))}" >
+                                        <?php }else{?>
+                                        <a href="#" >
+                                            <?php }?>
+                        <elseif condition="$val['type'] eq 1"/>
+                                 <?php  if($val['status'] == 1){ ?>
+                                    <a href="{:U('Item/item_merchant',array('id'=>$val['id'],'type'=>$val['type']))}">
+                                        <?php }else{?>
+                                        <a href="#" >
+                                            <?php }?>
+                        <elseif condition="$val['type'] eq 3"/>
+                                <?php  if($val['status'] == 1){ ?>
+                                    <a href="{:U('Item/city_express')}" >
+                                        <?php }else{?>
+                                        <a href="#" >
+                                            <?php }?>
+                        <elseif condition="$val['type'] eq 4"/>
+                                 <?php  if($val['status'] == 1){ ?>
+                                     <a href="{:U('Item/item_merchant',array('id'=>$val['id'],'p_type'=>2,'type'=>$val['type']))}" >
+                                         <?php }else{?>
+                                         <a href="#" >
+                                             <?php }?>
+                        <elseif condition="$val['type'] eq 5"/>
+                                 <?php  if($val['status'] == 1){ ?>
+                                    <a href="{:U('Item/menu_merchant',array('type'=>5,'openid'=>$_GET['openid']))}">
+                                        <?php }else{?>
+                                        <a href="#" >
+                                            <?php }?>
+                                <!--<a href="{:U('Item/item_merchant',array('id'=>$val['id'],'type'=>$val['type']))}" >-->
+                        <elseif condition="$val['type'] eq 7"/>
+                                  <?php  if($val['status'] == 1){ ?>
+                                         <a href="{:U('Item/hotel')}">
+                                             <?php }else{?>
+                                             <a href="#" >
+                                                 <?php }?>
+                        <elseif condition="$val['type'] eq 8"/>
+                                   <?php  if($val['status'] == 1){ ?>
+                                        <a href="{:U('Item/item_merchant',array('id'=>$val['id'],'type'=>$val['type']))}" >
+                                            <?php }else{?>
+                                            <a href="#" >
+                                                <?php }?>
+                        <elseif condition="$val['type'] eq 9"/>
+                                  <?php  if($val['status'] == 1){ ?>
+                                     <a href="{:U('Item/item_merchant',array('id'=>$val['id'],'type'=>$val['type']))}" >
+                                         <?php }else{?>
+                                    <a href="#" >
+                                          <?php }?>
+
+
+                        </if>
+                            <i><img src="{:attach(get_thumb($val['img'], '_m'),'item_cate')}" /></i>
+                            <span class="wxh_font11">{$val.name}</span>
+                        </a>
+
+
+                    </li>
+               </volist>
+            </ul>
+            <!--10个图标结束-->
+            <!--小六推荐开始-->
+            <div class="col-xs-12 yy_recommend">
+                <div class="yy_bt">
+                    <div class="col-xs-6 pull-left"><img src="__STATIC__/css/img/yy_recommend_bt.png"/></div>
+                    <div class="col-xs-6 text-right"><a href="{:U('Item/item_cate')}">查看更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></div>
+                </div>
+                <div class="yy_content">
+
+              <volist name="tuijian" id="val">
+                    <div class="col-xs-4">
+                        <if condition="$val.chang eq '0'">
+                                <a href="{:U('Item/content',array('id'=>$val['id']))}">
+                                <else/>
+                                <a href="{:U('Item/content',array('id'=>$val['id'],'type'=>4))}">
+                        </if>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <img style="height: 66px;" src="{:attach(get_thumb($val['img'], '_s'), 'item')}"/>
+                                </div>
+                                <div class="panel-body">
+                                    <h1 class="text-center">{$val.title}</h1>
+                                    <p>
+                                        <span class="pull-left">￥<i>{$val.tc_price}</i></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+              </volist>
+                </div>
+            </div>
+            <!--小六推荐结束-->
+            <!--猜你喜欢开始-->
+            <div class=" col-xs-12 yy_like">
+                <div class="col-xs-12 yy_bt">
+                    <div class="col-xs-6">猜你喜欢</div>
+                    <div class="col-xs-6 text-right"><!--<a href="#">查看更多<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a>--></div>
+                </div>
+                <volist name="love" id="val">
+                    <div class="col-xs-12">
+                        <if condition="$val.chang eq '0'">
+                            <a href="{:U('Item/content',array('id'=>$val['id']))}">
+                            <else/>
+                            <a href="{:U('Item/content',array('id'=>$val['id'],'type'=>4))}">
+                        </if>
+
+                            <div class="media">
+                                <div class="media-left media-middle pull-left">
+                                    <img class="media-object" style="height: 80px;" src="{:attach(get_thumb($val['img'], '_s'), 'item')}" alt="...">
+                                </div>
+                                <div class="media-body pull-right">
+                                    <div><h4 class="media-heading pull-left">{$val.title}</h4><span class="pull-right"><em>{$val.min}</em>km</span></div>
+                                    <p><em>{$val.item_desc}</em></p>
+                                    <div class="yy_bottom">
+                                        <span>￥<b>{$val.tc_price}</b></span>
+                                        <del>原价：<i>{$val.price}</i>元</del>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </volist>
+          </div>
+            <!--猜你喜欢结束-->
+        </div>
+    </div>
+</section>
+<include file="public:footers" />
+<!-- Initialize Swiper -->
+<script>
+    $(".accordion").accordion();
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        autoplay:5000
+    });
+</script>
+</body>
+</html>

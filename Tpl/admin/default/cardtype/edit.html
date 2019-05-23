@@ -1,0 +1,85 @@
+<!--编辑管理员-->
+<div class="dialog_content">
+	<form id="info_form" action="{:U('cardtype/edit')}" method="post">
+	<table width="100%" class="table_form">
+		<tr>
+      		<th width="80">会员卡名称:</th>
+      		<td><input type="text" name="gname" id="J_gname" class="input-text" value="{$info.gname}"></td>
+    	</tr>
+        <tr>
+            <th width="150">会员卡金额:</th>
+            <td>
+                <input onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="money" value="{$info.money}" id="money" class="input-text"/>&nbsp;&nbsp;元
+            </td>
+        </tr>
+       <!-- <tr>
+            <th width="150">4位激活码:</th>
+            <td>
+                <input minlength="4" maxlength="4" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" type="text" name="code" value="{$info.code}" id="jihuo" class="input-text"/>&nbsp;&nbsp;元
+            </td>
+        </tr>-->
+        <tr>
+            <th width="80">会员卡类型:</th>
+            <td>
+                <input type="radio" name="type" id="type_y"   value="0"  <if condition="$info.type eq 0"> checked="checked"</if> class="input-text" >有限期
+                <input type="radio" name="type" id="type_w"   value="1"  <if condition="$info.type eq 1"> checked="checked"</if> class="input-text" >无限期
+            </td>
+        </tr>
+
+        <tr>
+            <th>{:L('enabled')} :</th>
+            <td>
+                <input type="radio" name="status" class="radio_style" value="1" <if condition="$info.status eq 1"> checked="checked"</if>> &nbsp;{:L('yes')}&nbsp;&nbsp;&nbsp;
+                <input type="radio" name="status" class="radio_style" value="0" <if condition="$info.status eq 0"> checked="checked"</if>> &nbsp;{:L('no')}
+            </td>
+        </tr>
+	</table>
+	<input type="hidden" name="id" value="{$info.id}" />
+	</form>
+</div>
+
+<script src="__STATIC__/js/fileuploader.js"></script>
+<script>
+var check_name_url = "{:U('cardtype/ajax_check_name', array('id'=>$info['id']))}";
+$(function(){
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+    $("#J_gname").formValidator({ onshow:lang.please_input+'会员卡名称', onfocus:lang.please_input+'会员卡名称'}).inputValidator({ min:1, onerror:lang.please_input+'会员卡名称'}).defaultPassed();
+    $("#money").formValidator({onshow:'请输入会员卡金额',onfocus:'请输入会员卡金额'}).inputValidator({min:1,onerror:'请输入会员卡金额'}).defaultPassed();
+    $('#info_form').ajaxForm({success:complate,dataType:'json'});
+    function complate(result){
+        if(result.status == 1){
+            $.dialog.get(result.dialog).close();
+            $.pinphp.tip({content:result.msg});
+            window.location.reload();
+        } else {
+            $.pinphp.tip({content:result.msg, icon:'alert'});
+        }
+    }
+});
+</script>
+<script src="__STATIC__/js/fileuploader.js"></script>
+<script>
+    $(function(){
+        var type = "{$info.type}";
+        if(type == 1){
+            $('#begin_time1').attr('style','display:none');
+            $('#end_time1').attr('style','display:none');
+        }else{
+            $('#begin_time1').attr('style','');
+            $('#end_time1').attr('style','');
+
+        }
+        $('#type_y').click(function(){
+            $('#type_w').attr('checked',false); //
+            $('#begin_time1').attr('style','');
+            $('#end_time1').attr('style','');
+        })
+
+        $('#type_w').click(function(){
+            $('#begin_time1').attr('style','display:none');
+            $('#end_time1').attr('style','display:none');
+            $('#begin_time').val('');
+            $('#end_time').val('');
+        })
+    })
+</script>

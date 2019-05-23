@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>会员充值</title>
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../Style/static/js/lunbo.js"></script>
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+<include file="public:header" />
+</head>
+<body style="background:#eeeeee;">
+
+      <!--  <form action="{:U('Card/hychongzhi')}" method="post">
+        <div class="Recharge_div">
+        	<span>金额</span>
+            <input type="text" name="money" class="text_input"/>
+            <input type="submit" value="确认" class="button_input" style="background-color:#C4374A;color:#FFF;"/>
+        </div>
+        </form>-->
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 zxy-Logon">
+                    <form action="{:U('Card/hychongzhi')}" method="post" id="form2">
+                        <div class="form-group">
+                            <label class="text">充值金额</label>
+                            <div class="input-group col-xs-12">
+                                <span class="input-group-addon"></span>
+                                <span></span>
+                                <input type="text" id="money" name="money" class="form-control text_input" placeholder="请输入充值金额" maxlength="18">
+                            </div>
+                            <a  id="tijiao" href="javascript:;" class="btn yy_out yy_address_btn">提交</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+<div style="height:55px;"></div>
+<script>
+  $(function(){
+
+      $("#tijiao").click(function(e){
+          var money  = $('#money').val();
+          if(money == ''){
+              layer.msg('充值金额不能为空');
+              return false;
+          }else{
+              $("#form2").submit();
+          }
+      });
+
+  })
+</script>
+<include file="public:footers" />

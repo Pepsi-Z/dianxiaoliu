@@ -1,0 +1,87 @@
+<include file="public:header" />
+<script src="__STATIC__/js/highcharts.js"></script>
+<script src="__STATIC__/js/exporting.js"></script>
+<link href="__STATIC__/css/admin/sell.css" rel="stylesheet"/>
+<!--会员列表-->
+<div class="content" >
+    <dl class="charts mt10">
+        <dt>
+        <form action="" method="get" name="form_select" onsubmit="return check()">
+            <p>
+                <input type="hidden" name="g" value="admin"/>
+                <input type="hidden" name="m" value="tuan_log"/>
+                <input type="hidden" name="a" value="index"/>
+                <input type="hidden" name="days" value="-1"/>
+                <span>商家名称 :</span>
+                <input name="orderId" type="text" class="input-text" size="15" value="{$search.orderId}" />
+                <span>订单状态 :</span>
+                <select name="status">
+                    <option value="">--所有--</option>
+                    <?php foreach($order_status as $key=>$item){ ?>
+                    <option <?php if($search['status']==$key) echo "selected=''"; ?> value="<?php echo $key; ?>"><?php echo $item; ?></option>
+                    <?php } ?>
+
+                </select>
+                <span>自定义时间段:</span>
+                <input type="text" name="start_time" id="start" size="12" onClick="WdatePicker()" class="Wdate" value="{$start_time}"/>
+                <em style="margin-right: 8px;">~</em>
+                <input type="text" name="end_time" id="end" size="12" onClick="WdatePicker()"  class="Wdate" value="{$end_time}"/>
+                &nbsp;&nbsp;
+                <input type="submit" class="button_search" value="确定" />
+            </p>
+        </form>
+        <strong>销售概况</strong>
+        <b>合计金额：</b><font>&yen;{$order_sumPrice}</font>
+        <b>成交订单：</b><font>{$con}&nbsp;单</font>
+        </dt>
+        <div class="pad_lr_10" style="margin-top:10px;width:100%;padding:0px;">
+            <div class="J_tablelist table_list" data-acturi="{:U('item_cate/ajax_edit')}">
+                <table width="100%" cellspacing="0" id="J_cate_tree">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>订单编号</th>
+                        <th>商家名称</th>
+                        <th>商品名称</th>
+                        <th>总销售额</th>
+                        <th>商品销售额</th>
+                        <th>购买人姓名</th>
+                        <th>订单状态</th>
+                        <th>下单时间</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <volist name="list" id="val" >
+                        <tr>
+                            <td align="center"><span>{$val.id}</span></td>
+                            <td align="center"><span>{$val.orderId}</span></td>
+                            <td align="center"><span>{$val.c_title}</span></td>
+                            <td align="center"><span>{$val.title}</span></td>
+                            <td align="center"><span>{$val.order_sumPrice}</span></td>
+                            <td align="center"><span><?php echo sprintf('%.2f',($val['price']*$val['quantity']))?></span></td>
+                            <td align="center"><span>{$val.userName}</span></td>
+                            <td align="center"><span>
+                                <if condition="$val['status'] eq 1">
+                                    待付款
+                                    <elseif condition="$val['status'] eq 2"/>
+                                    未消费
+                                    <elseif condition="$val['status'] eq 4"/>
+                                    已消费
+                                    </if>
+                            </span></td>
+                            <td align="center"><span>{$val.add_time|date="Y-m-d H:i:s",###}</span></td>
+                            </tr>
+                    </volist>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </dl>
+    <div class="btn_wrap_fixed">
+        <div id="pages">{$page}</div>
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>

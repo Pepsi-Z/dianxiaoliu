@@ -1,0 +1,98 @@
+<include file="public:header" />
+<!--会员列表-->
+<div class="pad_lr_10" >
+    <form name="searchform" method="get" style="margin-top: 10px;">
+    <table width="100%" cellspacing="0" class="search_form">
+        <tbody>
+            <tr>
+                <td>
+                <div class="explain_col">
+                    <input type="hidden" name="g" value="admin" />
+                    <input type="hidden" name="m" value="member_consume" />
+                    <input type="hidden" name="a" value="index" />
+                    <input type="hidden" name="menuid" value="{$menuid}" />
+                    &nbsp;会员名 :
+                    <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                    &nbsp;商品名称 :
+                    <input name="goods" type="text" class="input-text" size="25" value="{$goods}" /> &nbsp;
+                    <input type="submit" name="search" class="btn" value="搜索" />
+                </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <div class="J_tablelist table_list" data-acturi="{:U('score_log/ajax_edit')}">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width=25><input type="checkbox" id="checkall_t" class="J_checkall"></th>
+                <th>ID</th>
+                <th width="100">会员名</th>
+				<th width="180">商品名称</th>
+                <th width="180">商品单价</th>
+                <th width="180">数量</th>
+                <th width="180">消费总额</th>
+				<th width="180">下单时间</th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center"><input type="checkbox" class="J_checkitem" value="{$val.id}"></td>
+                <td align="center">{$val.id}</td>
+                <td align="center">
+                    <if condition="$val['userName'] neq '' ">
+                        {$val.userName}
+                        <else/>
+                        {$val.name}
+                    </if>
+
+                </td>
+				<td align="center">{$val.title}</td>
+                <td align="center">{$val.price}</td>
+
+                <td align="center">
+                    <if condition="$val['quantity'] neq 0 ">
+                        {$val.quantity}
+                        <else/>
+                        1
+                    </if>
+                </td>
+                <td align="center">
+                    <if condition="$val['goods_sumPrice'] neq '' ">
+                        {$val.goods_sumPrice}
+                        <else/>
+                        {$val.price}
+                    </if>
+
+
+                </td>
+<!--
+                <td align="center"><?php echo $val['goods_sumPrice']-$val['price']?></td>
+-->
+
+                <td align="center">
+                    <if condition="$val['add_time'] neq '' ">
+                        {$val.add_time|date="Y-m-d H:i:s",###}
+                        <else/>
+                        {$val.time|date="Y-m-d H:i:s",###}
+                    </if>
+
+                </td>
+            </tr>
+            </volist>
+    	</tbody>
+    </table>
+    <div class="btn_wrap_fixed">
+        <label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+        <input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('member_consume/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />
+        <div id="pages">{$page}</div>
+    </div>
+
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>

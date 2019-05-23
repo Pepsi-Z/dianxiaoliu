@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>优惠券</title>
+    <include file="public:header" />
+</head>
+<body class="bg_color">
+<!------主体开始--------->
+<section class="coupon_box">
+    <div class="container">
+        <!-- Nav tabs -->
+        <div class="row">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active col-xs-4 text-center"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><span>未使用</span></a></li>
+                <li role="presentation" class="col-xs-4 text-center"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><span>已使用</span></a></li>
+                <li role="presentation" class="col-xs-4 text-center"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><span>已过期</span></a></li>
+            </ul>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!--unused 是立即使用-->
+            <div role="tabpanel" class="tab-pane active used" id="home"><!--未使用-->
+                <volist name="wei_list" id="val">
+                    <ul>
+                        <li class="col-xs-4 text-center"><p>￥<span><?php  $string = explode('.',$val['money']); echo $string = $string[0];?></span></p><p>(单次限用一张)</p></li>
+                        <li class="col-xs-6 text-center"><div><p>{$val.name}优惠券</p><p>{$val.start_time|date="Y-m-d",###}-{$val.end_time|date="Y-m-d",###}</p></div></li>
+                        <!--<li class="col-xs-2 text-center"><a href="#">未使用<br/>使用</a></li>-->
+                        <li class="col-xs-2 text-center"><a href="javascript:;">未使用</a></li>
+                    </ul>
+                </volist>
+
+
+            </div>
+            <div role="tabpanel" class="tab-pane used" id="profile"><!--已使用-->
+                <volist name="yi_list" id="val">
+                    <ul>
+                        <li class="col-xs-4 text-center"><p>￥<span><?php  $string = explode('.',$val['money']); echo $string = $string[0];?></span></p><p>(单次限用一张)</p></li>
+                        <li class="col-xs-6 text-center"><div><p>{$val.name}优惠券</p><p>{$val.start_time|date="Y-m-d",###}-{$val.end_time|date="Y-m-d",###}</p></div></li>
+                        <!--<li class="col-xs-2 text-center"><a href="#">未使用<br/>使用</a></li>-->
+                        <li class="col-xs-2 text-center"><a href="javascript:;">已使用</a></li>
+                    </ul>
+                </volist>
+            </div>
+            <div role="tabpanel" class="tab-pane used" id="messages"><!--已过期-->
+                <volist name="gu_list" id="val">
+                    <ul>
+                        <li class="col-xs-4 text-center"><p>￥<span><?php  $string = explode('.',$val['money']); echo $string = $string[0];?></span></p><p>(单次限用一张)</p></li>
+                        <li class="col-xs-6 text-center"><div><p>{$val.name}优惠券</p><p>{$val.start_time|date="Y-m-d",###}-{$val.end_time|date="Y-m-d",###}</p></div></li>
+                        <!--<li class="col-xs-2 text-center"><a href="#">未使用<br/>使用</a></li>-->
+                        <li class="col-xs-2 text-center"><a href="javascript:;">已过期</a></li>
+                    </ul>
+                </volist>
+            </div>
+        </div>
+    </div>
+</section>
+<!------主体结束--------->
+<include file="public:footers" />
+</body>
+</html>

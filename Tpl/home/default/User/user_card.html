@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<meta name="format-detection" content="telephone=no" />
+<title>我的小六卡</title>
+<include file="public:header" />
+<body class="lxt-color">
+<!------主体--------->
+<section>
+  <div class="container">
+    <div class="row lxt-card">
+    	<div class="col-xs-12">
+        	<div class="pull-left">
+        	<div class="lxt-logo"><img src="__STATIC__/css/img/lxt-logo.png"></div>
+                <span>余额：{$user.money}</span>
+            <!--<span>有效期：<br />
+                <if condition="$user.begin_time neq '' " >
+                    <i class="">{$user.begin_time} - {$user.end_time}</i>
+                    <else/>
+                   <i class="">无限制</i>
+                </if>
+            </span>-->
+            </div>
+            <p class="pull-right text-right"><em>VIP</br></em>{$user.card_number}</p>
+        </div>
+        <div class="col-xs-12">
+        	<div class="lxt-rwm text-center"><img src="{$user.qr_code}"></div>
+        </div>
+        <div class="form-group lxt_btn_release">
+                  <a href="{:U('User/xu_price')}">
+                  	<input type="submit" value="充值" />
+                  </a>
+         </div>
+    </div>
+  </div>
+</section>
+<!-----主体结束-------->
+<include file="public:footers"/>
+</body>
+</html>

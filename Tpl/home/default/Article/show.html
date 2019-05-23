@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>{$info.title}_{$page_seo.title}</title>
+<include file="public:headtop" />
+</head>
+<body>
+<include file="public:head" />
+
+<div id="content">
+<div class="picture">
+<ul class="wxlist">
+<li><h1>{$info.title}</h1>
+<div class="InfoTime">{$info.add_time|date='Y-m-d H:i:s',###}</div>
+<div class="InfoPicture"><img src="{:attach($info['img'], 'article')}" title="" alt=""></div>
+<div class="InfoSContent">{$info.info}</div>
+</li></ul>
+</div>
+
+</div>
+
+<include file="public:footer" />
+</body>
+</html>

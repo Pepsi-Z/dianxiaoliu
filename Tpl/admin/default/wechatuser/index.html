@@ -1,0 +1,65 @@
+<include file="public:header" />
+<br />
+<div class="pad_lr_10">
+    <form name="searchform" method="get" >
+        <table width="100%" cellspacing="0" class="search_form">
+            <tbody>
+            <tr>
+                <td>
+                    <div class="explain_col">
+                        <input type="hidden" name="g" value="admin" />
+                        <input type="hidden" name="m" value="wechatuser" />
+                        <input type="hidden" name="a" value="index" />
+                        <input type="hidden" name="menuid" value="{$menuid}" />
+                        &nbsp;微信昵称 :
+                        <input name="keyword" type="text" class="input-text" size="25" value="{$search.keyword}" />
+                        <input type="submit" name="search" class="btn" value="搜索" />
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <div class="J_tablelist table_list" data-acturi="{:U('wechatuser/ajax_edit')}">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="40"></th>
+                <th width="40">ID</th>
+                <th>头像</th>
+                <th>openid</th>
+                <th>微信昵称</th>
+                <th>关注时间</th>
+            </tr>
+            </thead>
+    	    <tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center"></td>
+                <td align="center">{$val.id}</td>
+                <td align="center">
+                    <if condition="$val.headimgurl neq ''">
+                        <img style="width: 50px;height: 50px;" src="{$val['headimgurl']}" />
+                        <else/>
+                        <img src="{:avatar($val['id'], 32)}" />
+                    </if>
+                </td>
+                <td align="center">{$val.openid}</td>
+                <td align="center">{$val.nickname}</td>
+                <td align="center">{$val.subscribe_time|date="Y-m-d H:i",###}</td>
+            </tr>
+            </volist>
+    	   </tbody>
+        </table>
+    </div>
+    <div class="btn_wrap_fixed">
+		<!--<label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>-->
+        <!--<input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('cardnumber/delete')}" data-name="id" data-msg="{:L('confirm_delete')}" value="{:L('delete')}" />-->
+		<div id="pages">{$page}</div>
+    </div>
+</div>
+
+<include file="public:footer" />
+</body>
+</html>

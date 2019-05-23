@@ -1,0 +1,63 @@
+<!--添加栏目-->
+<div class="dialog_content">
+        <table width="100%" class="table_form" style="margin-top:30px;">
+            <if condition="$info['0']['b_name'] neq '' ">
+                <tr>
+                    <th width="80px">平台分类:</th>
+                    <td>
+                        {$info.0.b_name}
+                    </td>
+                </tr>
+            </if>
+            <if condition="$info['0']['c_name'] neq '' ">
+                <tr>
+                    <th width="80px">特色产品:</th>
+                    <td>
+                        {$info.0.c_name}
+                    </td>
+                </tr>
+            </if>
+            <if condition="$info['0']['d_name'] neq '' ">
+                <tr>
+                    <th width="80px">特色产品分类:</th>
+                    <td>
+                        {$info.0.d_name}
+                    </td>
+                </tr>
+            </if>
+            <if condition="$info['0']['e_name'] neq '' ">
+                <tr>
+                    <th width="80px">商家:</th>
+                    <td>
+                        {$info.0.e_name}
+                    </td>
+                </tr>
+            </if>
+            <if condition="$info['0']['f_name'] neq '' ">
+                <tr>
+                    <th width="80px">商家商品分类:</th>
+                    <td>
+                        {$info.0.f_name}
+                    </td>
+                </tr>
+            </if>
+        </table>
+</div>
+
+<script>
+    $(function(){
+        $.formValidator.initConfig({formid:"info_form",autotip:true});
+        $('#J_name').formValidator({onshow:lang.please_input+lang.item_cate_name,onfocus:lang.please_input+lang.item_cate_name}).inputValidator({min:1,onerror:lang.please_input+lang.item_cate_name});
+
+        $('#info_form').ajaxForm({success:complate, dataType:'json'});
+        function complate(result){
+            if(result.status == 1){
+                $.dialog.get(result.dialog).close();
+                $.pinphp.tip({content:result.msg});
+                window.location.reload();
+            } else {
+                $.pinphp.tip({content:result.msg, icon:'alert'});
+            }
+        }
+    });
+</script>

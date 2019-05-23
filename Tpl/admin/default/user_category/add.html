@@ -1,0 +1,66 @@
+<!--添加会员-->
+<div class="dialog_content">
+	<form id="info_form" action="{:u('user_category/add')}" method="post">
+	<table width="100%" class="table_form">
+		<tr>
+			<th width="100">会员组名 :</th>
+			<td><input type="text" id="name" name="name" class="input-text" /></td>
+		</tr>
+       <!--  <tr>
+			<th>折扣率 :</th>
+			<td><input type="text" name="discount" id="discount" class="input-text" value="{$info.discount}" size="30"></td>
+		</tr>-->
+ 		<tr>
+			<th>积分比 :</th>
+			<td><input type="text" name="score" id="score" class="input-text" value="{$info.score}" size="30"></td>
+		</tr>
+ 		 <tr>
+			<th width="100">排序值 :</th>
+			<td><input type="text" name="ordid" id="ordid" class="input-text" value="{$info.ordid}" size="10"></td>
+		</tr>
+        
+	    <tr>
+			<th>{:L('enabled')} :</th>
+			<td>
+				<label><input type="radio" name="status" value="1" <if condition="$info.status eq 1">checked</if>> {:L('yes')}</label>&nbsp;&nbsp;
+				<label><input type="radio" name="status" value="0" <if condition="$info.status eq 0">checked</if>> {:L('no')}</label>
+			</td>
+		</tr>
+	</table>
+	<input type="hidden" name="id" value="{$info.id}" />
+	</form>
+</div>
+<script src="__STATIC__/js/fileuploader.js"></script>
+<script>
+var check_name_url = "{:U('user_category/ajax_check_name')}";
+$(function(){
+	$.formValidator.initConfig({formid:"info_form",autotip:true});
+	$("#name").formValidator({onshow:'请填写会员组名',onfocus:'请填写会员组名'}).inputValidator({min:1,onerror:'请填写会员组名'}).ajaxValidator({
+	    type : "get",
+		url : check_name_url,
+		datatype : "json",
+		async:'false',
+		success : function(result){	
+            if(result.status == 0){
+                return false;
+			}else{
+                return true;
+			}
+		},
+		onerror : '会员组已存在',
+		onwait : '正在检测'
+	});
+	
+	$('#info_form').ajaxForm({success:complate,dataType:'json'});
+	function complate(result){
+		if(result.status == 1){
+			$.dialog.get(result.dialog).close();
+			$.pinphp.tip({content:result.msg});
+			window.location.reload();
+		} else {
+			$.pinphp.tip({content:result.msg, icon:'alert'});
+		}
+	}
+	
+});
+</script>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>我的预约</title>
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+<script type="text/javascript" src="../Style/js/jquery.js"></script>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/home/sweet-alert.css">
+    <script src="__STATIC__/js/sweet-alert.js"></script>
+<style type="text/css">
+.shopping_box img{width:60px; display:inline-block; height:70px;margin-left:10px;}
+</style>
+<style>
+		body{ height: 100%;}
+		.promptbox{ margin-top:10%;}
+		h1{ font-weight:normal; text-align:center; margin-top:5%;}
+		.prompt{ width:95px; height:93px; display:block; margin:0 auto;}
+	</style>
+</head>
+<body>
+<empty name="list">
+<div class="promptbox">
+	<img src="../Style/static/images/cw_03.png" class="prompt">
+</div>
+<h1>您还没有预约！</h1>
+</empty>
+<volist name="list" id="val">
+        <div class="quanbu_div">
+        	<p class="diandan_p"><span>预约号：{$val.num}</span></p>
+            <div class="shopping_box " style="height: 100px;">
+            	<a href="#">
+                  <p class="shopping_p line_height3" style="padding-left: 15px;">  预约项目：{$val.title}</p>
+                  <p class="shopping_p line_height3" style="padding-left: 15px;">预约时间：{$val.yuyue_time|date='Y-m-d',###}</p>
+                  <p class="shopping_p line_height3" style="padding-left: 15px;">  联系电话：{$val.mobile}</p>
+                  <p class="shopping_p line_height3" style="padding-left: 15px;">  姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：{$val.name}</p>
+                </a>
+            </div>
+            <div class="diandan_bottomdiv">
+                <div class="button_div fr">
+                    <if condition="$val.status eq 1">
+                	 <a href="javascript:;"><input type="button" value="已服务" class="active"/></a>
+                	<elseif condition="$val.status eq 0" />
+                	 <a class="confirm" data="{$val.id}" href="javascript:;"><input type="button" value="未服务" class="active"/></a>
+                	 <a class="cancel" data="{$val.id}" href="javascript:;"><input type="button" value="取消预约" class="active"/></a>
+                	<else/>
+                	<a href="javascript:;"><input type="button" value="已取消" class="active"/></a>
+                	</if>
+                	<!-- <input type="button" value="编辑"/> -->
+                   
+                </div>
+            </div>
+        </div>
+</volist>     
+<script>
+$(function(){
+	$('.confirm').click(function(){
+		var id = $(this).attr('data');
+		if(window.confirm("您确定已服务过了吗?")){
+			$.post("{:U('User/confirmOrder')}",{ id:id },function(data){
+				//alert(data)
+				if(data == 1){
+					swal('确认成功');
+					location.href="{:u('User/index')}"
+				}else{
+					swal('确认失败')
+				}
+			});
+		}
+		
+	});
+	
+	
+	$('.cancel').click(function(){
+		var id = $(this).attr('data');
+		if(window.confirm("您确定要取消预约吗?")){
+			$.post("{:U('User/cancel')}",{ id:id },function(data){
+				//alert(data)
+				if(data == 1){
+					swal('取消成功');
+					location.href="{:u('User/index')}"
+				}else{
+					swal('取消失败')
+				}
+			});
+		}
+		
+	});
+})
+</script>      
+<div style="height:55px;"></div>       
+<include file="public:footer" />

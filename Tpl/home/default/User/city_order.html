@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>同城速递</title>
+    <include file="public:header" />
+    <style>
+        .lxt-all2{margin-top:10px;}
+        .form-control[readonly]{ background:#fff;}
+        .tc_right > div:first-child{ border-bottom:1px dashed #ccc;}
+        .padding_tb{background:#fff; margin-bottom:10px;}
+        .tc_right div{background:none;}
+        .tc_radio{ line-height: 40px;}
+        .form-control{ height:40px;}
+    </style>
+</head>
+<body class="zxy-bac">
+<div class="container">
+    <div class="row padding_tb">
+        <div class="col-xs-12 tc_right">
+
+            <div class="row">
+                    <div class="col-xs-12">
+                    <p>{$info.address_name}<span class="pull-right">{$info.address_tel}</span></p>
+                    <p>地址：{$info.address}</p>
+                </div>
+                <div class="col-xs-2 tc_mar20"></div>
+
+            </div>
+            <div class="row">
+                    <div class="col-xs-12">
+                            <p>{$info.collect_name}<span class="pull-right">{$info.collect_tel}</span></p>
+                            <p>地址：{$info.collect_address}</p>
+                    </div>
+                    <div class="col-xs-2 tc_mar20"></div>
+                    <!--用户收货地址-->
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+            <div class="row  form-group tc_input">
+                <label for="inputCon" class="col-xs-4 control-label">寄托物内容：</label>
+                <div class="col-xs-8">
+                    <input type="text" name="content" class="form-control" id="inputCon" value="{$info.content}" readonly="true" placeholder="服装">
+                </div>
+            </div>
+            <div class="row form-group tc_input">
+                <label for="inputZl" class="col-xs-4 control-label">重量：</label>
+                <div class="col-xs-8">
+                    <input type="text" name="weight" class="form-control" id="inputZl" value="{$info.weight}（公斤）" readonly="true" placeholder="2公斤">
+                </div>
+            </div>
+            <div class="row form-group tc_input">
+                <label for="inputSl" class="col-xs-4 control-label">数量：</label>
+                <div class="col-xs-8">
+                    <input type="text" name="num" class="form-control" value="{$info.num}（件）" readonly="true" id="inputSl" placeholder="1件">
+                </div>
+            </div>
+            <div class="row form-group tc_input">
+                <label for="inputTime" class="col-xs-4 control-label text-left">希望送达时间:</label>
+                <div class="col-xs-8">
+                    <input type="text" name="stime"  class="form-control" value="{$info.stime|date='Y-m-d H:i',###}" readonly="true" id="inputTime">
+                </div>
+            </div>
+
+            <div class="margin20">服务费</div>
+            <div class=" row tc_radio">
+                <div class="col-xs-6">
+                    <input type="radio" name="type" id="checkbox1"  checked="checked" value="0" prc="{:C('pin_single_price')}" class="lxt_choose lxt_choose1 lxt_chooseBox" />
+                    <span>
+                        <if condition="$info['type'] eq 0">
+                            单次
+                            <else/>
+                            往返
+                        </if>
+
+                        /{$info.price}元</span>
+                </div>
+            </div>
+
+</div>
+<div style="height:60px;"></div>
+<include file="public:footers" />
+</body>
+</html>

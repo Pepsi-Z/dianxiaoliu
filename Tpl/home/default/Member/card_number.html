@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>我要办卡</title>
+    <include file="public:header" />
+    <style>
+        .c_login a{background:#6ce;border:none;color:#fff; width:50%; margin-top:30px;}
+    </style>
+</head>
+<body class="bac-zxy">
+<section class="margin-z">
+    <div class="container c_card">
+        <img src="__STATIC__/css/img/logo2.png">
+        <h4 class="text-success">恭喜您！办卡成功啦！</h4>
+        <h3 class="text-danger"><small>您的会员卡号：</small>{$card_number}</h3>
+
+    </div>
+    <div class="c_login text-center"><a class="btn btn-default " href="{:U('Member/login')}">去登陆</a></div>
+</section>
+</body>
+</html>

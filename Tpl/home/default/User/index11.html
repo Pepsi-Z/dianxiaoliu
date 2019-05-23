@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>我的</title>
+    <include file="public:header" />
+    <style>
+        .layermbox0 .layermchild{background-color:#fff; width:80%;}
+        .layermbtn span:first-child{background-color:transparent;}
+        .layermcont{text-align:center;}
+        .btn-white{ background:#fff; margin:10px 0; padding:10px 0; color:#f00;}
+        .media-body h5 span{ color:#f40!important; margin-left:10%;}
+    </style>
+<body class="bg_color">
+<!------主体--------->
+<section>
+    <div class="container yy_mine">
+        <div class="row">
+            <div class="media yy_media col-xs-12 yy_top">
+                <div class="media-left media-middle col-xs-3 text-right yy_touxiang">
+                    <a href="javascript:void();" id="tx" class="col-xs-12 text-right">
+                        <if condition="$user['cover'] eq ''">
+                            <img class="" src="__STATIC__/css/img/yy_mine_head.jpg" alt="..." id="person_img">
+                            <else />
+                            <img src="{$user.cover}" id="person_img"/>
+
+                        </if>
+                    </a>
+                </div>
+                <div class="media-body col-xs-4">
+                    <h6 class="media-heading"><name>{$user['username']}</name><span> （{$leve}）</span></h6>
+                    <h6 class="media-heading"><em class="pull-left"></em>积分：<span>{$user['score']}</span>分</h6>
+                </div>
+                <div class="media-bottom pull-right text-center">
+                    <a href="javascript:;" class="yy_sign">签到</a>
+                    <a href="javascript:;" class="yy_signed">已签到</a>
+                    <input type="hidden" id="sign" value="{$sign.id}">
+                </div>
+            </div>
+
+            <div class="media yy_media_list">
+                <a href="{:U('Order/index')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_0.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">全部订单</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media yy_media_list">
+                <a href="{:U('User/wanshan',array('status'=>1))}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_1.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">个人资料</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media yy_media_list">
+                <a href="{:U('User/address')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_2.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">收货地址</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media yy_media_list">
+                <a href="{:U('Jifen/index')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_3.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">积分商城
+                            <span>
+                                <if condition="$user['score'] neq ''">
+                                    我有{$user['score']}分
+                                    <else/>
+                                    我有0分
+                                </if>
+                            </span>
+                        </h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media yy_media_list">
+                <a href="{:U('Jifen/order')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_0.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">积分订单</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="media yy_media_list">
+                <a href="{:U('User/cityexpress')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_7.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">速递订单</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media yy_media_list">
+                <a href="{:U('User/ticket_order')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_8.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">订票订单</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="media yy_media_list">
+                <a href="{:U('Card/cards')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_4.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">优惠券</h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="media yy_media_list">
+                <a href="{:U('Card/index')}">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_5.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">账户余额<span>
+                            <if condition="$user['money'] neq ''">
+                                {$user['money']}元
+                                <else/>
+                                0.00元
+                            </if>
+                        </span></h5><span class="glyphicon glyphicon-chevron-right pull-right" aria-hidden="true"></span>
+                    </div>
+                </a>
+            </div>
+            <div class="media yy_media_list">
+                <a href="tel:15847824754">
+                    <div class="media-left media-middle">
+                        <img class="media-object img-rounded" src="__STATIC__/css/img/yy_mine_list_6.png" alt="...">
+                    </div>
+                    <div class="media-body">
+                        <h5 class="media-heading pull-left">客服电话</h5><span class="yy_mine_tel text-right pull-right">{:C('pin_site_tel')}</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <a href="{:U('User/logout')}" class="btn btn-block btn-white" id="out" type="button">退出登录</a>
+</section>
+<!-----主体结束-------->
+<include file="public:footers" />
+</body>
+<script>
+    $(document).ready(function(e) {
+        var sign = $('#sign').val();
+        if(sign){
+            $('.yy_sign').parents('.media-bottom').find('.yy_sign').css('display','none');
+            $('.yy_sign').parents('.media-bottom').find('.yy_signed').css('display','block');
+        }
+        $('.yy_sign').click(function(){
+            $(this).parents('.media-bottom').find('.yy_sign').css('display','none');
+            $(this).parents('.media-bottom').find('.yy_signed').css('display','block');
+        });
+        $('.yy_sign').click(function(){
+                $.ajax({
+                    type: "post",
+                    url: "{:U('User/user_sign')}",
+                    dataType: "html",
+                    success: function (data) {
+                        if (data == 1) {
+                            layer.msg('签到成功');
+                            window.location.reload();
+                        }
+                    }
+
+                });
+
+
+        });
+    });
+</script>
+</html>

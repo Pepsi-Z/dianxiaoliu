@@ -1,0 +1,52 @@
+ <!doctype html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+        <title>我的发布</title>
+        <link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+        <link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../Style/static/js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+        <link href="../Style/static//css/menu.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="../Style/static/js/common.js"></script>
+        <style>
+            body{ height: 100%;}
+            .promptbox{ margin-top:10%;}
+            h1{ font-weight:normal; color:#000; text-align:center; margin-top:5%;}
+            .prompt{ width:95px; height:93px; display:block; margin:0 auto;}
+        </style>
+    </head>
+    <body style=" background:#eeeeee;">
+    <empty name="list">
+        <div class="promptbox">
+            <img src="../Style/static/images/cw_03.png" class="prompt">
+        </div>
+        <h1>暂时未发布任何需求！</h1>
+        <h1><button class="jf_btn" onclick="window.location.href = '{:U('Supply/release')}'">点击去发布</button></h1>
+
+    </empty>
+    <volist name="list" id="val">
+        <div class="Platform_div">
+            <a href="{:U('Supply/detail',array('id'=>$val['id']))}">
+                <if condition="$val.url neq ''">
+                    <img src="{:get_img($val[url],'supply')}" class="Platform_img  fl">
+                    <else/>
+                    <img src="../Style/static/images/image/yy-img1.jpg" class="Platform_img  fl">
+                </if>
+            </a>
+            <p class="title_p "><a href="{:U('Supply/detail',array('id'=>$val['id']))}">{$val.name|mb_substr=0,26,'utf-8'|strip_tags}</a></p>
+            <p class="Details_p color_detalit"><a href="{:U('Supply/detail',array('id'=>$val['id']))}">详情 </a>&nbsp;&nbsp;<a href="{:U('Supply/release',array('id'=>$val['id']))}">编辑</a> &nbsp;&nbsp;<a data-id="{$val.id}" class="delete">删除</a></p>
+            <span class="time_span fr">{$val.add_time|date='Y-m-d',###}</span>
+        </div>
+    </volist>
+    <div style="margin-top:20px;height:50px;"></div>
+    </body>
+    </html>
+ <script>
+     $(function(){
+         fn.lists({
+             deleteUrl:"{:u('Supply/ajax_delete')}"
+         });
+     });
+ </script>

@@ -1,0 +1,79 @@
+<include file="public:header" />
+<style>
+    .bg{background: #A5BCF4}
+</style>
+<div class="content_menu ib_a blue line_x" style="margin: 10px;">
+    &nbsp;&nbsp;&nbsp;<a class="on"  href="javascript:;" ><em>会员提现列表</em></a>　
+</div>
+
+<!--管理员管理-->
+<div class="pad_lr_10">
+    <div class="J_tablelist table_list" data-acturi="{:U('packmonth/ajax_edit')}">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th width="40"><input type="checkbox" name="checkall" class="J_checkall"></th>
+                <th width="40">ID</th>
+                <th>用户姓名</th>
+                <th>用户电话</th>
+
+                <th style="width: 50px;">开户银行</th>
+                <th style="width: 100px;">银行卡号</th>
+                <th style="width: 50px;">汇款账户开户名</th>
+                <th style="width: 150px;">开户行地址</th>
+
+                <th>添加时间</th>
+                <th>订单编号</th>
+                <th>金额</th>
+                <th width=150>{:L('operations_manage')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="val" >
+                <tr <if condition="$val.state eq 0">class="bg"</if>>
+                    <td align="center">
+                        <if condition="$val['state'] eq 1">
+                            &nbsp;&nbsp;
+                            <else/>
+                            <input type="checkbox" class="J_checkitem" value="{$val.id}">
+                        </if>
+
+                    </td>
+                    <td align="center">{$val.id}</td>
+                    <td align="center">{$val.uname}</td>
+                    <td align="center">{$val.utel}</td>
+
+                    <td align="center">{$val.bank}</td>
+                   <td align="center">{$val.bank_num}</td>
+                    <td align="center">{$val.bank_name}</td>
+                    <td align="center">{$val.bank_address}</td>
+
+                    <td align="center">{$val.addtime|date="Y-m-d H:i",###}</td>
+                    <td align="center">{$val.order_number}</td>
+                    <td align="center">{$val.money}</td>
+                    <td align="center">
+                        <if condition="$val['state'] eq 1">
+                            <b style="color: red">已支付</b>
+                            <else/>
+                            <a style="color:seagreen;" href="javascript:;" class="J_confirmurl" data-uri="{:U('cash/delete', array('id'=>$val['id'],'uid'=>$val['uid']))}" data-msg="{:sprintf(L('确定支付用户提现金额？'),$val['order_number'])}">支付</a>
+                        </if>
+                    </td>
+                </tr>
+            </volist>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn_wrap_fixed">
+        <label class="select_all mr10"><input type="checkbox" name="checkall" class="J_checkall">{:L('select_all')}/{:L('cancel')}</label>
+        <input type="button" class="btn" data-tdtype="batch_action" data-acttype="ajax" data-uri="{:U('cash/delete')}" data-name="id" data-msg="确定支付用户提现金额" value="支付" />
+        <div id="pages">{$page}</div>
+
+    </div>
+</div>
+<include file="public:footer" />
+<include file="public:money" />
+<script src="__STATIC__/js/my97/WdatePicker.js"></script>
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__STATIC__/js/calendar/calendar.js"></script>
+</body>
+</html>

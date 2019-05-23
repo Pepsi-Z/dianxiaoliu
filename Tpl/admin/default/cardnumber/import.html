@@ -1,0 +1,90 @@
+<include file="public:header" />
+<!--网站设置-->
+<div class="pad_lr_10">
+	<form id="info_form" action="{:u('cardnumber/import')}" method="post" enctype="multipart/form-data">
+	<table width="100%" class="table_form">
+        <tr>
+            <th width="80">生成类型:</th>
+            <td>
+                <input type="radio" name="line" id="type_y"  value="0" class="input-text">线上
+                <input type="radio" name="line" id="type_w"   value="1"  class="input-text">线下
+            </td>
+        </tr>
+
+        <tr id="cardtype" style="display:none">
+            <th width="80">会员卡类型:</th>
+            <td>
+                <select name="cardtype" id="field">
+                    <volist name="cardtype" id="val">
+                        <option value="{$val.id}">{$val.gname}</option>
+                    </volist>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <th width="150"></th>
+            <td style="color: red">输入一行8位数字"回车"为一个会员卡号</td>
+        </tr>
+
+        <tr>
+            <th width="150">输入幸运号:</th>
+            <td>
+                <textarea  id="yuanyin"  rows="8" cols="50" type="text" name="cards" class="input-text" size="50" ></textarea>
+            </td>
+        </tr>
+
+
+
+        <tr>
+        	<th></th>
+        	<td><input type="hidden"   name="menuid"  value="{$menuid}"/><input type="submit" class="btn btn_submit" value="{:L('submit')}"/></td>
+    	</tr>
+	</table>
+	</form>
+</div>
+<include file="public:footer" />
+</body>
+<script>
+    $(function(){
+
+        $('#type_y').attr('checked',true);
+        // document.getElementById("cardtype").innerHTML = "";
+
+        $('#type_y').click(function(){
+            $('#cardtype').attr('style','display:none');
+            //document.getElementById("cardtype").innerHTML = "";
+        })
+
+        $('#type_w').click(function(){
+            $('#cardtype').attr('style','');
+        })
+    })
+</script>
+<script>
+    $(function(){
+        $.formValidator.initConfig({formid:"info_form",autotip:true});
+
+        $("#yuanyin").formValidator({
+            onshow:lang.please_input+"8位数字",
+            onfocus:lang.please_input+"8位数字"
+        }).inputValidator({
+            min:1, onerror:lang.please_input+"8位数字",
+        });
+
+        function complate(result){
+            if(result.status == 1){
+                $.dialog.get(result.dialog).close();
+                $.pinphp.tip({content:result.msg});
+                window.location.reload();
+            } else {
+                $.pinphp.tip({content:result.msg, icon:'alert'});
+            }
+        };
+
+
+
+
+    });
+</script>
+</html>

@@ -1,0 +1,20 @@
+
+<form action="{:u('score_order/delivery')}" method="post" >
+<div class="pad_lr_10">
+				<table width="100%" cellspacing="0" class="table_form">
+					<tr>
+                        <th> ¿ìµÝ¹«Ë¾ :</th>
+						<td>
+		                <select name="fahuo_gs">
+		                <volist name='deliveryList' id='vo'>
+					     <option value="{$vo.name}">{$vo.name}</option>
+					     </volist>
+		                </select>
+		                </td>
+					</tr>
+				</table>
+		
+</div>
+<input type="hidden" name="id" id="id" value="{$_GET['id']}" />
+</form>
+

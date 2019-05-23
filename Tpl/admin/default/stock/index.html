@@ -1,0 +1,78 @@
+<include file="public:header" />
+<!--会员列表-->
+<div class="pad_lr_10" >
+    <form name="searchform" method="get" style="margin-top: 10px;">
+    <table width="100%" cellspacing="0" class="search_form">
+        <tbody>
+            <tr>
+                <td>
+                <div class="explain_col">
+                    <input type="hidden" name="g" value="admin" />
+                    <input type="hidden" name="m" value="stock" />
+                    <input type="hidden" name="a" value="index" />
+                    <input type="hidden" name="menuid" value="{$menuid}" />
+                    &nbsp;商品名称 :
+                    <input name="title" type="text" class="input-text" size="25" value="{$title}" />
+                    &nbsp;&nbsp;分类 :
+                    <select name="cate_id">
+                        <option value="">--所有--</option>
+                        <volist name="cate" id="val">
+                            <option value="{$val.id}" <if condition="$val['id'] eq $cate_id">selected</if>>{$val.name}</option>
+
+                        </volist>
+                    </select>
+                    &nbsp;是否上架 :
+                    <select name="status" id="status">
+                        <option value="">全部</option>
+                        <option value="1" <if condition="$status eq 1">selected</if>>已上架</option>
+                        <option value="2" <if condition="$status eq 2">selected</if>>未上架</option>
+                    </select>
+                    &nbsp;库存:
+                    <input type="text" name="stock_min" class="input-text" size="3" value="{$stock_min}">
+                    -
+                    <input type="text" name="stock_max"  class="input-text" size="3" value="{$stock_max}">
+                    &nbsp;
+                    <input type="submit" name="search" class="btn" value="搜索" />
+                </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <div class="J_tablelist table_list" data-acturi="{:U('score_log/ajax_edit')}">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th>ID</th>
+				<th>商品名称</th>
+				<th>商品分类</th>
+                <th width="180">单价</th>
+                <th width="180">是否上架</th>
+                <th width="180">库存</th>
+				<th width="180">添加时间</th>
+            </tr>
+        </thead>
+    	<tbody>
+            <volist name="list" id="val" >
+            <tr>
+                <td align="center">{$val.id}</td>
+                <td align="center">{$val.title}</td>
+                <td align="center">{$item_cate[$val[cate_id]]}</td>
+				<td align="center">{$val.price0}</td>
+                <td align="center"><if condition="$val['status'] eq 1">已上架<else/>未上架</if></td>
+                <td align="center">{$val.goods_stock}</td>
+                <td align="center">{$val.add_time|date="Y-m-d H:i:s",###}</td>
+            </tr>
+            </volist>
+    	</tbody>
+    </table>
+    <div class="btn_wrap_fixed">
+        <div id="pages">{$page}</div>
+    </div>
+
+    </div>
+</div>
+<include file="public:footer" />
+</body>
+</html>

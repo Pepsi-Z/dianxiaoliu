@@ -1,0 +1,74 @@
+.content{padding:0 18px;min-width: 1020px;height:100%;}
+.gzzt{width:100%;position:relative;height:56px;border:1px solid #ccc; background:#fff;}
+.gzzt dt{width:60px;height:44px;padding-top:12px;line-height:16px;border-right:1px dashed #ccc;font-weight:bold;text-align:center;float:left;}
+.gzzt dd{ float:left;}
+.fl{float:left;}
+.fr{float:right;}
+.mt10{margin-top: 10px;}
+/* clear float */
+.clear, .clearfix:after {
+    clear: both;
+}
+.clear, .clearfix:before, .clearfix:after {
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0; height: 0;
+}
+.clearfix:before, .clearfix:after {
+    content: '';
+}
+.clearfix {
+    *zoom: 1;
+}
+.boxl{height:56px;line-height:56px;padding:0 10px;}
+.boxl span{ display:inline-block;padding:0 10px;}
+.boxl span img{margin:0 2px;margin-top:-2px;}
+.boxr{height:56px;line-height:56px;border-left:1px dashed #ccc;padding:0 10px;}
+.boxr strong{ display:inline-block;padding:0 10px;}
+.boxl font,.boxr font{color:#f57e20;font-weight:bold;}
+.boxr img{margin:-3px 4px 0;}
+
+.charts{border:1px solid #ccc;}
+.charts dt{height:37px;line-height:37px;border-bottom:1px solid #ccc;background:#fff; clear:both; overflow:hidden;}
+.charts dt p{float:right;margin-right: 20px;}
+.charts dt p span{color: #2d689f;margin-right: 5px;width: 60px;}
+.charts dt p a {
+    color: #2d689f;
+    margin-right: 25px;
+    padding: 5px;
+    background: #FFFFFF;
+}
+.charts dt p a.hover,.charts dt p a:hover {
+    color: #FFFFFF;
+    background: #3c6887;
+}
+.charts dt strong{padding-left:15px;color:#333;}
+.charts dt b{padding-left:15px;color:#2d689f;}
+.charts dt font{color:#f57e20;font-weight:bold;}
+.charts dt span{color:#c8c8c8;padding-left:10px;}
+.charts .input_ind,.time .input_ind{background:#fff url(../../images/admin/ico_time.png) no-repeat 5px center;}
+.time .input_ind:hover{background:#fff url(../../images/admin/ico_time.png) no-repeat 5px center;}
+.pr{float:right;}
+.pr a{color:#2d689f;padding-right:25px;}
+
+.org{color:#f57e20;}
+
+.blue_table dt .change_all_goods{
+    width: 70px;
+    height: 21px;
+    border-radius: 3px;
+    line-height: 21px;
+    padding: 0px;
+    text-align: center;
+    margin-top: 10px;
+    margin-right: 10px;
+    border: 1px solid #969797;
+    background-image: -webkit-linear-gradient(#ffffff, #eaeaea);
+    background-image: -moz-linear-gradient(#ffffff, #eaeaea);
+    background-image: -o-linear-gradient(#ffffff, #eaeaea);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#eaeaea));
+    background-image: linear-gradient(#ffffff, #eaeaea);
+    cursor:pointer;
+    color: #000000;
+}

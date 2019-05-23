@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>{$info.name}</title>
+    <link href="../Style/static/css/reset1.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/head.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/yy.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../Style/static/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="../Style/static/js/common.js"></script>
+    <style>
+        .text_r{text-align: right;width: 20%;}
+        .yy-Detail table th{background: #A0A0A0;border-radius: 5px;padding: 4px 0;color: white}
+        .yy-Detail td{padding: 5px;}
+        .yy-Detail tr.after td{padding-bottom: 20px;}
+        .yy-Detail h1{border-bottom: 1px solid #A0A0A0}
+         tbody.img_list td img{ width: 100%;margin: 6px 0;border: 1px dotted #645e63; padding: 1%; background: #eaeaea;border-radius: 5px;}
+    </style>
+</head>
+<body class="recipientaddress_bgcolor">
+<div>
+    <!--<div id="header">-->
+        <!--<a href="javascript:history.go(-1)" class="Return_bgimg fl"></a>-->
+        <!--<div class="Return_bgimg1 fl"></div>-->
+        <!--<h1>{$info.name}</h1>-->
+        <!--<a href="#" class="Return_bgimg2 fr"></a>-->
+    <!--</div>-->
+    <div class="yy-Detail">
+ 		<h1>{$info.name}</h1>
+        <table style="width: 96%; margin: 0 auto 10px auto;">
+            <tr>
+                <td class="text_r">类型</td><td><eq name="info.type" value="1">供应<else/>求购</eq></td>
+            </tr>
+            <tr>
+                <td class="text_r">数量</td><td>{$info.num}</td>
+            </tr>
+            <tr>
+                <td class="text_r">联系人</td><td>{$info.contact}</td>
+            </tr>
+            <tr>
+                <td class="text_r">电话</td><td><a href="tel:{$info.mobile}">{$info.mobile}</a></td>
+            </tr>
+            <if condition="$info.weixin neq ''">
+            <tr class="after">
+                <td class="text_r">微信</td><td>{$info.weixin}</td>
+            </tr>
+            </if>
+            <if condition="!empty($info[info])">
+                <tbody class="text_list" >
+                    <tr>
+                        <th colspan="2">简介</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">{$info.info}</td>
+                    </tr>
+                </tbody>
+            </if>
+            <if condition="is_array($supply_img) and !empty($supply_img)">
+               <tbody class="img_list" >
+                   <tr >
+                       <th colspan="2">图 片 展 示</th>
+                   </tr>
+                   <tr>
+                       <td colspan="2">
+                           <volist name="supply_img" id="val">
+                               <img src="./data/upload/supply/{$val.url}" >
+                           </volist>
+                       </td>
+                   </tr>
+               </tbody>
+            </if>
+        </table>
+
+
+    </div>
+    <div class="yy-height"></div>
+    <div class="yy-wyfb-btn">
+    	<a href="javascript:history.go(-1)">返回</a>
+</div>
+</body>
+</html>

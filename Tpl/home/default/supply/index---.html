@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>交易平台</title>
+    <link href="../Style/static/css/reset1.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/head.css" rel="stylesheet" type="text/css">
+    <link href="../Style/static/css/yy.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../Style/static/js/jquery-2.1.4.min.js"></script>
+    <script>
+    	$(function(){
+			$('.yy-tab li:first-child').click(function(){
+				$('.yy-fenlei-tab').toggle();
+				$('.yy-fenlei-ul2').hide();	
+			})	
+			$('.yy-fenlei-ul li').click(function(){
+                var pid = $(this).attr('data-id');
+                $.post("{:u('Supply/ajax_get_brand_li')}",{ pid:pid },function(data){
+//                    alert(data)
+                    if(data.status == 1){
+                        $('.yy-fenlei-ul2').html('');
+                        $('.yy-fenlei-ul2').html(data.data);
+                      $('.yy-fenlei-ul2').show();
+                    }else{
+                        alert("该分类下没有品牌");
+                    }
+                },"json");
+
+				$(this).addClass('yy-fenlei-ul-dj').siblings().removeClass('yy-fenlei-ul-dj')
+			})
+			$('.yy-tab li a span').click(function(){
+				$(this).addClass('yy-tab-click');
+				$(this).closest('li').siblings().find('span').removeClass('yy-tab-click');
+				var index=$(this).closest('li').index()-1;
+				$(this).closest('.yy-tab').siblings('.yy-list').hide();
+				$('.yy-list').eq(index).show()
+                $('.yy-list-g').hide();
+			})
+		})
+    </script>
+</head>
+<body class="recipientaddress_bgcolor">
+<div>
+    <!--<div id="header">-->
+        <!--<a href="javascript:history.go(-1)" class="Return_bgimg fl"></a>-->
+        <!--<div class="Return_bgimg1 fl"></div>-->
+        <!--<h1>交易平台</h1>-->
+        <!--<a href="#" class="Return_bgimg2 fr"></a>-->
+    <!--</div>-->
+        <ul class="yy-tab">
+            <li class="fl"><a href="#" class="yy-fenlei">分类</a></li>
+            <li class="fl"><a href="#"><span>供应</span></a></li>
+            <li class="fr"><a href="#"><span>求购</span></a></li>
+        </ul>
+    <div class="yy-fenlei-tab" style="display:none;">
+        <ul class="yy-fenlei-ul">
+            <volist name="cate_list" id="val">
+                <li data-id="{$val.id}"><a href="javascript:;">{$val.name}</a></li>
+            </volist>
+        </ul> 
+        <ul class="yy-fenlei-ul2" style="display:none;">
+
+        </ul>
+    </div>
+    <ul class="yy-list-g">
+        <volist name="list" id="val">
+            <li>
+                <a href="{:U('Supply/detail',array('id'=>$val['id']))}">
+                    <div class="yy-list-img fl">
+                        <if condition="$val.url neq ''">
+                            <img src="./data/upload/supply/{$val.url}" >
+                            <else/>
+                            <img src="../Style/static/images/image/yy-img1.jpg">
+                        </if>
+                    </div>
+                    <div class="yy-list-right fl">
+                        <h1>{$val.name|mb_substr=0,10,'utf-8'}</h1>
+                        <p>{$val.info|mb_substr=0,30,'utf-8'}</p>
+                    </div>
+                    <if condition="$val.type eq 1">
+                        <div class="yy-icon"></div>
+                        <else/>
+                        <div class="yy-icon-q"></div>
+                    </if>
+
+                </a>
+            </li>
+        </volist>
+
+    </ul>
+    <!-------------------供应------------------>  
+    <ul class="yy-list" style="display:none;">
+        <volist name="data['g']" id="val">
+    	<li>
+        	<a href="{:U('Supply/detail',array('id'=>$val['id']))}">
+            	<div class="yy-list-img fl">
+                    <if condition="$val.url neq ''">
+                        <img src="./data/upload/supply/{$val.url}" >
+                        <else/>
+                    <img src="../Style/static/images/image/yy-img1.jpg">
+                    </if>
+                </div>
+                <div class="yy-list-right fl">
+                	<h1>{$val.name|mb_substr=0,10,'utf-8'}</h1>
+                    <p>{$val.info|mb_substr=0,30,'utf-8'}</p>
+                </div>
+                <div class="yy-icon"></div>
+            </a>
+        </li>
+        </volist>
+
+    </ul> 
+    <!-------------------求购------------------>  
+    <ul class="yy-list-q yy-list" style="display:none;">
+        <volist name="data['q']" id="val">
+    	<li>
+        	<a href="{:U('Supply/detail',array('id'=>$val['id']))}">
+            	<div class="yy-list-img fl">
+                    <if condition="$val.url neq ''">
+                        <img src="./data/upload/supply/{$val.url}" >
+                        <else/>
+                        <img src="../Style/static/images/image/yy-img1.jpg">
+                    </if>
+                </div>
+                <div class="yy-list-right fl">
+                	<h1>{$val.name|mb_substr=0,10,'utf-8'}</h1>
+                    <p>{$val.info|mb_substr=0,30,'utf-8'}</p>
+                </div>
+                <div class="yy-icon-q"></div>
+            </a>
+        </li>
+        </volist>
+    </ul>
+    <div class="yy-wyfb-btn">
+    	<a href="{:U('Supply/release')}">我要发布</a>
+    </div>
+</div>
+</body>
+</html>

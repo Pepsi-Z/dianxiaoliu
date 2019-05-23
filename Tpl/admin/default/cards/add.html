@@ -1,0 +1,91 @@
+<!--添加广告位-->
+<include file="public:header" />
+<div class="dialog_content">
+    <form id="info_form" action="{:u('cards/add')}" method="post">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          <!--  <tr>
+                <th width="120">商家 :</th>
+                <td>
+                    <select id="uid" name="uid">
+                        <option value="">--请选择商家--</option>
+                        <volist name='mer_list' id='vo' >
+                            <option value="{$vo.id}" >{$vo.title}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>-->
+            <tr>
+                <th width="80">优惠劵名称 :</th>
+                <td><input type="text" name="name" id="name" class="input-text" size="30"></td>
+            </tr>
+
+            <tr>
+                <th width="80">价值:</th>
+                <td><input type="text" name="money" id="money" class="input-text" size="30"></td>
+            </tr>
+           <!-- <tr>
+                <th width="80">最低消费 :</th>
+                <td><input type="text" name="lowest" id="lowest" class="input-text" size="30"></td>
+            </tr>-->
+
+            <tr>
+                <th>有效时间 :</th>
+                <td>
+                    <input type="text" name="start_time" id="start_time" class="date" size="12"> -
+                    <input type="text" name="end_time" id="end_time" class="date" size="12">
+                </td>
+            </tr>
+
+            <tr>
+                <th>使用说明 :</th>
+                <td><textarea name="content" id="content" style="width:50%;height:400px;"></textarea></td>
+            </tr>
+
+
+            <tr>
+                <th>{:L('enabled')} :</th>
+                <td>
+                    <label><input type="radio" name="status" value="1" checked> {:L('yes')}</label>&nbsp;&nbsp;
+                    <label><input type="radio" name="status" value="0"> {:L('no')}</label>
+                </td>
+            </tr>
+        </table>
+        <div class="mt10"><input type="submit" value="{:L('submit')}" id="dosubmit" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"><br /><br /><br /></div>
+
+    </form>
+</div>
+
+<include file="public:footer" />
+<script src="__STATIC__/js/fileuploader.js"></script>
+<script src="__STATIC__/js/kindeditor/kindeditor.js"></script>
+<link rel="stylesheet" type="text/css" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__STATIC__/js/calendar/calendar.js"></script>
+<script src="__STATIC__/js/kindeditor/kindeditor.js"></script>
+<script src="__STATIC__/js/fileuploader.js"></script>
+<script>
+    $(function(){
+        KindEditor.create('#content', {
+            uploadJson : '{:U("attachment/editer_upload")}',
+            fileManagerJson : '{:U("attachment/editer_manager")}',
+            allowFileManager : true
+        });
+    });
+</script>
+<script>
+
+    $(function(){
+        Calendar.setup({
+            inputField : "start_time",
+            ifFormat   : "%Y-%m-%d",
+            showsTime  : false,
+            timeFormat : "24"
+        });
+        Calendar.setup({
+            inputField : "end_time",
+            ifFormat   : "%Y-%m-%d",
+            showsTime  : false,
+            timeFormat : "24"
+        });
+
+    });
+</script>

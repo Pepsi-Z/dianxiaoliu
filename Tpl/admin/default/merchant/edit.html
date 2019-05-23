@@ -1,0 +1,491 @@
+<include file="public:header" />
+<script charset="utf-8" src="__STATIC__/js/jquery.js" type="text/javascript"></script>
+<!--编辑商品-->
+<form id="info_form" action="{:u('merchant/edit')}" method="post" enctype="multipart/form-data">
+    <div class="pad_lr_10">
+        <div class="col_tab">
+            <ul class="J_tabs tab_but cu_li">
+                <li class="current">基本信息</li>
+                <!--<li>SEO设置</li>-->
+               <!-- <li>附加属性</li>-->
+            </ul>
+            <div class="J_panes">
+                <div class="content_list pad_10">
+                    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+                        <tr>
+                            <th width="120">所属分类 :</th>
+                            <td>
+                                <select  disabled="false" id="pid" name="pid">
+                                    <volist name='pid_list' id='vo' >
+                                        <option value="{$vo.id}">{$vo.name}</option>
+                                    </volist>
+                                </select>
+                                <if condition="$tid_list neq ''">
+                                    &nbsp;&nbsp;
+                                    <select disabled="false" name="tid" id="cid" readonly="readonly">
+                                        <volist name="tid_list" id="val">
+                                            <option value="{$val.id}">{$val.name}</option>
+                                        </volist>
+                                    </select>
+                                </if>
+                                <if condition="$ttid_list neq ''">
+                                    &nbsp;&nbsp;
+                                    <select disabled="false" name="ttid" id="ttid" readonly="readonly">
+                                        <volist name="ttid_list" id="val">
+                                            <option value="{$val.id}">{$val.name}</option>
+                                        </volist>
+                                    </select>
+                                </if>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th width="120">返积分规则 :</th>
+                            <td>
+                                <select id="rid" name="rid">
+                                    <option value="">--返积分规则--</option>
+                                    <volist name='rule' id='vo' >
+                                        <option value="{$vo.id}" <if condition="$vo['id'] eq $info['rid']">selected="selected"</if>>{$vo.name}</option>
+                                    </volist>
+                                </select>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th width="120">返利规则 :</th>
+                            <td>
+                                <select id="rm_id" name="rm_id">
+                                    <option value="">--请选择返利规则--</option>
+                                    <volist name='return_money' id='vo' >
+                                        <option value="{$vo.id}" <if condition="$vo['id'] eq $info['rm_id']">selected="selected"</if>>{$vo.name}</option>
+                                    </volist>
+                                </select>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>商家名称 :</th>
+                            <td><input type="text" name="title" value="{$info.title}" id="J_title" class="input-text" size="30"></td>
+                        </tr>
+
+                        <tr>
+                            <th>电话 :</th>
+                            <td><input id='tel' type="text" value="{$info.tel}"  name="tel" class="input-text" size="30"></td>
+                        </tr>
+
+
+                        <tr>
+                            <th>商家图片 :</th>
+                            <td>
+                                <notempty name="info.img">
+                                <span class="attachment_icon J_attachment_icon" file-type="image" file-rel="{:attach(get_thumb($info['img'], '_m'),'merchant')}">
+                                <img src="{:attach(get_thumb($info['img'], '_m'),'merchant')}" style="width:50px; height:50px;" /></span>
+                                </notempty><br /><br/>
+                                <input type="file" name="img" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th width="80">省市区:</th>
+                            <td>
+                                <select name="province" id="province" onchange="loadRegion('province',2,'city','{:U('merchant/getRegion')}');">
+                                    <option value="{$name[0]['id']}" selected><if condition="$name[0]['name'] neq ''">{$name[0]['name']}<else/>省份/直辖市</if></option>
+                                    <volist name="province" id="vo">
+                                         <option value="{$vo.id}" >{$vo.name}</option>
+                                    </volist>
+                                </select>&nbsp;
+                                <select name="city" id="city"  onchange="loadRegion('city',3,'town','{:U('merchant/getRegion')}');">
+                                    <option value="{$name[1]['id']}" ><if condition="$name[1]['name'] neq ''">{$name[1]['name']}<else/>市/县</if></option>
+                                </select>&nbsp;
+                                <select name="town" id="town">
+                                    <option value="{$name[2]['id']}" ><if condition="$name[2]['name'] neq ''">{$name[2]['name']}<else/>镇/区</if></option>
+                                </select>
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <th>详细地址 :</th>
+                            <td><textarea name="address" id="address" style="width:68%;height:50px;">{$info.address}</textarea></td>
+                        </tr>
+
+
+                        <tr>
+                            <th>地理位置：</th>
+                            <td>
+                                <input type="text" readonly="readonly" name="xjing" id="store_jd" onclick="look('{:u('merchant/map_look',array('xjing'=>$info['xjing'],'xwei'=>$info['xwei']))}');"  class="input-text" size="10" value="{$info.xjing}"/>-
+                                <input type="text"  readonly="readonly" name="xwei" id="store_wd" onclick="look('{:u('merchant/map_look',array('xjing'=>$info['xjing'],'xwei'=>$info['xwei']))}');" class="input-text" size="10" value="{$info.xwei}"/>  <label></label> </td>
+                        </tr>
+
+
+
+
+                        <tr>
+                            <th>类型:</th>
+                            <td>
+                                <input id="zhe" type="checkbox" name="zhe" value="1" <if condition="$info['zhe'] eq 1"> checked="checked"</if> />&nbsp;折扣&nbsp;
+                                <input id="tao" type="checkbox" name="tao" value="1" <if condition="$info['tao'] eq 1"> checked="checked"</if> />&nbsp;套餐
+                                <input id="chang" type="checkbox" name="chang" value="1" <if condition="$info['chang'] eq 1"> checked="checked"</if> />&nbsp;常规
+                            </td>
+                        </tr>
+
+                        <tr id="zhe1" style="display: none;">
+                            <th>折扣 :</th>
+                            <td><input id='discount'  value="{$info.discount}" type="text" name="discount" class="input-text" size="10"> 折</td>
+                        </tr>
+                        <tr id="zhe2" style="display: none;">
+                            <th>已享人数 :</th>
+                            <td><input id='enjoy_num' value="{$info.enjoy_num}" type="text" name="enjoy_num" class="input-text" size="10"> 人</td>
+                        </tr>
+
+                        <tr id="zhe3" style="display: none;">
+                            <th>折扣标题 :</th>
+                            <td><input type="text" value="{$info.zhe_title}" name="zhe_title" id="zhe_title" class="input-text" size="30"></td>
+                        </tr>
+
+                        <tr id="zhe4" style="display: none;">
+                            <th>折扣描述 :</th>
+                            <td><textarea name="desc" id="desc" style="width:68%;height:50px;">{$info.desc}</textarea></td>
+                        </tr>
+
+
+                        <tr id="tao1" style="display: none;">
+                            <th>套餐标题 :</th>
+                            <td><input type="text" value="{$info.tao_title}" name="tao_title" id="tao_title" class="input-text" size="30"></td>
+                        </tr>
+
+
+                        <tr>
+                            <th>状态: </th>
+                            <td>
+                                <label><input type="radio" name="status" class="radio_style" value="1" <if condition="$info['status'] eq 1"> checked="checked"</if>>&nbsp;是&nbsp;&nbsp;&nbsp;</label>
+                                <label><input type="radio" name="status" class="radio_style" value="0" <if condition="$info['status'] eq 0"> checked="checked"</if>>&nbsp;否</label>
+                            </td>
+                        </tr>
+
+                        <!--<tr>
+                            <th>商家级别 :</th>
+                            <td><input id='J_leve' onkeyup="this.value=this.value.replace(/[^0-9.]/g,'')" onafterpaste="this.value=this.value.replace(/[^0-9.]/g,'')" type="text" name="level" value="{$info.level}" class="input-text" size="30"> 星 <span>（最多为5星）</span></td>
+                        </tr>-->
+
+                        <tr>
+                            <th>商家描述 :</th>
+                            <td><textarea name="merchant_desc" id="merchant_desc" style="width:68%;height:50px;">{$info.merchant_desc}</textarea></td>
+                        </tr>
+
+                        <tr>
+                            <th>商家详情 :</th>
+                            <td><textarea name="info" id="info" style="width:68%;height:400px;visibility:hidden;resize:none;">{$info.info}</textarea></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="content_list pad_10 hidden">
+                    <table width="100%" cellpadding="2" cellspacing="1" class="table_form" id="item_attr">
+                        <volist name="attr_list" id="val">
+                            <tr>
+                                <td width="220">
+                                    <a href="javascript:void(0);" class="blue" onclick="del_attr({$val.id},this);"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>
+                                    属性名 :
+                                    <input type="text" name="attr[name][]" value="{$val.name}" class="input-text" size="20">
+                                </td>
+                                <td width="">
+                                    属性值 :
+                                    <input type="text" name="attr[value][]" value="{$val.value}" class="input-text" size="30">
+                                    字段单位
+                                    <select name="attr[tag][]" >
+                                        <volist name="teg" id="vals">
+                                            <option size="30" value="{$key}" <if condition="$key eq $val['tag']">selected</if> >{$vals}</option>
+                                        </volist>
+                                    </select>
+
+                                </td>
+                            </tr>
+                            <input type="hidden" name="attr[id][]" value="{$val.id}" class="input-text" size="30">
+                            <input type="hidden" name="attr[bs][]" value="1" class="input-text" size="30">
+                        </volist>
+
+                        <tbody class="add_item_attr">
+                        <tr>
+                            <th  width="220">
+                                <a  href="javascript:void(0);" class="blue" onclick="add_attr();">
+                                    <img src="__STATIC__/css/admin/bgimg/tv-expandable.gif" />
+                                </a>
+                                属性名 :<input type="text" name="attr[name][]" class="input-text" size="20">
+                            </th>
+                            <td>
+                                属性值 :<input type="text" name="attr[value][]" class="input-text" size="30">
+                                字段单位 :
+                                <select name="attr[tag][]" >
+                                    <volist name="teg" id="val" >
+                                        <option size="30" value="{$key}">{$val}</option>
+                                    </volist>
+                                </select>
+                            </td>
+                            <input type="hidden" name="attr[bs][]" value="0" class="input-text" size="30">
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="mt10"><input type="submit" value="{:L('submit')}" id="dosubmit" name="dosubmit" class="btn btn_submit" style="margin:0 0 10px 100px;"></div>
+        </div>
+    </div>
+    <input type="hidden" name="menuid"  value="{$menuid}"/>
+    <input type="hidden" name="id" value="{$info.id}" />
+</form>
+<include file="public:footer" />
+<link rel="stylesheet" href="__STATIC__/js/calendar/calendar-blue.css"/>
+<script src="__STATIC__/js/calendar/calendar.js"></script>
+<script>
+    $(function(){
+        //初始折
+        if($('#zhe').attr('checked') == 'checked'){
+            $('#zhe1').attr('style','');
+            $('#zhe2').attr('style','');
+            $('#zhe3').attr('style','');
+            $('#zhe4').attr('style','');
+
+        }else{
+            $('#zhe1').attr('style','display:none');
+            $('#zhe2').attr('style','display:none');
+            $('#zhe3').attr('style','display:none');
+            $('#zhe4').attr('style','display:none');
+
+        }
+        //初始套
+        if($('#tao').attr('checked') == 'checked'){
+            $('#tao1').attr('style','');
+        }else{
+            $('#tao1').attr('style','display:none');
+        }
+
+
+
+        $('#zhe').click(function(){
+            var attr = $(this).attr('checked');  //是否勾选
+            if(attr == 'checked'){
+                $('#zhe1').attr('style','');
+                $('#zhe2').attr('style','');
+                $('#zhe3').attr('style','');
+                $('#zhe4').attr('style','');
+
+            }else{
+                $('#zhe1').attr('style','display:none');
+                $('#zhe2').attr('style','display:none');
+                $('#zhe3').attr('style','display:none');
+                $('#zhe4').attr('style','display:none');
+
+            }
+
+        })
+
+
+        $('#tao').click(function(){
+            var attr = $(this).attr('checked');  //是否勾选
+            if(attr == 'checked') {
+                $('#tao1').attr('style','');
+            }else{
+                $('#tao1').attr('style','display:none');
+            }
+
+        })
+
+
+    })
+</script>
+<script>
+    function look (url) {
+        var time = new Date();
+        window.open(url,window,"dialogHeight:600px;dialogWidth:1000px;help:no");
+    }
+    $(function(){
+        $('#pid').change(function(){
+            $('#cid').get(0).options.length=1;
+            var pid = $(this).val();
+            $.post("{:u('item/ajax_get_brand')}",{ pid:pid },function(data){
+//                alert(data.status)
+                if(data.status == 1){
+                    $('#cid').get(0).options.length=1;
+                    $.each(data.data,function(i,v){
+                        var $option=$('<option value="'+v.id+'">'+v.name+'</option>');
+                        $('#cid').append($option);
+                    })
+                }else{
+//                    alert("该分类下没有品牌");
+                }
+            },"json");
+        });
+    });
+    function loadRegion(sel,type_id,selName,url){
+        jQuery("#"+selName+" option").each(function(){
+            jQuery(this).remove();
+        });
+        jQuery("<option value=0>请选择</option>").appendTo(jQuery("#"+selName));
+        if(jQuery("#"+sel).val()==0){
+            return;
+        }
+        jQuery.getJSON(url,{pid:jQuery("#"+sel).val(),type:type_id},
+                function(data){
+                    if(data){
+                        jQuery.each(data,function(idx,item){
+                            jQuery("<option value="+item.id+">"+item.name+"</option>").appendTo(jQuery("#"+selName));
+                        });
+                    }else{
+                        jQuery("<option value='0'>请选择</option>").appendTo(jQuery("#"+selName));
+                    }
+                }
+        );
+    };
+</script>
+<script type="text/javascript">
+    $('.J_cate_select').cate_select('请选择');
+    $(function() {
+        $('ul.J_tabs').tabs('div.J_panes > div');
+        //自动获取标签
+        $('#J_gettags').live('click', function() {
+            var title = $.trim($('#J_title').val());
+            if(title == ''){
+                $.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+                return false;
+            }
+            $.getJSON('{:U("item/ajax_gettags")}', {title:title}, function(result){
+                if(result.status == 1){
+                    $('#J_tags').val(result.data);
+                }else{
+                    $.pinphp.tip({content:result.msg});
+                }
+            });
+        });
+        $.formValidator.initConfig({formid:"info_form",autotip:true});
+        $("#J_title").formValidator({onshow:'请填写商品名称',onfocus:'请填写商品名称'}).inputValidator({min:1,onerror:'请填写商品名称'}).defaultPassed();
+        $("#J_scprice").formValidator({onshow:'请填写商品市场价格',onfocus:'请填写商品市场价格'}).inputValidator({min:1,onerror:'请填写商品市场价格'});
+        $("#J_price").formValidator({onshow:'请填写商品价格',onfocus:'请填写商品价格'}).inputValidator({min:1,onerror:'请填写商品价格'}).defaultPassed();
+
+        $("#tel").formValidator({onshow:'请填写商家电话',onfocus:'请填写商家电话'}).inputValidator({min:1,onerror:'请填写商家电话'}).defaultPassed();
+        $("#address").formValidator({onshow:'请填写商家地址',onfocus:'请填写商家地址'}).inputValidator({min:1,onerror:'请填写商家地址'}).defaultPassed();
+
+
+        $("#store_wd").formValidator({onshow:'请填写商家地理位置',onfocus:'请填写商家地理位置'}).inputValidator({min:1,onerror:'请填写商家地理位置'}).defaultPassed();
+
+        //$("#discount").formValidator({onshow:'请填写商家折扣',onfocus:'请填写商家折扣'}).inputValidator({min:1,onerror:'请填写商家折扣'}).defaultPassed();
+
+        //$("#enjoy_num").formValidator({onshow:'请填写商家已享人数',onfocus:'请填写商家已享人数'}).inputValidator({min:1,onerror:'请填写商家已享人数'}).defaultPassed();
+
+        //$("#desc").formValidator({onshow:'请填写商家折扣描述',onfocus:'请填写商家折扣描述'}).inputValidator({min:1,onerror:'请填写商家折扣描述'}).defaultPassed();
+
+        $("#J_leve").formValidator({onshow:'请填写商家等级',onfocus:'请填写商家等级'}).inputValidator({min:1,onerror:'请填写商家等级'}).defaultPassed();
+    });
+    function get_child_cates(obj,to_id)
+    {
+        var parent_id = $(obj).val();
+        if( parent_id ){
+            $.get('?m=item&a=get_child_cates&g=admin&parent_id='+parent_id,function(data){
+                var obj = eval("("+data+")");
+                $('#'+to_id).html( obj.content );
+            });
+        }
+    }
+
+    function add_file()
+    {
+        $("#next_upload_file .uplode_file").clone().insertAfter($("#first_upload_file .uplode_file:last"));
+    }
+    function del_file_box(obj)
+    {
+        $(obj).parent().parent().remove();
+    }
+    function del_album(id)
+    {
+        var url = "{:U('item/delete_album')}";
+        $.get(url+"&album_id="+id, function(data){
+            if(data==1){
+                $('.album_'+id).remove();
+            };
+        });
+    }
+    function add_attr()
+    {
+        $("#hidden_attr .add_item_attr").clone().insertAfter($("#item_attr .add_item_attr:last"));
+    }
+    function del_attrs(obj)
+    {
+        $(obj).parent().parent().remove();
+    }
+    function del_attr(id,obj)
+    {
+        var url = "{:U('merchant/delete_attr')}";
+        $.get(url+"&attr_id="+id, function(data){
+            if(data==1){
+                $(obj).parent().parent().remove();
+            };
+        });
+    }
+</script>
+<table id="next_upload_file" style="display:none;">
+    <tbody class="uplode_file">
+    <tr>
+        <th width="100"><a href="javascript:void(0);" onclick="del_file_box(this);" class="blue"><img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" /></a>上传文件 :</th>
+        <td><input type="file" name="imgs[]"></td>
+    </tr>
+    </tbody>
+</table>
+<table id="hidden_attr" style="display:none;">
+    <tbody class="add_item_attr">
+    <tr>
+        <th width="200">
+            <a href="javascript:void(0);" class="blue" onclick="del_attrs(this);">
+                <img src="__STATIC__/css/admin/bgimg/tv-collapsable.gif" />
+            </a>
+            属性名 :<input type="text" name="attr[name][]" class="input-text" size="20">
+        </th>
+        <td>属性值 :<input type="text" name="attr[value][]" class="input-text" size="30">
+            字段单位 :
+            <select name="attr[tag][]" >
+                <volist name="teg" id="val" >
+                    <option size="30" value="{$key}">{$val}</option>
+                </volist>
+            </select>
+        </td>
+        <input type="hidden" name="attr[bs][]" value="0" class="input-text" size="30">
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
+<script src="__STATIC__/js/jquery/plugins/colorpicker.js"></script>
+<script src="__STATIC__/js/kindeditor/kindeditor.js"></script>
+<script>
+
+    $(function() {
+        KindEditor.create('#info', {
+            uploadJson : '{:U("attachment/editer_upload")}',
+            fileManagerJson : '{:U("attachment/editer_manager")}',
+            allowFileManager : true
+        });
+        $('ul.J_tabs').tabs('div.J_panes > div');
+
+        //颜色选择器
+        $('.J_color_picker').colorpicker();
+
+        //自动获取标签
+        $('#J_gettags').live('click', function() {
+            var title = $.trim($('#J_title').val());
+            if(title == ''){
+                $.pinphp.tip({content:lang.article_title_isempty, icon:'alert'});
+                return false;
+            }
+            $.getJSON('{:U("article/ajax_gettags")}', {title:title}, function(result){
+                if(result.status == 1){
+                    $('#J_tags').val(result.data);
+                }else{
+                    $.pinphp.tip({content:result.msg});
+                }
+            });
+        });
+
+    });
+</script>

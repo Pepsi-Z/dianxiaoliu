@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>确认订单</title>
+    <include file="public:header" />
+    <link href="__STATIC__/css/home/bootstrap.min.css" rel="stylesheet">
+    <link href="__STATIC__/css/home/main.css" rel="stylesheet">
+</head>
+<body class="lxt-color">
+<form id="form2" method="post" action="{:U('Order/pay')}">
+    <div class="container lxt-container">
+
+        <div id="address" address="{$address.consignee}" class="row lxt-confirm-a ">
+
+            <empty name="address.consignee">
+                <div class="col-xs-10 "> <em>亲！还没有收货地址! 请先去<a href="{:U('User/addresschange')}"><b>添加</b></a>吧</em></div>
+             <else/>
+                <a href="{:U('User/address')}">
+                    <div class="col-xs-10 "><p>收货人:<i>{$address.consignee}</i><em>{$address.mobile}</em></p><h5>地&nbsp;&nbsp;址：<i>{$address.saddress} <?php echo ($jd[$address['street']]);?>{$address.address}</i></h5></div>
+                    <div class="col-xs-2 text-right"><span class="glyphicon glyphicon-menu-right"></span></div>
+                </a>
+                <!--用户收货地址-->
+                <input type="hidden" name="address_id" value="{$address.id}">
+            </empty>
+        </div>
+        <div class="row lxt-confirm-b">
+            <a href="#">
+                <div class="col-xs-4"> <img style="width:88px;height: 80px;" src="{:attach(get_thumb($item['img'], '_m'),'item')}" alt="..."> </div>
+                <div class="col-xs-8">
+                    <h4>{$item.title}</h4>
+                    <span class="pull-left">&yen;<span id="s_price">{$item.price}</span></span>
+                </div>
+            </a>
+        </div>
+        <div class="row lxt-confirm-c">
+            <div class="col-xs-6">
+                <p>数量：</p>
+            </div>
+            <div class="col-xs-6 text-right">
+                <p>X<b>{$item.num}</b></p>
+            </div>
+        </div>
+        <div class="row lxt-confirm-c">
+            <div class="col-xs-6">
+                <p>配送费：</p>
+            </div>
+            <div class="col-xs-6 text-right">
+                <p><b id="peisong">{$peisong}</b>元</p>
+            </div>
+        </div>
+        <div class="row lxt-confirm-c">
+            <a href="{:U('Card/pay_cards',array('id'=>$item['id'],'sid'=>$item['sid'],'num'=>$item['num'],'peisong'=>$yuan_peisong,'min'=>$min))}">
+                <div class="col-xs-6">
+                    <p id="yh" yh="{$cards_info.money}">优惠券：</p>
+                    <input type="hidden" name="gid" value="{$_GET['gid']}"/>
+                </div>
+                <div class="col-xs-6 text-right">
+                    <span class="glyphicon glyphicon-menu-right"></span>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <!--<section class="lxt-settle">
+        <div class="row">
+            <div  class="col-xs-8"><p class="lxt-settle-pa lxt-cart-pa">合计:<i>￥40.00</i></p></div>
+            <div  class="col-xs-4 text-center lxt-cart-pb"><a href="#">确认</a></div>
+        </div>
+        </div>
+    </section>-->
+        <input type="hidden" name="id[]" value="{$_GET['id']}">
+        <input type="hidden" name="number{$_GET['id']}" value="{$_GET['num']}">
+        <input type="hidden" name="price{$_GET['id']}" value="{$item.price}">
+        <!--防止表单重复提交-->
+        <php>$code = mt_rand(0,1000000);</php>
+        <input type="hidden" name="code" value="{$code}"/>
+    <!-----footer开始-------->
+    <div class="container">
+        <div class="row zxy-Tail">
+            <div class="col-xs-12">
+                <span class="pull-left">合计：<b>￥</b><b id="all_add"><?php echo sprintf('%.2f',(($item['total_price'] + $peisong) - $cards_info['money']))?></b></span>
+                <input id="submit1" STYLE="border:none; border-radius:0; height:45px; line-height:30px; background:#40C780; color:#fff;" type="button" value="提交订单" class="btn btn-default pull-right" />
+                <input type="hidden" name="total" value="<?php echo sprintf('%.2f',($item['total_price'] + $peisong - $cards_info['money']))?>">
+                <input type="hidden" name="pay" value="{$item['pay']}">
+            </div>
+        </div>
+    </div>
+</form>
+<!-----footer结束-------->
+<include file="public:footers" />
+</body>
+<script>
+    $("#submit1").click(function(e){
+        var address = $('#address').attr('address'); //收货地址
+        var s_price = Number($('#s_price').html());
+        var p_price = Number($('#peisong').html());
+        var total_price = (s_price+p_price).toFixed(2);
+        var yh_price = Number($('#yh').attr('yh'));
+        if(!address){
+             layer.msg('请填写收货地址');
+             return false;
+        }
+        if(yh_price > total_price){
+            layer.msg('请选择小于总价的优惠劵');
+            return false;
+        }else if(yh_price > p_price){
+            layer.msg('请选择小于配送费的优惠劵');
+            return false;
+        } else{
+            $("#form2").submit();
+        }
+
+
+    })
+</script>
+</html>

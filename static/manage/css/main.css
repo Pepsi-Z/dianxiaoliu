@@ -1,0 +1,89 @@
+@charset "utf-8";
+/* CSS Document */
+html{ font-size:14px; color:#333;} 
+/*----lxt的css开始----*/
+li{ list-style-type:none;} 
+i,em{ font-style:normal;}
+a,a:hover,a:active,a:link{text-decoration:none;}
+.lxt-color{background-color:#ebebeb;}
+.lxt-color section{ margin-top:0 ;}
+/*tab菜单*/
+.coupon_box .nav{background-color:#fff;}
+.coupon_box .nav .col-xs-6{padding-left:0; padding-right:0;}
+.coupon_box .nav-tabs>li{margin-bottom:0;}
+.coupon_box .nav a{color:#666;}
+.coupon_box .nav li:nth-child(2) a{padding:10px 0;}
+.coupon_box .nav li:nth-child(2) span{border-left:1px solid #eee; border-right:1px solid #eee; display:block;}
+.coupon_box .nav-tabs>li.active>a{color:#65cced; border:none; border-bottom:2px solid #65cced;}
+.nav-tabs>li>a{margin-right:0;}
+.lxt-order .col-xs-12{ border-bottom:1px solid #e2e2e2;}
+.lxt-order{ background-color:#fff; line-height:35px; margin-top:5px;}
+.lxt-order-a{ margin-top:0 !important; border-bottom:1px solid #e2e2e2;}
+.lxt-order-b{ background-color:#fff; line-height:35px;}
+.lxt-order-a span{ color:#666 !important;}
+.lxt-order-b i{ color:#f10531;}
+.lxt-a1,.lxt-a2{ padding:4px 10px; border:#d4d3d3 1px solid; border-radius:3px; color:#666;}
+.lxt-a2{ margin-left:3px; background-color:#65cced; color:#fff; border:none;}
+/*订单管理*/
+.lxt-confirm-a p,.lxt-confirm-a h5{ color:#666; font-weight:normal;}
+.lxt-confirm-a p i,.lxt-confirm-a h5 i{ color:#333;}
+.lxt-confirm-a p em{ margin-left:10px; color:#65cced;}
+.lxt-confirm-a .col-xs-2 span,.lxt-confirm-c span{ color:#cccccc;}
+.lxt-confirm-b,.lxt-confirm-a{ background-color:#fff; padding:10px 0; margin-top:10px; }
+.lxt-confirm-b .col-xs-4 img{ width:100%;}
+.lxt-confirm-b .col-xs-8 h4{ color:#333; font-size:14px; font-weight:normal;}
+.lxt-confirm-b .col-xs-8 span{ color:#f10548;}
+.lxt-confirm-c{background-color:#fff; padding-top:10px; border-top:#e2e2e2 1px solid;}
+.lxt-confirm-c p{ color:#666;}
+/*----订单管理2----*/
+.lxt-row{ margin:10px 0; overflow:hidden; margin-right:0 !important;margin-left:0 !important; height:40px; border-radius:10px !important; border:1px solid #65CCED; }
+.lxt-row li a{  border:none !important; border-radius:0 !important;}
+.lxt-row .nav-tabs>li.active>a{color:#fff;  background-color:#65cced !important;}
+.lxt-row .nav li:nth-child(2) span{border-left:none; border-right:none; display:block;}
+.lxt-tab{padding-left:10px;padding-right:10px; overflow:hidden;}
+/*----折扣表----*/
+.lxt_integral{ padding-left:0 !important; padding-right:0 !important;}
+.lxt_integral table{border:1px solid #dcdcdc; margin-top:5px;}
+.lxt_integral table th{ font-weight: bold;}
+.lxt_integral table th,.lxt_integral table td{ text-align:center;}
+.lxt_integral .table>tbody>tr>td,.lxt_integral .table>tbody>tr>th{border-top:none;}
+.lxt_integral table th{background-color:#faf8f8;border-bottom:1px solid #ddd !important;}
+.lxt_integral table td{background-color:#fff;border-top:1px dashed #ddd !important; color:#666;}
+.lxt_increase{color:#cba30e !important;}
+.lxt-blue{ color:#65CCED !important;}
+
+/*---------订单详情--------------------- */
+.lxt-confirm-a{}
+.lxt-confirm-a p,.lxt-confirm-a h5{ color:#666; font-weight:normal;}
+.lxt-confirm-a p i,.lxt-confirm-a h5 i{ color:#333;}
+.lxt-confirm-a p em{ margin-left:10px; color:#40c780;}
+.lxt-confirm-a .col-xs-2 span,.lxt-confirm-c span{ color:#cccccc;}
+.lxt-confirm-b,.lxt-confirm-a{ background-color:#fff; padding:10px 0; margin-top:10px; }
+.lxt-confirm-b .col-xs-4 img{ width:100%;}
+.lxt-confirm-b .col-xs-8 h4{ color:#333; font-size:14px; font-weight:normal;}
+.lxt-confirm-b .col-xs-8 span{ color:#666;}
+.lxt-confirm-c{background-color:#fff; padding-top:10px; border-top:#e2e2e2 1px solid;}
+.lxt-confirm-c p{ color:#666;}
+.lxt-margin{ margin-top:0 !important; border-top:1px solid #e2e2e2;}
+.lxt-bottom{ margin-bottom:5px;}
+.lxt-bottom p{ color:#333;}
+.lxt-confirm-c input{ width:100%; border:none; height:20px;}
+.lxt_btn_release  a input{ margin-top:30px; display:block; width:100%; height:35px; background-color:#6ce; color:#fff; border:none; border-radius:5px;}
+/*登录*/
+.lxt_bgwhitecolor{ background-color:#fff ;}
+.lxt_loginimg{ text-align:center;}
+.lxt_loginimg img{ width:100px; margin:40px auto 20px;}
+.lxt_inputtext{ border-radius:5px; border:1px solid #dadada;}
+.lxt_inputtext>div{ height:42px;}
+.lxt_inputtext>div{border-bottom:1px solid #dadada;}
+.lxt_inputtext>div.lxt_borderbottom{border-bottom:none;}
+.lxt_inputtext label{ display:block; padding:5px; margin-bottom:0; font-weight:normal; font-size:12px; background-color:#eee;}
+.lxt_inputtext label:last-child{ border-radius:0 0 5px 5px;}
+.lxt_inputtext>div span:first-child{ display:inline-block; width:30px; height:42px; }
+.lxt_inputtext>div span:nth-child(2){ display:inline-block; width:70px; height:42px; line-height:42px; text-align:justify;}
+.lxt_inputtext>div span.lxt_tel{ background:url(../img/0.png) no-repeat center center; background-size:16px 17px;}
+.lxt_inputtext>div span.lxt_password{ background:url(../img/1.png) no-repeat center center; background-size:16px 17px;}
+.lxt_inputtext>div input{ height:30px; line-height:30px; margin-top:6px; width:60%; border:none;}
+.lxt_bggreencolor{ width:94% !important; margin:0 auto; margin-top:30px; background-color:#65cced; color:#fff; border: none;}
+.c_fanli {text-align:center;}
+.c_fanli img{width:200px; margin:20px 0 30px;}

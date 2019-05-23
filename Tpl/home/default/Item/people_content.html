@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+    <title>商家详情</title>
+    <include file="public:header" />
+    <style>
+        .c_xq2 {  width: 90%; height: 20%; margin: 10px auto;  }
+        .c_xq2 img { width: 100%; height: auto; max-width: 100%; display: block;  }
+        .Image-z { padding: 10px; }
+        .Image-z img{max-width: 100%}
+        .media-body >div img{ width:15px;}
+        .wxh_media_bodylast{ padding-top:5px;}
+    </style>
+</head>
+<body class="zxy-bac">
+<div class="container" style="background:#fff;">
+    <div class="row">
+        <div class="bannerbox-z">
+            <div class="c_xq2">
+                <img style="height:175px;" src="{:attach(get_thumb($merchant_info['img'], '_s'), 'merchant')}"/>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container" style="background:#fff; padding-bottom:10px;">
+    <div class="media-body">
+        <h4 class="media-heading wfont14 color333">
+            <a href="#" class="color333">{$merchant_info.title}</a>
+            <span class="pull-right color666  text-right">销量<span>{$merchant_info.yuexiao}</span>份</span>
+        </h4>
+        <!--<div>
+                <i id="wxh-star0"></i>
+              <script>
+                   $("#wxh-star0").raty({
+                       start: "3",
+                       readOnly: true,
+                       path: "static/js/jquery.raty-0.5/img/"
+                   })
+               </script>
+
+        </div>-->
+        <?php if($merchant_info['qisong']){?>
+                  <if condition="$type eq 2">
+                <div class="wxh_media_bodylast">
+                    <if condition="$merchant_info['tile'] eq 1" >
+                        <span><span>&yen;<?php echo $merchant_info['qisong']?></span><?php echo $merchant_info['qisong_teg']?></span>
+                    <elseif condition="$merchant_info['tile'] eq 2"/>
+                        <span><span>&yen;<?php echo $merchant_info['qisong']?></span><?php echo $merchant_info['qisong_teg']?></span>
+                    <else />
+                        <span><span>&yen;<?php echo $merchant_info['qisong']?></span><?php echo $merchant_info['qisong_teg']?></span>
+                    </if>
+                </div>
+              <elseif condition="$type eq 3" />
+                    <div class="wxh_media_bodylast">
+                        <span>地址：<span><?php echo $merchant_info['address']?><br />
+                        <span>起步价<span><?php echo $merchant_info['qisong']?></span><?php echo $merchant_info['qisong_teg']?></span>
+                    </div>
+
+                <else/>
+                    <div class="wxh_media_bodylast">
+                        <span><span>&yen;<?php echo $merchant_info['qisong']?></span><?php echo $merchant_info['qisong_teg']?></span>
+                    </div>
+            </if>
+       <?php } ?>
+
+
+    </div>
+</div>
+<div class="container">
+    <div class="zxy-Tail" style="margin-top:10px;">
+        <a class="btn btn-primary btn-block" href="tel:{:C('pin_site_tel')}" style=" float:none; width:100%;border-radius:0;background:#40C780; border:none; height:50px;">联系客服：{:C('pin_site_tel')}</a>
+    </div>
+</div>
+<div style="background:#fff; margin-top:10px;">
+    <h4 style="text-align:center; color:#40C780; padding:10px 0;">业务介绍</h4>
+</div>
+<div class="Image-z">
+  {$merchant_info.info}
+</div>
+<div class="Blank-z"></div>
+<!-----footer开始-------->
+
+<!-----footer结束-------->
+<include file="public:footers" />
+</body>
+</html>

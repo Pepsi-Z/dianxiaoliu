@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+    <title>同城速递</title>
+    <include file="public:header" />
+    <style>
+        .zxy-standard img{max-width:100%;}
+    </style>
+</head>
+<body>
+
+<section class="margin-z wxh_disbottom">
+    <div class="container zxy-introduces">
+        <div class="row">
+            <div class="col-xs-12 zxy-standard">
+                <P>{:C('pin_city_money')}</P>
+            </div>
+            <div class="col-xs-12 zxy-standard">
+                <P>{:C('pin_city_service')}</P>
+            </div>
+        </div>
+    </div>
+</section>
+<div style="height:100px;"></div>
+<footer class="footer-z c_bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 margin-z zxy-Call">
+                <a href="tel:{:C('pin_site_tel')}" class="btn btn-default"><span>我要寄件 {:C('pin_site_tel')}</span></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<footer>
+    <include file="public:footers" />
+</footer>
+</body>
+</html>

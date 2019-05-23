@@ -1,0 +1,84 @@
+<style>
+    .img_out a img{width:17px;}
+    .activelis {color: #40C780;}
+    .wxh_positionimg{ position: relative;}
+    .wxh_shopping_number{ position: absolute; top:-1px; left:52%; z-index: 9999; width:15px;height: 15px;  color: #fff; line-height: 15px; text-align: center; border-radius: 50px; background:#40C780;font-size: 12px;}
+</style>
+<div style="height:80px;"></div>
+<footer>
+    <ul class="nav nav-tabs nav-tabs-justified img_out">
+        <li <if condition="$_SESSION['foot_id'] eq ''">
+                class="col-xs-4 activeli"
+               <else/>
+                 class="col-xs-4"
+             </if>  >
+
+            <a href="{:U('Index/index',array('foot_id'=>1,'openid'=>cookie('openid')))}">
+                <if condition="$_SESSION['foot_id'] eq 1 or $_SESSION['foot_id'] eq ''">
+                    <img src="__STATIC__/css/img/inder_footer0active.png">
+                    <else/>
+                    <img src="__STATIC__/css/img/inder_footer0.png">
+                </if>
+                <p <if condition="$_SESSION['foot_id'] eq 1">class="activelis"</if> >首页</p>
+            </a>
+        </li>
+
+        <li class="col-xs-4">
+            <a href="{:U('Shopcart/index',array('foot_id'=>2,'openid'=>$_GET['openid']))}" >
+                <if condition="$_SESSION['foot_id'] eq 2">
+
+                    <img src="__STATIC__/css/img/inder_footer1active.png" class="wxh_positionimg" >
+
+                    <div class="wxh_shopping_number">
+                        <if condition="$num eq 0 ">
+                            0
+                            <else/>
+                            {$num}
+                        </if>
+                    </div>
+
+                    <else/>
+
+                    <img src="__STATIC__/css/img/inder_footer1.png" class="wxh_positionimg">
+                    <div class="wxh_shopping_number">
+                        <if condition="$num eq 0 ">
+                            0
+                            <else/>
+                            {$num}
+                        </if>
+                    </div>
+
+
+                </if>
+                <p <if condition="$_SESSION['foot_id'] eq 2">class="activelis"</if> >购物车</p>
+            </a>
+        </li>
+        <li class="col-xs-4">
+            <a href="{:U('User/index',array('foot_id'=>3,'openid'=>$_GET['openid']))}">
+                <if condition="$_SESSION['foot_id'] eq 3">
+                    <img src="__STATIC__/css/img/inder_footer2active.png">
+                    <else/>
+                    <img src="__STATIC__/css/img/inder_footer2.png">
+                </if>
+                <p <if condition="$_SESSION['foot_id'] eq 3">class="activelis"</if> >我的</p>
+            </a>
+        </li>
+    </ul>
+</footer>
+<!--
+<script>
+    $(document).ready(function(){
+        var mod_ss = $('footer ul li');
+        mod_ss.click(function(){
+            $.cookie('footer_nav_key', $(this).index(), { expires: 1 });
+        });
+        mod_ss.each(function(a,b){
+            if(a == $.cookie('footer_nav_key')){
+                $(this).addClass('activeli');
+            }else{
+                $(this).removeClass('activeli');
+            }
+        })
+
+    })
+</script>-->

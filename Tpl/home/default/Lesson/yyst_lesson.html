@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)http://scrm.weizaojiao.cn/wap/share/index/token/dcyluh1400743674.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>宝宝信息</title>
+    <link rel="shortcut icon" href="http://scrm.weizaojiao.cn/favicon.ico?v=3">
+    <script type="text/javascript" charset="utf-8" src="../Style/yyst_lesson/jquery-1.9.1.min.js"></script>
+	
+	<script src="../Style/yyst_lesson/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../Style/yyst_lesson/share.js"></script>
+    <script src="../Style/yyst_lesson/mobiscroll.core.js"></script>
+    <script src="../Style/yyst_lesson/mobiscroll.widget.js" type="text/javascript"></script>
+    <script src="../Style/yyst_lesson/mobiscroll.scroller.js" type="text/javascript"></script>
+    <script src="../Style/yyst_lesson/mobiscroll.datetime.js" type="text/javascript"></script>
+    <!--主题JS-->
+    <script src="../Style/yyst_lesson/mobiscroll.widget.android-holo.js" type="text/javascript"></script>
+    <!--语言包JS-->
+    <script src="../Style/yyst_lesson/mobiscroll.i18n.zh.js" type="text/javascript"></script>
+    <!--主题CSS-->
+    <link href="../Style/yyst_lesson/mobiscroll.widget.css" rel="stylesheet" type="text/css">
+    <link href="../Style/yyst_lesson/mobiscroll.widget.android-holo.css" rel="stylesheet" type="text/css">
+    <link href="../Style/yyst_lesson/mobiscroll.scroller.css" rel="stylesheet" type="text/css">
+    <link href="../Style/yyst_lesson/mobiscroll.scroller.android-holo.css" rel="stylesheet" type="text/css">
+    <link href="../Style/yyst_lesson/mobiscroll.animation.css" rel="stylesheet" type="text/css">
+
+	
+    <style>
+        body {font-family: "microsoft yahei", Arial, Verdana;font-size: 14px;color: #555;}
+        body,dl,dd,div {
+            margin: 0;
+            padding: 0;
+            display: block;
+        }
+        .r_main {
+            margin: 10px;
+            background: #fff;
+			<!-- width:900px; -->
+        }
+		
+        .connerbox {
+            width: 99%;
+            margin: 2px auto;
+            background: #fff;
+            border: #dadada 1px solid;
+        }
+        .connerbox dd {
+            padding: 2px 10px;
+            font-style: normal;
+            font-size: 14px;
+            border-bottom: #e0e0e0 1px solid;
+            position: relative;
+            height: 40px;
+            line-height: 40px;
+            position: relative;
+        }
+        .connerbox dd span.form_hd {
+            position: absolute;
+            left: 10px;
+            top: 7px;
+            display: inline-block;
+            line-height: 30px;
+        }
+        .connerbox dd span.form_td {
+            margin-left: 45px;
+            display: block;
+        }
+        .connerbox dd span.form_td input,
+        .connerbox dd span.form_td select {
+            font-size: 14px;
+            width: 100%;
+        }
+        .connerbox .text_input,
+        .connerbox .text_select,
+        .connerbox .text_select option {
+            background: 0 0;
+            border: none;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            overflow: visible;
+            font-size: 14px;
+        }
+        .connerbox dd span.ml80 {
+            margin-left: 75px;
+			
+        }
+        .connerbox dd span.ml70 {
+            margin-left: 58px;
+        }
+        .largerbtn {
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            font-size: 15px;
+            font-weight: 700;
+            display: inline-block;
+        }
+        .btn_teal {
+            color: #fff;
+            width: 100%;
+            border-radius: 2px;
+            display: block;
+            margin: 8px auto;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#00B5AD', endColorstr='#00B5AD');
+            background: -ms-linear-gradient(top, #00B5AD, #00B5AD);
+            background: -webkit-gradient(linear, 0 0, 0 100%, from(#00B5AD), to(#00B5AD));
+            background: -moz-linear-gradient(top, #00B5AD, #00B5AD);
+            border: #00a098 1px solid;
+        }
+        .btn_yzm {
+            color: #fff;
+            height: 2rem;
+            border-radius: 2px;
+            position: absolute;
+            right: 5px;
+            top: 6px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .2);
+            filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#00B5AD', endColorstr='#00B5AD');
+            background: -ms-linear-gradient(top, #00B5AD, #00B5AD);
+            background: -webkit-gradient(linear, 0 0, 0 100%, from(#00B5AD), to(#00B5AD));
+            background: -moz-linear-gradient(top, #00B5AD, #00B5AD);
+            border: #00a098 1px solid;
+        }
+        .coryright {
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+			color:#999;
+        }
+		.corysupport a{
+			text-decoration: none;
+            color: #999;
+		}
+		.corysupport{
+			text-align: center;
+            margin-top: 5px;
+            width: 100%;
+			color:#999;
+		}
+		.corysupport a {
+            text-decoration: none;
+            color: #00a098;
+			color:#999;
+        }
+		.sex{
+			margin-left:80px;
+		}
+		.lyj_textselect{
+			margin-left:100px;
+		}
+		@media screen and (min-width: 1000px){ 
+			.r_main {
+				width:30%;
+				margin: 10px;
+				background: #fff;
+				margin:0 auto;
+				padding-top:10px;
+				border:1px solid #ccc;
+				padding-left:30px;
+				padding-right:30px;
+				padding-bottom:10px;
+				margin-top:10px;
+				-moz-box-shadow: 2px 2px 10px #909090;/*firefox*/
+				-webkit-box-shadow: 2px 2px 10px #909090;/*safari或chrome*/
+				box-shadow:2px 2px 10px #909090;/*opera或ie9*/
+								
+			}
+			.lyj_textselect{
+				margin-left:0px;
+			}
+			.connerbox{
+				border:none;
+			}
+			
+			.largerbtn{
+				width:100px;
+				margin-top:40px;
+			}
+			.connerbox{
+				margin-top:10px;
+			}
+			.connerbox dd span.form_hd{
+				position:relative;
+				left:0;
+				top:10px;
+				
+			}
+			.connerbox dd {
+				padding: 2px 10px;
+				font-style: normal;
+				font-size: 14px;
+				border-bottom: none;
+				position: relative;
+				height: 40px;
+				line-height: 40px;
+				position: relative;
+				height:60px;
+			}
+			.connerbox dd input{
+				margin-left:0;
+			}
+			.form_hd{
+				width:100%;
+			}
+			.connerbox dd span.ml80 {
+				margin-left: 0px;
+				
+			}
+			.connerbox dd span.ml80 input{
+				border:1px solid #ccc;
+			}
+			.connerbox .text_input, .connerbox .text_select, .connerbox .text_select option.text_select{
+				border:1px solid #ccc;
+			}
+			.connerbox dd span.ml70{margin-left:0;}
+			.connerbox dd span.form_td{margin-left:0;}
+			.btn_yzm{top:46px;}
+		}
+        
+    </style>
+</head>
+<script type="text/javascript">
+document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+    WeixinJSBridge.call('hideToolbar');
+    WeixinJSBridge.call('hideOptionMenu');
+});
+</script>
+<body>
+    <div class="r_main">
+        <form action="" method="post">
+            <div style="margin:3px auto;"><i class="info teal icon"></i></div>
+
+			<div style="margin:3px auto;">试听课仅限非会员预约</div>
+            <dl class="connerbox">
+
+                <dd><span class="form_hd">宝宝姓名：</span><span class="form_td ml80"><input id="name" name="baby_name" type="text" class="text_input" value=""></span>
+                </dd>
+                <dd><span class="form_hd">宝宝生日：</span><span class="form_td ml80"><input name="baby_birthday" id="mydate" type="text" class="text_input" value="" readonly=""></span>
+                </dd>
+                <dd><span class="form_hd">宝宝性别：</span>
+                        <input type="radio" name="sex" value="男孩" id="boy" class="sex" checked="true">
+                        <label for="boy">男孩</label>&nbsp;
+                        <input type="radio" name="sex" value="女孩" id="girl">
+                        <label for="girl">女孩</label>
+                </dd>
+                <dd><span class="form_hd">家长姓名：</span><span class="form_td ml80"><input name="parent_name" id="pname" type="text" class="text_input" value=""></span>
+                </dd>
+<dd>
+                        <input type="hidden" name="vip" value="2">
+                        <span class="form_hd">试听时间：</span>
+                        <select class="text_select lyj_textselect" name="time" id="fastclass">
+                            <option value="0" selected="">请选择</option>
+                            <option value="工作日">工作日</option>
+                            <option value="周末">周末</option>
+                            <option value="两者均可">两者均可</option>
+                        </select>
+                 
+						</dd> 
+                <dd>
+                    <span class="form_hd">手机号：</span><span class="form_td ml70"><input name="tel" id="mobile" type="tel" maxlength="11" class="text_input" style="width:65%;" value=""> 
+            </span>
+                </dd>
+                            </dl>
+            <div id="token" style="display:none;">dcyluh1400743674</div>
+            <div id="wechat_id" style="display:none;"></div>
+            <input type="button" class="btn_teal largerbtn" value="提 交">
+        </form>
+        <div class="coryright">幸运宝贝早教中心&nbsp;&nbsp;&nbsp;<a href="tel:"></a></div>
+    </div>
+    <!--        <script src="/Public/Wap/javascript/jquery.js"></script>-->
+    <script>
+        $(function () {
+            var myDate = new Date();
+            var currYear = myDate.getFullYear();
+            var currMonth = myDate.getMonth();
+            var currDate = myDate.getDate();
+            var opt = {};
+            opt.date = {
+                preset: 'date',
+                maxDate: new Date(currYear, currMonth, currDate)
+            };
+            opt.default = {
+                theme: 'android-holo light', //皮肤样式
+                display: 'bottom', //显示方式
+                animate: 'pop',
+                mode: 'scroller', //日期选择模式
+                //startYear: currYear - 10, //开始年份
+                endYear: currYear, //结束年份
+                dateOrder: 'yymmdd', //面板中日期排列格
+                dateFormat: 'yyyy-mm-dd', // 日期格式
+                lang: 'zh',
+            };
+
+            $("#mydate").val('').scroller('destroy').scroller($.extend(opt['default'], opt['date']));
+            var aa = "";
+            if (aa) {
+                $("#mydate").val(aa);
+            }
+            $('.btn_teal.largerbtn').click(function () {
+                if ($('#name').val() == "") {
+                    alert("请填写宝宝姓名");
+                    return false;
+                } else if ($('#mydate').val() == "") {
+                    alert("请选择宝宝生日");
+                    return false;
+                } else if ($('#pname').val() == "") {
+                    alert("请填写家长姓名");
+                    return false;
+                } else if($('#fastclass').val() =="0"){
+                    alert("请选择试听时间");
+                    return false;
+                }
+                else {
+                	// 判断支付方式
+                	var dataww = document.getElementsByName("sex");
+                	var arrt = "";
+                	
+                	for(i=0;i<dataww.length;i++){
+                		 if(dataww[i].checked) {
+                			 arrt = dataww[i].value;
+                		      break;
+                		   }
+                	}
+                	var serviceURL = "{:U('Lesson/yyst_post')}";
+	           		
+                	$.ajax({
+	           	            type: "post",
+	           	          
+	           	            //async: "true",
+	           	            dataType: 'json',
+	           	            url: serviceURL,
+	           	            data: {
+	           	            	"baby_name":$('#name').val(),
+	           	            	"baby_birthday":$('#mydate').val(),
+	           	            	"parent_name":$('#pname').val(),
+	           	        		"tel":$('#mobile').val(),
+	           	        		"sex":arrt,
+	           	        		"time":$('#fastclass').val(),
+	           	            },
+	           	            success: function(data) {
+	           	            		if(data){
+	           	            			alert("信息提交成功");
+	           	            		}else{
+	           	    					alert("信息提交失败");
+	
+	           	            		}
+	           	            		
+	           	            }
+	           		});    
+                }
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            
+            //点击发送验证码
+            $('.J-send-msg').click(function () {
+                var mn = $('#mobile');
+                if (!mn.val()) {
+                    alert("请填写手机号");
+                    return false;
+                } else if (mn.val().length != 11) {
+                    alert("手机号必须为11位");
+                    return false;
+                }
+                var mobile = ($("#mobile").val()).toString();
+                var time = 60,
+                    timer,
+                    _this = this;
+                var token = $("#token").text();
+                var wechat_id = $("#wechat_id").text();
+                $(".J-send-msg").text(time + '秒');
+                $(".J-send-msg").attr('disabled', true);
+                timer = window.setTimeout(function () {
+                    time--;
+                    if (time > 0) {
+                        $(".J-send-msg").text(time + '秒');
+                        window.setTimeout(arguments.callee, 1000);
+
+                    } else {
+                        $(".J-send-msg").text('重新发送');
+                        $(".J-send-msg").attr('disabled', false);
+                    }
+                }, 1000);
+                $.ajax({
+                    type: "get",
+                    url: "/Wap/Share/sentMessage",
+                    data: {
+                        'mobile': mobile,
+                        'token': token,
+                        'wechat_id': wechat_id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        if (data > 0) {
+                            alert("发送成功");
+                        } else {
+                            alert("发送失败:" + data);
+                            time = 0;
+                            $(".J-send-msg").text('重新发送');
+                            $(".J-send-msg").attr('disabled', true);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body></html>

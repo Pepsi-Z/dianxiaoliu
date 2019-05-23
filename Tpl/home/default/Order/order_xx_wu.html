@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>详情</title>
+
+<link href="../Style/static/css/reset.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/header.css" rel="stylesheet" type="text/css">
+<link href="../Style/static/css/menu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../Style/static/js/nav4.js"></script>
+    <include file="public:header" />
+<style>
+		body{ height: 100%;}
+		.promptbox{ margin-top:10%;}
+		h1{ font-weight:normal; color:#000; text-align:center; margin-top:5%;}
+		.prompt{ width:95px; height:93px; display:block; margin:0 auto;}
+         .xiangqing,.xq_main{width:100%;}
+        .bg_colorxq a{color: #40C780}
+        .xq_main{height: 100%;}
+        .lxt-a1{padding:3px 5px; margin-top:2px; display:inline-block;}
+        .btn-default{background:#40C780;color: #e4ecf7 ;}
+        .btn_a{ padding: 5px 5px; font-size: 12px;background-color:#40C780!important; color: #fff !important;}
+
+</style>
+
+</head>
+
+<body style="background:#eeeeee;">
+        <div class="xiangqing bg_colorxq">
+        	<p><img src="../Style/static/images/icon41.png" class="fl"/>
+        	订单状态：
+        		<if condition="$order.status eq 1">
+                <a href="{:U('Order/pay',array('orderId'=>$order['orderId'],'order_sumPrice'=>$order['order_sumPrice']))}" style="margin-right:10px;">去付款</a>
+                <elseif condition="$order.status eq 2" />
+                <a href="javascript:;" style="margin-right:10px;">未消费</a>
+                <elseif condition="$order.status eq 3" />
+                <a href="javascript:;" style="margin-right:10px;">待确认收货</a>
+                <elseif condition="$order.status eq 4" />
+                <a href="javascript:;" style="margin-right:10px;">已消费</a>
+                <elseif condition="$val.status eq 6" />
+                <a href="javascript:;" style="margin-right:10px;">后台下单</a>
+                <else />
+                <a href="javascript:;" style="margin-right:10px;">关闭</a>
+                </if>
+        	</p>
+        </div>
+        <div class="xq_main">
+            <volist name="arr" id="val" key="k">
+                <p class="titile_p">商家：{$val.0.ctitle}</p>
+                <volist name="val" id="info">
+
+                    <div class="shopping_box">
+                        <a href="#">
+                            <img src="{:attach(get_thumb($info['img'], '_s'), 'item')}"/>
+
+                            <p class="shopping_p wxh_title">{$info.title}</p>
+
+                            <p class="shopping_p">
+                                <i>￥{$info.price}</i>
+                            <span>x {$info.quantity}</span></p>
+                        </a>
+<style>
+    .shopping_box{ height: 90px;}
+    .wxh_title{ height: 18px; margin-bottom: 28px; overflow: hidden;text-overflow:ellipsis; white-space: nowrap;}
+</style>
+
+                    </div>
+                </volist>
+            </volist>
+
+
+            <div class="bottom_p">
+                <p class="pull-right">
+                    <span>
+                        共 {$num} 件商品，合计：
+                     <span>￥{$order.order_sumPrice}</span>
+                    </span>
+                </p>
+            </div>
+            <style>
+                .bottom_p{ overflow: hidden;height: 32px;margin:12px auto;}
+                .bottom_p>p{ overflow:hidden ;}
+                .bottom_p>p>span span{ color:#DE2C2B;}
+            </style>
+        </div>
+        <!-- <div class="xq_bottom">
+        	<span>共<i> 1 </i> 件，总金额<i> ￥258.00</i></span>
+            <input type="button" value="提交订单" class="bottom_button fr"/>
+        </div> -->
+        <div style="height:80px;"></div>
+        </body>
+<include file="public:footers" />

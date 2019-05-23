@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"  />
+<title>积分明细</title>
+<include file="public:header" />
+<body class="lxt-color">
+<!------主体--------->
+<section>
+  <div class="container lxt_account">
+    <div class="row">
+		<div class="col-xs-12 text-center">
+            <div class="lxt_wealth">我的积分：</div>
+            <p><span>{$score}</span>分</p>
+        </div>
+    </div>
+  </div>
+  <div class="container lxt_integral">
+    <div class="row">
+        <table class="table">
+        	<caption class="text-center colorred">积分明细</caption>
+        	<tr>
+            	<th style="width: 120px;">时间</td>
+                <th style="width: 120px;">明细</td>
+                <th style="width: 100px;">财富</td>
+            </tr>
+            <volist name="score_log" id="val">
+                <tr>
+                    <td>{$val.add_time|date="Y-m-d H:i",###}</td>
+                    <td>{$val.action}</td>
+                    <td class="lxt_cut">{$val.score}</td>
+                </tr>
+            </volist>
+		</table>
+    </div>
+  </div>
+</section>
+<!-----主体结束-------->
+</body>
+</html>
